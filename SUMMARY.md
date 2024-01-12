@@ -2,6 +2,10 @@
 
 * [Plunder Overview](README.md)
 
+## Installation
+
+* [Environment Setup](setup/installation.md)
+
 ## Sire
 
 * [Page](sire/page.md)
