@@ -19,7 +19,7 @@
 
 ## A Simple Cog
 
-* [Page 3](a-simple-cog/page-3.md)
+* [Intro](a-simple-cog/intro.md)
 
 ## PLAN
 

@@ -1,5 +1,9 @@
 # Environment Setup
 
+First off, you need the plunder source code. Clone it from
+[here](https://git.sr.ht/~plan/plunder). The rest of this guide will assume
+you're at the root of that repo.
+
 ## Dependency installation and first-run
 
 **TODO: Briefly explain nix, then assume its being used** (outside the scope of this document to fully cover all environments).
@@ -101,7 +105,7 @@ you expect. **TODO: explain how seed files work [seed files](/sire/seeds.md)**
 
 Remember that there is a [boot sequence](/sire/boot.md) required before we have
 all the necessary tools at hand. Since we want our environment to be hydrated properly,
-we'll do that boot sequence in order to get a proper repl with:
+we'll do that boot sequence in order to get a proper repl:
 
 ```
 plunder sire sire/boot.sire
