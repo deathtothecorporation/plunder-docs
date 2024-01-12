@@ -74,12 +74,13 @@ function is the first value after the opening parenthesis.
 
 ```sire
 = (addTwo input)
-| (add 2 input)
+| add 2 input
 ```
 
 The repl now has a function named `addTwo` bound to its top-level scope. The
-function takes a single value (called `input`) and all it does is call `add`
-with two arguments, a hard-coded `2` and whatever input provided.
+function takes a single value (called `input`) and all it does is apply (with
+`|`) the `add` function to two arguments, a hard-coded `2` and whatever input
+was provided.
 
 ```sire
 (addTwo 4)
