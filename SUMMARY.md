@@ -2,6 +2,13 @@
 
 * [Plunder Overview](README.md)
 
+## What is Plunder?
+
+* [High-level Description](plunder/high-level.md)
+* [PLAN, Sire, Rex](plunder/plan-sire-rex.md)
+* [Haskell?](plunder/haskell.md)
+* [Bootstrap Process](sire/boot.md)
+
 ## Installation
 
 * [Environment Setup](setup/installation.md)
