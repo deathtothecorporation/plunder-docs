@@ -31,6 +31,9 @@ inline
 - The arrow keys won't work in the repl. Use backspace. If you get into a
 strange state with carriage returns and are unable to backspace, just hit return
 a few times, ignore any errors, and start again. Type carefully :)
+- The repl will print ASCII values of integers. If you enter `65` you'll get
+back `%A`. Don't think about this too much yet, just use small numbers for you
+learnings here.
 
 ## Top-level binding - `=`
 
@@ -124,71 +127,75 @@ renamedInput
          # reason {Unresolved symbol: renamedInput}
 ```
 
+# A Few Simple Data Structures
 
-# TODO:
+## Rows - `[]`
 
-Don't read this part:
+Rows/vectors are basically arrays (not Lists - see below). They are defined with `[ ]`:
 
-Syntax we'll need for the cog:
+```sire
+arr=[10 64 42]
 
-> Types
-* inlined function application (?)
-?? named and pinned lambda
-b#{} - Bar, byte array. padded (?)
-`: (x y z) < foo x y  | otherstufflater x`  - col macro (the thing on the left is the args to a function)
-  - `foo x y` is the function call. the result of which is handled by the
-  continuation (see below)
-  - `(x y z)` is the continuation - what you want to do with result of `foo x
-  y`.
-# (as in # switch path) macro definition (wut? sire/switch.sire)
-**SOME_CONST
+arr
+[10 64 42]
+```
 
-Functions we'll need for the cog:
+We'll get into more of the standard library/convenience functions later, but
+we'll need a few now, too, in order to prove to ourselves some details of rows.
+`idx` is used to get the value at a given index in a row:
 
-trk
-fmapMaybe
-hmLookup
-barNat
-natBar
-barCat
-getFiles (get* set* in general)
-readRef
-writeRef
-newRef
-syscall, fork
-SOME (wut?)
-map
-weld
-fromSome
-tabLookup
-tabFromPairs
-barLen
-hmInsert
-hmSingleton
-PIN
+```sire
+arr=[10 64 42]
 
-Data structures we'll need:
+(idx 0 arr)
+10
+; the zeroth item in the row
 
-lists ~[], rows []
-datacase, record
+(idx 2 arr)
+42
 
-Other libraries we'll need to be familiar with:
+(idx 50 arr)
+0
+; you'll get zero back if you overshoot
+```
 
-json stuff (JMAP, JSTR, etc.)
+`len` will give you the size of the row:
 
+```sire
+(len arr)
+3
+```
 
-main=() - cog running
+## Lists - `~[]`
 
-The mechanic that's more interesting here w.r.t how the cog state works is `modifyState`.
-Which is using `readRef` and `writeRef` to modify "slots" in the `kern.sire` state:
+Lists are zero-terminated, nested row 2-tuples. They are declared by prepending a `~` to
+what looks like row syntax, like this: `~[]` (in the repl we have to wrap this
+in parentheses):
 
-> Ref CogState > (CogState > CogState) > Cog ()
-= (modifyState vSt fun return)
-: (PIN old) < readRef vSt
-@ srv       | **getServThread old
-@ pNew      | PIN (fun old)
-: _         < writeRef vSt pNew
-: _         < cancelFork srv (syscall (**HTTP_SERV | fileServer pNew))
-| return ()
+```sire
+x=(~[10 64 42])
 
+[10 [64 [42 0]]]
 
+(idx 0 x)
+10
+
+(idx 1 x)
+[64 [42 0]]
+```
+
+Incidentally, you can create a list from a row with the `listFromRow` function:
+
+```
+y=[2 3 4]
+listy=(listFromRow y)
+
+listy
+[2 [3 [4 0]]]
+```
+
+There's a lot more about rows and lists in `sire/07_dat.sire`.
+
+# Moving on
+
+TODO: Explain what's next.
