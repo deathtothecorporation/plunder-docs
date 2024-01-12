@@ -97,9 +97,9 @@ Available commands:
 We'll get into booting machines and running cogs soon, but first let's just get
 a Sire repl to play with.  
 While the `repl` command looks attractive, it's not going to do exactly what
-you expect. **TODO: explain how seed files work [seed files](sire/seeds.md)**
+you expect. **TODO: explain how seed files work [seed files](/sire/seeds.md)**
 
-Remember that there is a [boot sequence](sire/boot.md) required before we have
+Remember that there is a [boot sequence](/sire/boot.md) required before we have
 all the necessary tools at hand. Since we want our environment to be hydrated properly,
 we'll do that boot sequence in order to get a proper repl with:
 
