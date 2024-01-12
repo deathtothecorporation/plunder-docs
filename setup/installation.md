@@ -1,10 +1,8 @@
-# Dependencies and Installation
+# Environment Setup
 
-**TODO: Briefly explain nix, then assume its being used** (outside the scope of
-this document to fully cover all environments).
+**TODO: Briefly explain nix, then assume its being used** (outside the scope of this document to fully cover all environments).
 
-Any time you open a new terminal, you must remember to enter the development
-shell with nix by running:
+Any time you open a new terminal, you must remember to enter the development shell with nix by running:
 
 ```bash
 nix develop
@@ -12,15 +10,13 @@ nix develop
 
 You will forget to do this and wonder why nothing is working. That's why.
 
-Once you're in a nix development shell, run the following command to build the
-plunder environment:
+Once you're in a nix development shell, run the following command to build the plunder environment:
 
 ```bash
 stack build
 ```
 
-This might take a while! When it's done, you should be able to verify all went
-well by running the mandelbrot web app demo.
+This might take a while! When it's done, you should be able to verify all went well by running the mandelbrot web app demo.
 
 ```bash
 bash sh/mandelbrot-ui-demo
@@ -28,8 +24,7 @@ bash sh/mandelbrot-ui-demo
 
 That command should output something like this:
 
-
-```shell
+```
 
 <...A lot more stuff up here...>
 
@@ -51,8 +46,6 @@ Setting interface files...
 Interface files are set. Running on http://localhost:56191/index.html
 ```
 
-There is now a webserver running and you can access the app at the URL mentioned in
-the final line of output. **NOTE: the `index.html` at the end is required!**
+There is now a webserver running and you can access the app at the URL mentioned in the final line of output. **NOTE: the `index.html` at the end is required!**
 
-
-
+<figure><img src="../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
