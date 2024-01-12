@@ -17,6 +17,7 @@
 ## A Simple Cog
 
 * [Intro](a-simple-cog/intro.md)
+* [Where To Go From Here](a-simple-cog/next.md)
 
 ## Deeper
 

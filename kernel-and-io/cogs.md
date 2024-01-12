@@ -1,4 +1,3 @@
-
 # IO and `runCog`
 
 ```sire
@@ -91,6 +90,5 @@ in this ultra-trivialized state machine, the event log is just a list of numbers
 Where the parens are indicating an APP node:
 (machine 5) =
 APP (PIN (LAW "machine" 2 ...)) (NAT 5)
-
 
 
