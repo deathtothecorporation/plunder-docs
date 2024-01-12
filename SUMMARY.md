@@ -9,18 +9,21 @@
 ## Sire
 
 * [Intro](sire/intro.md)
-* [Boot process](sire/boot.md)
-* [Seed files](sire/seeds.md)
 
 ## Kernel and IO
 
 * [IO and runCog](kernel-and-io/cogs.md)
-* [Page 2](kernel-and-io/page-2.md)
 
 ## A Simple Cog
 
 * [Intro](a-simple-cog/intro.md)
 
+## Deeper
+
+* [Seed files](sire/seeds.md)
+* [Boot process](sire/boot.md)
+
 ## PLAN
 
 * [Page 4](plan/page-4.md)
+
