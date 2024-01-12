@@ -8,8 +8,9 @@
 
 ## Sire
 
-* [Page](sire/page.md)
-* [Page 1](sire/page-1.md)
+* [Intro](sire/intro.md)
+* [Boot process](sire/boot.md)
+* [Seed files](sire/seeds.md)
 
 ## Kernel and IO
 

@@ -1,5 +1,7 @@
 # Environment Setup
 
+## Dependency installation and first-run
+
 **TODO: Briefly explain nix, then assume its being used** (outside the scope of this document to fully cover all environments).
 
 Any time you open a new terminal, you must remember to enter the development shell with nix by running:
@@ -48,4 +50,81 @@ Interface files are set. Running on http://localhost:56191/index.html
 
 There is now a webserver running and you can access the app at the URL mentioned in the final line of output. **NOTE: the `index.html` at the end is required!**
 
-<figure><img src="../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/mandelbrot-ui.png" alt=""><figcaption></figcaption></figure>
+
+Change the width and height to 100 and click "resize" (for expediency). Then
+click "generate fractal". After a few seconds you'll see a fractal appear in the
+canvas. Congratulations, you just ran a plunder app.
+
+Soon you'll learn how to write one of your own.
+
+## The `plunder` command and REPLs
+
+Enter this command in a shell (where you've remembered to first run `nix
+develop`):
+
+```
+plunder
+```
+
+As of the time of this writing, you'll see the usage hint for the `plunder`
+command:
+
+```
+new-network - a test for running plunder machines
+
+Usage: plunder COMMAND
+
+  Let's run plunder.
+
+Available options:
+  -h,--help                Show this help text
+
+Available commands:
+  term                     Connect to the terminal of a cog.
+  open                     Open a terminal's GUI interface.
+  sire                     Run a standalone Sire repl.
+  save                     Load a sire file and save a seed.
+  show                     Print a seed file.
+  repl                     Interact with a seed file.
+  start                    Resume an idle machine.
+  loot                     Run a standalone sire repl.
+  boot                     Boot a machine.
+  du                       du -ab compatible output for pin state.
+
+```
+
+We'll get into booting machines and running cogs soon, but first let's just get
+a Sire repl to play with.  
+While the `repl` command looks attractive, it's not going to do exactly what
+you expect. **TODO: explain how seed files work [seed files](sire/seeds.md)**
+
+Remember that there is a [boot sequence](sire/boot.md) required before we have
+all the necessary tools at hand. Since we want our environment to be hydrated properly,
+we'll do that boot sequence in order to get a proper repl with:
+
+```
+plunder sire sire/boot.sire
+```
+
+You'll see something like this:
+
+```
+<...>
+("20_prp","LOADED FROM CACHE!")
+("21_par","LOADED FROM CACHE!")
+("boot","LOADED FROM CACHE!")
+
+}
+} ==== Sire REPL ====
+}
+} Since input is multi-line, there is currently no input-prompt.
+} Just type away!
+}
+
+```
+
+Try entering `(add 1 2)` and hitting enter.
+
+Let's [learn some more Sire now](sire/intro.md)
+

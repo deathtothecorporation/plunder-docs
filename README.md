@@ -16,7 +16,8 @@ We'll start off here with a very high-level overview of what Plunder is (althoug
 
 **TODO: How does Haskell fit in, and why**
 
-**TODO: Briefly, the boot process, why there are `0n_something.sire` files and why they have to run in order**
+**TODO: Briefly, the boot process, why there are `0n_something.sire` files and
+why they have to run in order** [Boot](sire/boot.md)
 
 Continue to [Getting plunder installed on your machine](setup/installation.md)
 
