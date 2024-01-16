@@ -1,74 +1,6 @@
-# IO and `runCog`
+# Cogs
 
-```sire
-(runCog someCog)
-```
-
-```sire
-; Kernel State:
-;     ( List Nat      ++  free slots
-;     , Row Any       ++  slots row (vars or threads)
-;     , Row Request   ++  requests row
-;     )
-```
-
-Any given thread is tied to the requests row and the slots row.
-
-**TODO: maybe not right:**
-The state of the kernel is a structure of:
-- the free slots
-- the slots in-use
-- outstanding requests
--
-
-```sire
-= (runCog act)
-
-@ st,tid (allocateThread emptyState)
-; emptyState is: (~[], [], [])
-; (the ~[] in emptyState will evaluate to 0)
-
-; allocateThread returns the State and ThreadId
-; like this: [[0 [0] [0]] 0]
-; so "@ st,tid (allocateThread emptyState)" results in:
-;  - tid=0
-;  - st=[0 [0] [0]]
-
-; when allocating a thread in a non-empty state:
-
-= someState (~[10], [], [])
-;; looks like this: someState=[[10 0] [] []]
-= st,tid (allocateThread someState)
-;;;;;;
-;   _g1005=[[0 [] []] 10]
-;    st=[0 [] []]
-;    tid=10
-
-; another one:
-= someOtherSTate (~[16 42], [], [])
-;; looks like this: someOtherSTate=[[16 [42 0]] [] []]
-= st,tid (alloc someOtherSTate)
-;;;;;;;
-;    _g1015=[[[42 0] [] []] 16]
-;    st=[[42 0] [] []]
-;    tid=16
-
-
-@ st     (act nullThread tid st)
-| ioLoop st (**getRequestsRow st)
-```
-
-allocateThread:
-
-- if the free list is empty, (so evaluates to `0`)
-- set `key` to `len slots`. in `emptyState` this is `[]`, or `0`
-- set `slots` to concatenation of `slots` and `0`. in `emptyState` this is `[0]`
-- set `requests` to concatenation of `requests` and `0`. in `emptyState` this is `[0]`
-- set kernel state (`st`) to `[free slots requests]`. in `emptyState` this is
-`[0 [0] [0]]` due to above steps.
-
-
----
+**All below is TODO:**
 
 the state of every cog is a function.
 Let's say that you have state machine that takes in numbers, and spits out numbers.
@@ -92,3 +24,17 @@ Where the parens are indicating an APP node:
 APP (PIN (LAW "machine" 2 ...)) (NAT 5)
 
 
+---
+
+`modifyState` uses `readRef` and `writeRef` to modify "slots" in the `kern.sire` state:
+
+```
+> Ref CogState > (CogState > CogState) > Cog ()
+= (modifyState vSt fun return)
+: (PIN old) < readRef vSt
+@ srv       | **getServThread old
+@ pNew      | PIN (fun old)
+: _         < writeRef vSt pNew
+: _         < cancelFork srv (syscall (**HTTP_SERV | fileServer pNew))
+| return ()
+```

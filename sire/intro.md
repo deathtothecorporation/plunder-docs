@@ -196,6 +196,11 @@ listy
 
 There's a lot more about rows and lists in `sire/07_dat.sire`.
 
+## Maybe
+
+**TODO**
+
 # Moving on
 
-TODO: Explain what's next.
+TODO: Explain what's next. A whole bunch of convenience functions and standard
+library that you'll see in a basic cog.

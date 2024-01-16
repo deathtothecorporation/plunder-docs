@@ -21,14 +21,14 @@
 
 ## Kernel and IO
 
-* TODO: kernel state
-* IO primer
-* Cog primer
-* [IO and runCog](kernel-and-io/cogs.md)
+* [Kernel primer](kernel-and-io/kernel-state.md)
+* [IO primer](kernel-and-io/io.md)
+* [Cog primer](kernel-and-io/cogs.md)
 
 ## A Simple "Web app" Cog
 
 * [Intro](a-simple-cog/intro.md)
+* ["Hello World" Cog](a-simple-cog/hello-world.md)
 * TODO: "Hello World"
 * TODO: UI files
 * TODO: JSON
