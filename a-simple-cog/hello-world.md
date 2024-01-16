@@ -1,10 +1,12 @@
 # Lets See a Cog Already!
 
+{% hint style="warning" %}
 > **TODO:**
 > - why does "boot" not trk on the second boot? where is this cached?!
 > - why is it that the countdown runs on every "start" _only if_ the current
     time syscall is included? somewhere in the compilation/caching, something
     knows that a value is going to change on subsequent runs.
+{% endhint %}
 
 
 ```test_cog.sire
