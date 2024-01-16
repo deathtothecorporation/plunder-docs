@@ -16,12 +16,12 @@
 ## Sire
 
 * [Intro](sire/intro.md)
-* TODO: [Some Standard Library](sire/standard-library.md)
+* [Some Standard Library](sire/standard-library.md)
 * [Advanced Syntax To Recognize](sire/advanced.md)
 
 ## Kernel and IO
 
-* [Kernel primer](kernel-and-io/kernel-state.md)
+* [TODO: kernel state](kernel-and-io/kernel-state.md)
 * [IO primer](kernel-and-io/io.md)
 * [Cog primer](kernel-and-io/cogs.md)
 
@@ -29,11 +29,10 @@
 
 * [Intro](a-simple-cog/intro.md)
 * ["Hello World" Cog](a-simple-cog/hello-world.md)
-* TODO: "Hello World"
-* TODO: UI files
-* TODO: JSON
+* [TODO: UI files](a-simple-cog/ui-files.md)
+* [TODO: JSON](a-simple-cog/json.md)
 * TODO: [Advanced Data Structures](sire/data-structures.md)
-* TODO: "State"
+* [TODO: "State"](a-simple-cog/state.md)
 * [Where To Go From Here](a-simple-cog/next.md)
 
 ## Deeper
