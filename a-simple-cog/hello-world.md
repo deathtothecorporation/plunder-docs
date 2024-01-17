@@ -23,7 +23,7 @@ Before we inspect the code, let's run it and see something happen!
 
 First, create the file `sire/test_cog.sire` with the above contents and save it.
 
-Now, choose a directory where you want you plunder ships to get created. We'll use a
+Now, choose a directory where you want your plunder ships to get created. We'll use a
 `my_ships` directory for the examples here. We'll proclaim that the name of the
 ship that contains this cog will be "hello_world". Thus, the command to boot
 this ship and initiate this cog is:
@@ -42,7 +42,7 @@ like this near the end:
 ("test_cog","LOADED FROM CACHE!")
 (helloWorld a)=(_Trace:{hello world} a-0)
 
-{hello world}
+{hello world} ;; <-- Here's your trk-logged message
 
 main=(KERNEL [0 0] 0 [0] [0])
 
@@ -67,8 +67,8 @@ unexplained lines of code.
 
 This has to do with includes and load order. `test_cog.sire` is the name of the
 current file, and `prelude.sire` is the name of a dependency. the `#### foo <-
-bar` syntax says something like "Take `bar` and put it before `foo` and then
-load `foo`".
+bar` syntax says something like "Take `bar` and put it before `foo` in the load
+order, and then load `foo`".
 
 ```sire
 /+  prelude
@@ -83,6 +83,8 @@ everything else we need to run a cog.
 ```
 
 This is just a comment line dividing the imports from the business code
+
+## Binding the function
 
 ```sire
 = (helloWorld return)
@@ -100,8 +102,14 @@ This function only does a couple things:
 It applies the `trk` function (which you'll recall logs to the console) to the
 argument `"hello world"`.
 
-And finally it invokes the `return` argument that it received, sort of like a
+```sire
+| return ()
+```
+
+And it invokes the `return` argument that it received, sort of like a
 callback. Don't worry too much about this bit for now.
+
+## `main` and `runCog`
 
 Finally, we have this line in the `test_cog.sire` file:
 

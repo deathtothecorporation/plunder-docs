@@ -34,7 +34,7 @@ Notice that your `test_cog.sire` file is being mentioned here in the `"LOADED
 FROM CACHE!"` message.
 
 {% hint style="warning" %}
-Explain the cache and state machines
+TODO: Explain the cache and state machines
 {% endhint %}
 
 If you _change_ `test_cog.sire`, delete the ship, and re-boot, you'll get a
