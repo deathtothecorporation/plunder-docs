@@ -33,7 +33,7 @@
 * [TODO: UI files](a-simple-cog/ui-files.md)
 * [TODO: JSON](a-simple-cog/json.md)
 * TODO: [Advanced Data Structures](sire/data-structures.md)
-* [TODO: "State"](a-simple-cog/state.md)
+* [TODO: Persisting, Modifying, and Querying State](a-simple-cog/state.md)
 * [Where To Go From Here](a-simple-cog/next.md)
 
 ## Deeper

@@ -230,4 +230,7 @@ TODO: if possible, generate an example that provides different values on each
 Or do we just go straight to long-running cogs
 {% endhint %}
 
+# Next
+
+Next up, we'll look at how to stand up a web interface to a long-running cog.
 
