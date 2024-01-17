@@ -1,13 +1,5 @@
 # "Hello World" Cog
 
-{% hint style="warning" %}
-> **TODO:**
-> - why does "boot" not trk on the second boot? where is this cached?!
-> - why is it that the countdown runs on every "start" _only if_ the current
-    time syscall is included? somewhere in the compilation/caching, something
-    knows that a value is going to change on subsequent runs.
-{% endhint %}
-
 We're finally ready to see a simple cog. This file would be called
 `sire/test_cog.sire`:
 
@@ -86,91 +78,38 @@ The `/+` rune imports a module. In this case, `prelude.sire` just does a bunch o
 other importing of kernel code, convenience functions, syscalls, and basically
 everything else we need to run a cog.
 
-
-
-```
-plunder start ~/my-ships/hello_world
+```sire
+;;;;;
 ```
 
-```
-<...>
-[{2024-01-16T16:26:57.740950492Z} {REPLAY TIME: 0 ns}]
-
-HTTP_SPINNING
-_http_port=39023
-
-
-= _http_port_file
-} /home/your-user/my-ships/hello_world/11233545598979337509.http.port
-
-
-Shutting down...
-```
-
+This is just a comment line dividing the imports from the business code
 
 ```sire
-#### vc_countdown <- prelude
-
-/+  prelude
-
-;;;;;
-
-= (countDownFrom count return)
-: ??(syscall_time now) < syscall TIME_WHEN
-| trk [%currentCount count %currentTime now]
-| if (isZero count)
-  | trk ["now we're done"]
-  | return ()
-| countDownFrom (dec count) return
-
-main=(runCog | countDownFrom 5)
+= (helloWorld return)
 ```
 
+`=` defines a top-level binding for a function named `helloWorld` which takes a
+single argument named `return`.
+
+This function only does a couple things:
+
+```sire
+| trk "hello world"
+```
+
+It applies the `trk` function (which you'll recall logs to the console) to the
+argument `"hello world"`.
+
+And finally it invokes the `return` argument that it received, sort of like a
+callback. Don't worry too much about this bit for now.
+
+Finally, we have this line in the `test_cog.sire` file:
 
 ```
-[{2024-01-16T16:28:11.604374602Z} {REPLAY TIME: 0 ns}]
-
-HTTP_SPINNING
-_http_port=35803
-
-
-= _http_port_file
-} /home/vcavallo/plunder/countdown/5977151470616073596.http.port
-
-
-
-++ [%trk {2024-01-16T16:28:11.610577405Z}]
-++ [%currentCount 5 %currentTime 1705422491]
-
-
-
-++ [%trk {2024-01-16T16:28:11.610742661Z}]
-++ [%currentCount 4 %currentTime 1705422491]
-
-
-
-++ [%trk {2024-01-16T16:28:11.61086903Z}]
-++ [%currentCount 3 %currentTime 1705422491]
-
-
-
-++ [%trk {2024-01-16T16:28:11.611007429Z}]
-++ [%currentCount 2 %currentTime 1705422491]
-
-
-
-++ [%trk {2024-01-16T16:28:11.611120631Z}]
-++ [%currentCount 1 %currentTime 1705422491]
-
-
-
-Shutting down...
-++ [%trk {2024-01-16T16:28:11.611265656Z}]
-++ [%currentCount 0 %currentTime 1705422491]
-
-
-
-++ [%trk {2024-01-16T16:28:11.611289355Z}]
-++ [{now we're done}]
-
+main=(runCog helloWorld)
 ```
+
+Think of this as boilerplate. Every cog should end in a
+`main=(runCog someNameHere)` line which can be thought of as ultimately kicking
+off the `someNameHere` process previously-defined.
+
