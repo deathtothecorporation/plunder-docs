@@ -1,5 +1,9 @@
 # Plunder Overview
 
+## TODO:
+
+- include the docker images now that those exist
+
 The goal of this document is to get you from "I have no idea what this system is" to a simple "Hello world" web app.
 
 The PLAN for this not-so-quick-start is:
