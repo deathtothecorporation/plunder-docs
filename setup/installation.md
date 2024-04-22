@@ -4,6 +4,11 @@ First off, you need the plunder source code. Clone it from
 [here](https://git.sr.ht/~plan/plunder). The rest of this guide will assume
 you're at the root of that repo.
 
+{% hint style="warning" %}
+**TODO:**
+- include the docker images now that those exist https://github.com/deathtothecorporation/pallas-docker?tab=readme-ov-file#just-gimmie-a-sire-repl
+{% endhint %}
+
 ## Dependency installation and first-run
 
 **TODO: Briefly explain nix, then assume its being used** (outside the scope of this document to fully cover all environments).
@@ -131,4 +136,3 @@ You'll see something like this:
 Try entering `(add 1 2)` and hitting enter.
 
 Let's [learn some more Sire now](sire/intro.md)
-

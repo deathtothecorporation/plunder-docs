@@ -1,8 +1,10 @@
 # Plunder Overview
 
-## TODO:
 
-- include the docker images now that those exist
+{% hint style="warning" %}
+**TODO:**
+- include the docker images now that those exist https://github.com/deathtothecorporation/pallas-docker?tab=readme-ov-file#just-gimmie-a-sire-repl
+{% endhint %}
 
 The goal of this document is to get you from "I have no idea what this system is" to a simple "Hello world" web app.
 
