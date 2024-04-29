@@ -1,6 +1,8 @@
 # The Kernel, Briefly
 
+{% hint style="warning" %}
 **All below is TODO:**
+{% endhint %}
 
 ```sire
 ; Kernel State:

@@ -5,9 +5,9 @@
 * [A device, a payment system, an app store](README.md)
 * [Orientation](overview/orientation.md)
 * [Basic Terminology](overview/terminology.md)
-* [PLAN and Sire](overview/plan-sire-rex.md)
-* [Haskell?](overview/haskell.md)
-* [Bootstrap Process](overview/boot.md)
+* [PLAN and Sire](overview/plan-sire.md)
+* [Runtime](overview/haskell-runtime.md)
+* [Bootstrap Process](overview/bootstrapping.md)
 
 ## Installation
 
@@ -40,6 +40,8 @@
 
 * [Seed files](sire/seeds.md)
 * [Boot process](overview/boot.md)
+* [Plunder vs Pallas](overview/boot.md)
+* [Jets](deeper/jets.md)
 
 ## PLAN
 

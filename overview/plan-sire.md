@@ -73,3 +73,8 @@ It also serves to allow the Plunder system to bootstrap itself, which avoids the
 {% hint style="warning" %}
 TODO: Again here, let's use a modified version of Jack's Sire content from his talk. He's already done this explanation work, and very well.
 {% endhint %}
+
+
+---
+
+Next, we'll learn a bit about the Haskell runtime:

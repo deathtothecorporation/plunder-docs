@@ -1,3 +1,6 @@
+---
+description: 'Document Type: Tutorial'
+---
 # Intro
 
 {% hint style="warning" %}

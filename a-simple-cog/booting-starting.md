@@ -1,3 +1,6 @@
+---
+description: 'Document Type: Tutorial'
+---
 # Booting, Starting, Caching and Related Topics
 
 {% hint style="warning" %}
@@ -85,7 +88,7 @@ TODO: explain why some cogs stop and others keep running.
 But we probably want to do this in a subsequent section, actually.
 {% endhint %}
 
-## TODO: Title needed for this section
+## Another Example Cog
 
 Here's another simple cog, `countdown.sire`, to illustrate this concept:
 
@@ -222,15 +225,6 @@ TODO: _figure out_ why that is. probably because the caching/compiler knows that
 the call out with `syscall` is going to result in different values on each boot.
 {% endhint %}
 
-## TODO: title needed. something about new values on subsequent `start`s
-
-{% hint style="warning" %}
-TODO: if possible, generate an example that provides different values on each
-`start`.  
-Or do we just go straight to long-running cogs
-{% endhint %}
-
 # Next
 
 Next up, we'll look at how to stand up a web interface to a long-running cog.
-

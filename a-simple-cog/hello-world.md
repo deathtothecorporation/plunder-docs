@@ -1,3 +1,6 @@
+---
+description: 'Document Type: Tutorial'
+---
 # "Hello World" Cog
 
 We're finally ready to see a simple cog. This file would be called
@@ -120,4 +123,3 @@ main=(runCog helloWorld)
 Think of this as boilerplate. Every cog should end in a
 `main=(runCog someNameHere)` line which can be thought of as ultimately kicking
 off the `someNameHere` process previously-defined.
-

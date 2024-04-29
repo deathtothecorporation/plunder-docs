@@ -1,3 +1,6 @@
+---
+description: 'Document Type: Tutorial'
+---
 # TODO: UI files
 
 {% hint style="info" %}
@@ -9,20 +12,17 @@ learn regardless
 
 {% hint style="warning" %}
 **TODO:** Fill out this explanation
-{% endhint %}
 
 - [ ] Use mandelbrot UI as an example (since they've seen it already earlier on)
 - [ ] Reminder about "state" from [cogs.md](kernel-and-io/cogs.md)
 - [ ] Explain the `=(fileServer ...)` binding. it responds to GET requests and
-responds with normal HTTP response for a file (index.html, *.js, etc)
+responds with normal HTTP response for a file (index.html, index.js, etc)
 - [ ] Explain `=(handleReq ...)` as it relates to handling the initial PUT
     requests
   - [ ] show a snippet from the .sh files where the UI files are thrown into the
       cog after booting (then subsequently retrieved when the browser GETs)
 
-{% hint style="warning" %}
 TODO: finally, explain this pattern:
-{% endhint %}
 
 ```sire
 > Ref CogState > Cog Void
@@ -47,3 +47,8 @@ main=(runCog launchDemo)
 TODO: That is, how do the threads interact with [kernel state](kernel-and-io/kernel-state.md), and how is it that this
 cog keeps running? How do HTTP requests get heard and answered by this cog? why
 two http threads?
+{% endhint %}
+
+---
+
+Having an interface is great. Having an interface that allows us to make persisted state changes on the backend is the stuff that civilizations are built on. Read on:

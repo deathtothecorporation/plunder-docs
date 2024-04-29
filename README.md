@@ -37,6 +37,19 @@ While these properties are generally desirable, the Vaporware distribution of Pl
 TODO
 {% endhint %}
 
+
+### The Plunder VM
+
+{% hint style="warning" %}
+TODO: seems worth adding a super brief snippet of what the plunder VM is **generally about** and why one would care to use it.
+
+Below is cribbed right from the plunder sourcehut:
+{% endhint %}
+
+> Hardware restarts are invisible to the software, as is moving a running program from one physical machine to another.
+
+> Because of this, programs don't need to save their state into an external database, they can simply keep everything "in memory", and that state will be synchronized to disk transparently
+
 ----
 
 If you're interested in experimenting right away, head over to [Getting plunder installed on your machine](setup/installation.md). If you'd prefer to learn more about the system before handling it, continue on below:

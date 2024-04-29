@@ -5,7 +5,7 @@ In the near future, mainstream functional languages - like
 [Elm](https://elm-lang.org/) - will compile to PLAN. At that point, much Plunder
 development - including full-stack web applications - will be accomplished by
 writing in those languages only, leaving Sire mainly responsible for code that likely
-needs to be jetted or otherwise optimized (like new crypto libraries, say).
+needs to be optimized (like new crypto libraries, say).
 
 Until that time, we'll be writing Sire. But since our immediate goal for the
 moment is to build a cog that runs and does some stuff, we're not going to learn
@@ -198,9 +198,13 @@ There's a lot more about rows and lists in `sire/07_dat.sire`.
 
 ## Maybe
 
-**TODO**
+{% hint style="warning" %}
+**TODO: explain Maybes**
+{% endhint %}
 
 # Moving on
 
+{% hint style="warning" %}
 TODO: Explain what's next. A whole bunch of convenience functions and standard
 library that you'll see in a basic cog.
+{% endhint %}

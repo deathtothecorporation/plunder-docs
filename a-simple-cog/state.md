@@ -1,3 +1,6 @@
+---
+description: 'Document Type: Tutorial'
+---
 # TODO: "State"
 
 {% hint style="warning" %}
@@ -12,3 +15,6 @@ Pull out example sections of:
     isn't a js tutorial)
 {% endhint %}
 
+---
+
+That's it; you know most everything you need to build a Plunder-backed web app that allows visitors to persist and query application state and files. Dig a little deeper into Plunder when you're ready to go further:

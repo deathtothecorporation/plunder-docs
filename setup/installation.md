@@ -1,16 +1,44 @@
 # Environment Setup
 
-First off, you need the plunder source code. Clone it from [here](https://git.sr.ht/\~plan/plunder). The rest of this guide will assume you're at the root of that repo.
+## Docker
+
+If your system has Docker available you can simply pull use our Pallas image: https://github.com/deathtothecorporation/pallas-docker. That repo has [instructions](https://github.com/deathtothecorporation/pallas-docker) for quickly getting straight into a Sire REPL.
+
+Once you're in the REPL, you should see something this:
+
+```
+<...>
+("20_prp","LOADED FROM CACHE!")
+("21_par","LOADED FROM CACHE!")
+("boot","LOADED FROM CACHE!")
+
+}
+} ==== Sire REPL ====
+}
+} Since input is multi-line, there is currently no input-prompt.
+} Just type away!
+}
+
+```
+
+Try entering `(add 1 2)` and hitting enter.
+
+Let's [learn some more Sire now](sire/intro.md)
+
+## From source
+
+If you don't have Docker available, you can install from souce. First off, you'll need the Plunder source code. The Vaporware project maintains a fork of Plunder (called Pallas. You can read more about the distinction [here](/deeper/pallas.md)). Clone it from [https://github.com/deathtothecorporation/pallas](https://github.com/deathtothecorporation/pallas). The rest of this guide will assume you're at the root of that repo.
+
+### Dependency installation and first-run
+
+> If your system does not or cannot run `nix`, you would need to install the Haskell and its build tool, `stack`, as well as `lmdb` and `zlib`. Once these requirements are satisfied, you can `stack install` at the root of the Pallas repo.
+> **Once again, we highly recommend docker or nix for now**. Once the runtime matures, running Pallas will be as easy as running a single binary.
 
 {% hint style="warning" %}
-**TODO:**
-
-* include the docker images now that those exist https://github.com/deathtothecorporation/pallas-docker?tab=readme-ov-file#just-gimmie-a-sire-repl
+TODO: is the above true? "running Pallas will be as easy as running a single binary."
 {% endhint %}
 
-## Dependency installation and first-run
-
-**TODO: Briefly explain nix, then assume its being used** (outside the scope of this document to fully cover all environments).
+Because the current runtime is somewhat experimental, enormous time has not been invested into portability just yet. As a result, using `nix` is the most straightforward way to get Pallas running. (installing and configuring `nix` is outside the scope of this guide. We recommend using Docker if you're unable to use `nix`)
 
 Any time you open a new terminal, you must remember to enter the development shell with nix by running:
 
@@ -18,7 +46,7 @@ Any time you open a new terminal, you must remember to enter the development she
 nix develop
 ```
 
-You will forget to do this and wonder why nothing is working. That's why.
+You will forget to do this and wonder why nothing is working. That's probably why.
 
 Once you're in a nix development shell, run the following command to build the plunder environment:
 
@@ -26,7 +54,7 @@ Once you're in a nix development shell, run the following command to build the p
 stack build
 ```
 
-This might take a while! When it's done, you should be able to verify all went well by running the mandelbrot web app demo.
+This might take a while! When it's done, you should be able to verify all went well by running the mandelbrot web app demo:
 
 ```bash
 bash sh/mandelbrot-ui-demo
