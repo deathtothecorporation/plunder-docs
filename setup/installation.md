@@ -1,12 +1,11 @@
 # Environment Setup
 
-First off, you need the plunder source code. Clone it from
-[here](https://git.sr.ht/~plan/plunder). The rest of this guide will assume
-you're at the root of that repo.
+First off, you need the plunder source code. Clone it from [here](https://git.sr.ht/\~plan/plunder). The rest of this guide will assume you're at the root of that repo.
 
 {% hint style="warning" %}
 **TODO:**
-- include the docker images now that those exist https://github.com/deathtothecorporation/pallas-docker?tab=readme-ov-file#just-gimmie-a-sire-repl
+
+* include the docker images now that those exist https://github.com/deathtothecorporation/pallas-docker?tab=readme-ov-file#just-gimmie-a-sire-repl
 {% endhint %}
 
 ## Dependency installation and first-run
@@ -61,23 +60,19 @@ There is now a webserver running and you can access the app at the URL mentioned
 
 <figure><img src="../.gitbook/assets/mandelbrot-ui.png" alt=""><figcaption></figcaption></figure>
 
-Change the width and height to 100 and click "resize" (for expediency). Then
-click "generate fractal". After a few seconds you'll see a fractal appear in the
-canvas. Congratulations, you just ran a plunder app.
+Change the width and height to 100 and click "resize" (for expediency). Then click "generate fractal". After a few seconds you'll see a fractal appear in the canvas. Congratulations, you just ran a plunder app.
 
 Soon you'll learn how to write one of your own.
 
 ## The `plunder` command and REPLs
 
-Enter this command in a shell (where you've remembered to first run `nix
-develop`):
+Enter this command in a shell (where you've remembered to first run `nix develop`):
 
 ```
 plunder
 ```
 
-As of the time of this writing, you'll see the usage hint for the `plunder`
-command:
+As of the time of this writing, you'll see the usage hint for the `plunder` command:
 
 ```
 new-network - a test for running plunder machines
@@ -103,14 +98,10 @@ Available commands:
 
 ```
 
-We'll get into booting machines and running cogs soon, but first let's just get
-a Sire repl to play with.  
-While the `repl` command looks attractive, it's not going to do exactly what
-you expect. **TODO: explain how seed files work [seed files](/sire/seeds.md)**
+We'll get into booting machines and running cogs soon, but first let's just get a Sire repl to play with.\
+While the `repl` command looks attractive, it's not going to do exactly what you expect. **TODO: explain how seed files work** [**seed files**](../sire/seeds.md)
 
-Remember that there is a [boot sequence](/sire/boot.md) required before we have
-all the necessary tools at hand. Since we want our environment to be hydrated properly,
-we'll do that boot sequence in order to get a proper repl:
+Remember that there is a [boot sequence](../overview/boot.md) required before we have all the necessary tools at hand. Since we want our environment to be hydrated properly, we'll do that boot sequence in order to get a proper repl:
 
 ```
 plunder sire sire/boot.sire

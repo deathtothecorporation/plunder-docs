@@ -1,13 +1,13 @@
 # Table of contents
 
-* [Plunder Overview](README.md)
+## What is this thing? <a href="#overview" id="overview"></a>
 
-## What is Plunder?
-
-* [High-level Description](plunder/high-level.md)
-* [PLAN, Sire, Rex](plunder/plan-sire-rex.md)
-* [Haskell?](plunder/haskell.md)
-* [Bootstrap Process](sire/boot.md)
+* [A device, a payment system, an app store](README.md)
+* [Orientation](overview/orientation.md)
+* [High-level Description](overview/high-level.md)
+* [PLAN, Sire, Rex](overview/plan-sire-rex.md)
+* [Haskell?](overview/haskell.md)
+* [Bootstrap Process](overview/boot.md)
 
 ## Installation
 
@@ -32,14 +32,14 @@
 * [Booting, Starting, Caching](a-simple-cog/booting-starting.md)
 * [TODO: UI files](a-simple-cog/ui-files.md)
 * [TODO: JSON](a-simple-cog/json.md)
-* TODO: [Advanced Data Structures](sire/data-structures.md)
+* [Advanced Data Structures](sire/data-structures.md)
 * [TODO: Persisting, Modifying, and Querying State](a-simple-cog/state.md)
 * [Where To Go From Here](a-simple-cog/next.md)
 
 ## Deeper
 
 * [Seed files](sire/seeds.md)
-* [Boot process](sire/boot.md)
+* [Boot process](overview/boot.md)
 
 ## PLAN
 
