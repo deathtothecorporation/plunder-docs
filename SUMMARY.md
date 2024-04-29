@@ -4,8 +4,8 @@
 
 * [A device, a payment system, an app store](README.md)
 * [Orientation](overview/orientation.md)
-* [High-level Description](overview/high-level.md)
-* [PLAN, Sire, Rex](overview/plan-sire-rex.md)
+* [Basic Terminology](overview/terminology.md)
+* [PLAN and Sire](overview/plan-sire-rex.md)
 * [Haskell?](overview/haskell.md)
 * [Bootstrap Process](overview/boot.md)
 

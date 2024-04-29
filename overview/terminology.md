@@ -1,5 +1,8 @@
-{% hint style="warning" %}
-**TODO: High-level description of what Plunder is and what the various terms mean**
+---
+description: 'Document Type: Explanation'
+---
+
+# Basic Terminology
 
 ## Ships
 
@@ -22,5 +25,6 @@ ship1
 
 A "Cog" is a is a persistent process running on a ship. Cogs snapshot state and write inputs to an event log. They recover state after a restart by loading a recent snapshot and re-applying inputs. Cogs interact with the world by making system calls - which are included as part of their state (thus a cog's set of system calls also resume after a restart).
 
+---
 
-{% endhint %}
+Read on to learn about the PLAN evaluation model and the Sire language - the fundamental physics of Ships and Cogs:
