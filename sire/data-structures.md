@@ -1,5 +1,5 @@
 ---
-description: 'Document Type: Tutorial'
+description: 'Document Type: Reference'
 ---
 # Data structures we'll need:
 

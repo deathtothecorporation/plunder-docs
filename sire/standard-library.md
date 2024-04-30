@@ -1,3 +1,7 @@
+---
+description: 'Document Type: Reference'
+---
+
 # Abbreviated Standard Library Tour
 
 Functions we'll need for the cog:

@@ -1,3 +1,7 @@
+---
+description: 'Document Type: Reference'
+---
+
 # Advanced Syntax To Recognize
 
 {% hint style="warning" %}
