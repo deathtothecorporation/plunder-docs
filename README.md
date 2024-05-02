@@ -13,7 +13,7 @@ The Vaporware project consists of three closely related systems: a purely functi
 
 ## A device
 
-The Vaporware project is attempting to commercialize a new device-type category called a **Solid-State Interpreter** (SSI). A solid-state interpreter is a stateless function, defined via a minimal set of axiomatic combinators, which implements an ACID database. The system is purely functional and Turing complete. It is a single-level store and makes no distinction between memory and disk. The interpreter operates over an Event Log in a similar manner to a blockchain, but does not guarantee strict global ordering of events.
+The Vaporware project is attempting to commercialize a new device-type category called a **Solid-State Interpreter** (SSI). A solid-state interpreter is a stateless function, defined via a minimal set of axiomatic combinators, which implements an [ACID](https://en.wikipedia.org/wiki/ACID) database. The system is purely functional and Turing complete. It is a single-level store and makes no distinction between memory and disk. The interpreter operates over an Event Log in a similar manner to a blockchain, but does not guarantee strict global ordering of events.
 
 SSIs are architecturally similar to other combinator systems, like the SECD machine, but are even more minimal. Programmers familiar with LISP or its dialects will find many similarities between the two environments.
 

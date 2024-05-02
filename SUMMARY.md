@@ -4,10 +4,8 @@
 
 * [A device, a payment system, an app store](README.md)
 * [Orientation](overview/orientation.md)
-* [Basic Terminology](overview/terminology.md)
-* [PLAN and Sire](overview/plan-sire.md)
+* [Overview](overview/overview.md)
 * [Runtime](overview/haskell-runtime.md)
-* [Bootstrap Process](overview/bootstrapping.md)
 
 ## Installation
 
