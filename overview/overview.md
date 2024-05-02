@@ -191,7 +191,7 @@ This is the PLAN code for the `foldr` function. It's going to look only slightly
 
 These are all the dependencies that the `foldr` function relies on.
 
-Take a look at the `(id a)=a` line. It's a function named `id` that takes a single value `a` and simply returns it.
+Take a look at the `(id a)=a` line. It's a function named `id` that takes a single value `a` and simply returns it.  
 Now look at `_Not` above. It appears to be a function that takes an argument `a`, and `_If` `a` is true, it returns `0` (or false), otherwise it returns `1` (or true). Not so bad.
 
 Other bits are a little less clear to us right now, but the point remains: A programmer familiar with this system could verify the "compiler binaries" without trusting. There is nowhere for malicious code to hide.
