@@ -101,10 +101,6 @@ Plan ::= <Plan>           # Pin
 
 Where a `Nat` is a natural number and a `Law` is a user-defined function. `()` denotes function application `{}` is a list of values and `<> / Pin` is sort of runtime hint that has to do with optimizing memory layout.
 
-{% hint style="warning" %}
-!! is this "memory layout" / "magic box" part right?
-{% endhint %}
-
 We'll talk about what this means in a while, but for now let's just make clear
 that this is the **entire** data model of our system.
 
