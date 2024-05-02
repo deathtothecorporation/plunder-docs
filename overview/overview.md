@@ -4,7 +4,7 @@ description: 'Document Type: Explanation'
 
 # Plunder Overview
 
-We're going to explain a couple of special Plunder terms and then take a relatively deep tour into the big pieces of how the whole system works, down to the "bytecode" level.
+We're going to explain a couple of special Plunder terms and then take a relatively deep tour into the big pieces that make the whole system works, down to the "bytecode" level.
 
 ## Ships
 
@@ -64,7 +64,7 @@ The `transitionFunction` takes a `state` and an `input` and returns a `newState`
 
 Because we're in a purely functional environment, we know that running all the inputs in the log will get us back to the last state.
 
-This means you get a database engine just by writing functions. You may have gotten the wrong idea: that the programmer has to `include` some kind of event log library or cache the current state or something. No, the persistence strategy outlined about is handled by the runtime automatically for all applications in this system. It only needs to be implemented once (in fact, it's already done. you can have it) and it's trivially available to all applications. Because of this, it also means that optimizations happen in the runtime and are also available to all applications.
+This means you get a database engine just by writing functions. You may have gotten the wrong idea: that the programmer has to `include` some kind of event log library or manually cache the current state or something. No, the persistence strategy outlined above is handled by the runtime automatically for all applications in this system. It only needs to be implemented once (in fact, it's already done. you can have it) and it's trivially available to all applications. Because of this, it also means that optimizations happen in the runtime and are also available to all applications.
 
 One such optimization is snapshotting the current state to avoid recomputing from the event log on restarts.
 
@@ -99,7 +99,7 @@ Plan ::= <Plan>           # Pin
        | Nat              # Nat
 ```
 
-Where a `Nat` is a natural number and a `Law` is a user-defined function. `()` denotes function application `{}` is a list of values and `<> / Pin` is sort of runtime hint that has to do with optimizing memory layout.
+Where a `Nat` is a natural number and a `Law` is a user-defined function. `()` denotes function application, `{}` is a list of values and `<> / Pin` is sort of runtime hint that has to do with optimizing memory layout.
 
 We'll talk about what this means in a while, but for now let's just make clear
 that this is the **entire** data model of our system.
@@ -110,11 +110,10 @@ You've seen the terms "compile" and "binary" thrown around a few times. We've al
 "Do you expect me to somehow write entire programs using that weird data structure?"
 
 No. You've (hopefully) gotten used to thinking about this system as a database engine, but now we're going to show you that it's also a virtual machine and a **language platform**.  
-One language that is built on this platform is called Sire.
 
 ### Sire
 
-Sire is a sort of Lispy-Haskell whose purpose is to provide an ergonomic experience sitting between a programmer's goals and the resulting PLAN that achieves these goals (We'll get into programming with [Sire itself](sire/intro.md) a little later). Sire compiles _itself_ to the PLAN data model we saw above.
+Sire is a sort of Lispy-Haskell whose purpose is to provide an ergonomic experience sitting between a programmer's goals and the resulting PLAN that achieves these goals (We'll get into [programming with Sire itself](sire/intro.md) a little later). Sire compiles _itself_ to the PLAN data model we saw above.
 
 Below is the entire PLAN specification. Remember, PLAN is basically just the lambda calculus but without an implicit environment.  
 Don't get scared off or try to understand it just yet (or even _ever_, if you so choose), we're just showing off that it can fit on one page:
@@ -167,7 +166,6 @@ We aren't asking you to _trust_ our `Sire-in-PLAN` file. Since PLAN code is rela
 This is the PLAN code for the `foldr` function. It's going to look only slightly less scary than the spec above, but read on so we can un-scare you:
 
 ```PLAN
-```
 * (_If a b c)=(2 c ((d e & d) b) a)
 * (_Not a)=(_If a 0 1)
 * (_IsApp a)=(1:(b&0):(b c d & 0):(b c & 1):(b&0) a)
