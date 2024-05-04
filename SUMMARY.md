@@ -2,9 +2,8 @@
 
 ## What is this thing? <a href="#overview" id="overview"></a>
 
-* [A device, a payment system, an app store](README.md)
-* [Orientation](overview/orientation.md)
-* [Overview](overview/overview.md)
+* [Introduction](README.md)
+* [Plunder](overview/overview.md)
 * [Runtime](overview/haskell-runtime.md)
 
 ## Installation
@@ -37,8 +36,8 @@
 ## Deeper
 
 * [Seed files](sire/seeds.md)
-* [Boot process](overview/boot.md)
-* [Plunder vs Pallas](overview/boot.md)
+* [Boot process](deeper/boot-process.md)
+* [Plunder vs Pallas](deeper/boot-process.md)
 * [Jets](deeper/jets.md)
 
 ## PLAN

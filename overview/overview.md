@@ -2,7 +2,7 @@
 description: 'Document Type: Explanation'
 ---
 
-# Plunder Overview
+# Plunder
 
 We're going to explain a couple of special Plunder terms and then take a relatively deep tour into the big pieces that make the whole system works, down to the "bytecode" level.
 
@@ -29,7 +29,7 @@ A "Cog" is a is a persistent process running on a ship. Cogs snapshot state and 
 
 ## Persistence, PLAN
 
-PLAN is an evaluation model (you could think of this as the "machine code" of a Plunder VM) that implements a self-contained, purely-functional database with no external dependencies.  
+PLAN is an evaluation model (you could think of this as the "machine code" of a Plunder VM) that implements a self-contained, purely-functional database with no external dependencies.\
 That sounds vaguely intriguing, in the abstract, but what does it actually mean and what does this provide for you, in practice?
 
 We've mentioned purely functional systems and data persistence a few times so far. A deeper discussion of the PLAN data structure will bring these two concepts together, but before we inspect PLAN itself ("what is this 'PLAN' thing you keep mentioning?!") we have to take a brief detour into how the Plunder VM achieves persistence.
@@ -42,7 +42,7 @@ Let's say I wanted a write a small program that manages a list of numbers, start
 // Initial state
 []
 
-// "append" represents a fuction that adds a number to the end of the list
+// "append" adds a number to the end of the list
 // append 1
 [1]
 
@@ -53,42 +53,40 @@ Let's say I wanted a write a small program that manages a list of numbers, start
 [1, 2, 3]
 ```
 
-In these steps, we started with an empty list.  
-But if we had started with `[1, 2]` and done `append 3` the result would have been `[1, 2, 3]`.
-Likewise, if we had started with `[1]` and done `append 2` the result would have been `[1, 2]`, etc.
+In these steps, we started with an empty list.\
+But if we had started with `[1, 2]` and done `append 3` the result would have been `[1, 2, 3]`. Likewise, if we had started with `[1]` and done `append 2` the result would have been `[1, 2]`, etc.
 
-The pattern to notice here is: given a current state and an input, we can reliably compute a next state.  
-Taking that step further: if you have a starting state, the proper transition function that modifies the state for a given input, **and a log of _all_ inputs**, you have a strategy for persistence of any current state.
+The pattern to notice here is: given a current state and an input, we can reliably compute a next state.\
+Taking that step further: if you have a starting state, the proper transition function that modifies the state for a given input, **and a log of **_**all**_** inputs**, you have a strategy for persistence of any current state.
 
 The `transitionFunction` takes a `state` and an `input` and returns a `newState` and `newTransitionFunction` which is ready for the next input.
 
 Because we're in a purely functional environment, we know that running all the inputs in the log will get us back to the last state.
 
-This means you get a database engine just by writing functions. You may have gotten the wrong idea: that the programmer has to `include` some kind of event log library or manually cache the current state or something. No, the persistence strategy outlined above is handled by the runtime automatically for all applications in this system. It only needs to be implemented once (in fact, it's already done. you can have it) and it's trivially available to all applications. Because of this, it also means that optimizations happen in the runtime and are also available to all applications.
+This means you get a database engine just by writing functions. You may have gotten the wrong idea: that the programmer has to `include` some kind of event log library or manually cache the current state or something. No, the persistence strategy outlined above is handled by the runtime automatically for all applications in this system. It only needs to be implemented once (in fact, it's already done—you can have it) and it's trivially available to all applications. Because of this, it also means that optimizations happen in the runtime and are also available to all applications.
 
 One such optimization is snapshotting the current state to avoid recomputing from the event log on restarts.
 
-But how can you take a "current state snapshot" if there are partially-applied functions like `transitionFunction` mixed up in there? how do you store a partially applied function?  
-With that question on the table, we're finally ready to explain PLAN by way of [closures](https://en.wikipedia.org/wiki/Closure_(computer_programming)).
+But how can you take a "current state snapshot" if there are partially-applied functions like `transitionFunction` mixed up in there? How do you store a partially applied function?\
+With that question on the table, we're finally ready to explain PLAN by way of [closures](https://en.wikipedia.org/wiki/Closure\_\(computer\_programming\)).
 
 ### Closures and Supercombinators
 
-[The Lambda Calculus](https://en.wikipedia.org/wiki/Lambda_calculus) provides a formalism which would we could use to "persist" a function. But there are two problems with using the lambda calculus directly:
+[The Lambda Calculus](https://en.wikipedia.org/wiki/Lambda\_calculus) provides a formalism which would we could use to "persist" a function. But there are two problems with using the lambda calculus directly:
 
 1. It's an inefficient representation and thus not ideal for use in production systems.
 2. It assumes an environment that tracks free variables.
 
-`#2` is a problem because we want to be able to easily write to and read from disk without any risk that there are free variables or assumed environment.  
+`#2` is a problem because we want to be able to easily write to and read from disk without any risk that there are free variables or assumed environment.\
 In order to deal with that, we must store _closures_. We want to store functions _together with their arguments_. That is: their entire environment.
 
-The name for a function with zero free variables nor environment is a _supercombinator_.  
-PLAN is a data structure for supercombinators. And it's supercombinators, recursively, all the way down. Every function will always have all the context it could possibly need because they're all closures. When everything is speaking PLAN, all levels of the system agree on the representation of closures; on disk and in memory during execution.
+The name for a function with zero free variables and no environment is a _supercombinator_.\
+PLAN is a data structure for supercombinators (and it's supercombinators, recursively, all the way down). Every function will always have all the context it could possibly need because they're all closures. When everything is speaking PLAN, all levels of the system agree on the representation of closures; on disk and in memory during execution.
 
 ### PLAN
 
-PLAN is concrete, concise, and relatively readable (considering it's essentially a compiler binary. try reading the compiler binary of other systems).  
+PLAN is concrete, concise, and relatively readable, considering it's essentially a compiler binary (try reading the compiler binary of other systems).\
 It's also fast to compile to and easy to map back and forth between memory and disk - which is how you get a single-level store that essentially makes no distinction between on-memory and on-disk. Unplug it while it's running, move it to another physical machine and turn it back on and it picks up right where it left off.
-
 
 Formally, it looks like this:
 
@@ -101,21 +99,20 @@ Plan ::= <Plan>           # Pin
 
 Where a `Nat` is a natural number and a `Law` is a user-defined function. `()` denotes function application, `{}` is a list of values and `<> / Pin` is sort of runtime hint that has to do with optimizing memory layout.
 
-We'll talk about what this means in a while, but for now let's just make clear
-that this is the **entire** data model of our system.
+We'll talk about what this means in a while, but for now let's just make clear that this is the **entire** data model of our system.
 
 ## Bootstrapping
 
-You've seen the terms "compile" and "binary" thrown around a few times. We've also shown you this strange-looking PLAN data structure and made the case that if you just use this enhanced-lambda-calculus data structure you can have persistence, memory/disk ambiguity and readable compiler binaries for free. So at this point you might be asking yourself:  
-"Do you expect me to somehow write entire programs using that weird data structure?"
+You've seen the terms "compile" and "binary" thrown around a few times. We've also shown you this strange-looking PLAN data structure and made the case that if you just use this enhanced-lambda-calculus data structure you can have persistence, memory/disk ambiguity and readable compiler binaries for free. So at this point you might be asking yourself:\
+"Do you expect me to write entire programs using that weird data structure?"
 
-No. You've (hopefully) gotten used to thinking about this system as a database engine, but now we're going to show you that it's also a virtual machine and a **language platform**.  
+No. You've (hopefully) gotten used to thinking about this system as a database engine, but now we're going to show you that it's also a **virtual machine** and a **language platform**.
 
 ### Sire
 
-Sire is a sort of Lispy-Haskell whose purpose is to provide an ergonomic experience sitting between a programmer's goals and the resulting PLAN that achieves these goals (We'll get into [programming with Sire itself](sire/intro.md) a little later). Sire compiles _itself_ to the PLAN data model we saw above.
+Sire is a sort of Lispy-Haskell, whose purpose is to provide an ergonomic experience sitting between a programmer's goals and the resulting PLAN that achieves these goals (We'll get into [programming with Sire itself](sire/intro.md) a little later). Sire compiles _itself_ to the PLAN data model we saw above.
 
-Below is the entire PLAN specification. Remember, PLAN is basically just the lambda calculus but without an implicit environment.  
+Below is the entire PLAN specification. Remember, PLAN is basically just the lambda calculus but without an implicit environment.\
 Don't get scared off or try to understand it just yet (or even _ever_, if you so choose), we're just showing off that it can fit on one page:
 
 ```
@@ -191,11 +188,11 @@ This is the PLAN code for the `foldr` function. It's going to look only slightly
 
 These are all the dependencies that the `foldr` function relies on.
 
-Take a look at the `(id a)=a` line. It's a function named `id` that takes a single value `a` and simply returns it.  
+Take a look at the `(id a)=a` line. It's a function named `id` that takes a single value `a` and simply returns it.\
 Now look at `_Not` above. It appears to be a function that takes an argument `a`, and `_If` `a` is true, it returns `0` (or false), otherwise it returns `1` (or true). Not so bad.
 
 Other bits are a little less clear to us right now, but the point remains: A programmer familiar with this system could verify the "compiler binaries" without trusting. There is nowhere for malicious code to hide.
 
----
+***
 
 Next, we'll learn a bit about the Haskell runtime:
