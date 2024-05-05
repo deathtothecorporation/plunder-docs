@@ -126,7 +126,7 @@ It is for this reason we suggest you get used to the `{}` and `%` style.
 
 ### Nat - natural number
 
-All values in Plunder are stored in memory as natural numbers. Throughout the system, these are referred to as "nats".  
+All values in Plunder are stored in memory as natural numbers. Throughout the system, these are referred to as "nats". They're sometimes also called "nouns".  
 The REPL will represent these values as ASCII for printing purposes, which can be confusing at first and should be noted up front. For instance, the character `a` is encoded as `97` in ASCII:
 
 ```sire
@@ -143,7 +143,7 @@ The REPL will represent these values as ASCII for printing purposes, which can b
 ;; REPL is concerned.
 ```
 
-### Bar - byte-array (also sort of Strings)
+### Bar - byte-array, and Strings
 
 A "bar" is an array of UTF-8 bytes. You declare a bar like this:
 
@@ -157,8 +157,10 @@ You only need to use the curly braces when spaces are present in your byte array
 b#thisIsAFineBar
 ```
 
-This is subtly different than a String, although for most purposes you can think
-of bars and strings interchangeably.
+Although for many purposes you can think of bars and strings interchangeably. One difference is that there are more standard library functions for working with bars on a structural level (folding, splitting at indexes, filtering, etc) while the string standard library functions are more geared to character-level functions like capitalization and checking if a character is an alphanumeric.  
+
+Because a bar is an array and the byte width of its constituent parts is important for it to be a proper representation, it sort of acts as a "string with some extra baggage around it".  
+Converting between bars and strings is trivial for the cases where you need string functions but you have a bar at hand (or vice-versa). We'll see more on this on the next page. The conversions are basically about removing or adding that "extra baggage" mentioned above.
 
 Trust us that you can and should basically just use bars for everything string-like and you can move along to the section on data structures below, but if you're interested in seeing the deep dive, it's [here](/deeper/nat-representations.md).
 
@@ -224,6 +226,59 @@ listy=(listFromRow y)
 listy
 [2 [3 [4 0]]]
 ```
+
+## Comparison, Booleans and Maybes
+
+`TRUE` is represented as the nat `1`, while `FALSE` is the nat `0`.
+
+```sire
+=?= 1 | TRUE
+=?= 0 | FALSE
+```
+
+### `eql` and friends
+
+The `eql` function takes two parameters and returns `TRUE` if they're equal)
+
+```sire
+eql 1 1
+1
+
+eql 1 999
+0
+```
+
+Similarly, we have `neq` for "not equal". Also:
+
+- `lth` - true when first parameter is less than second
+- `lte` - true when first parameter is less then or equal to second
+- `gth` - true when first parameter is greater than second
+- `gte` - true when first parameter is greater than or equal to second
+
+### `if`
+
+`if` is a function with three parameters: what is being tested for truthiness; what to return if true; what to return if false.
+
+```sire
+=?= {the if got a true} | if 1 {the if got a true} {the if got a false}
+;; assertion passes; the second parameter was returned.
+```
+
+The `if` function's first parameter was `1`, a true value, so the second parameter was returned.
+
+### `not`
+
+Negation.
+
+```sire
+=?= 1 | not FALSE
+```
+
+### `and`, `or`
+
+{% hint style="warning" %}
+**TODO:** finish
+{% endhint %}
 
 ## Moving on
 

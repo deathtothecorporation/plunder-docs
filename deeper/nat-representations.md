@@ -1,5 +1,27 @@
 # A deeper look at how nats are represented in bars, strings and hexidecimal
 
+(This section assumes you've already gone through the [standard library tour](/sire/standard-library.md). If not, you'll see some functions here with which you're not familiar.)
+
+## Another word on relationship between bars and strings
+
+In the [intro](/sire/intro.md) we briefly covered bars and strings, but it's worth saying a bit more about them here. Because bars are _arrays of UTF-8 bytes_, and strings are essentially directly stored as nats, a bar representation and a string representation that look the same on the surface are _not_ equivalent nats:
+
+```sire
+=?= b#{a string} {a string}
+;; # {ASSERTION FAILURE}
+```
+
+The bar `a string` is not the same nat as the string `a string`.
+
+```sire
+=?= (barNat b#{a string}) {a string}
+;; Assertion succeeds
+```
+
+The `barNat` function will return the bar's string representation, which will indeed be the same nat as an identical string.
+
+## Under the hood of strings and nats
+
 ```sire
 showNat %a
 {97}
