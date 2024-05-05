@@ -106,6 +106,62 @@ renamedInput
          # reason {Unresolved symbol: renamedInput}
 ```
 
+## Natural numbers, byte-arrays and strings
+
+The big takeaway from this section has to do with natural numbers, but we have to get a thing or two out of the way first about how the REPL deals with strings.
+
+The REPL renders strings in single curly braces, `{like this example}`. You can also enter a string this way, as in `= msg {hello world}` in order to bind the variable `msg` to the string `hello world`.
+
+For a string without spaces, the REPL will opt to render it with a leading `%` as in `%houseboat`. Again, you can enter strings this way as well: `= color %blue` (which binds the string `blue` to the variable `color`). You may sometimes see this style referred to as an "atom" in some source files.
+
+It's worth mentioning that you _can enter_ a string with double-quotes as you may expect, but the REPL never prints them that way:
+
+```
+= msg "hello world"
+msg
+;; prints:
+{hello world}
+```
+It is for this reason we suggest you get used to the `{}` and `%` style.
+
+### Nat - natural number
+
+All values in Plunder are stored in memory as natural numbers. Throughout the system, these are referred to as "nats".  
+The REPL will represent these values as ASCII for printing purposes, which can be confusing at first and should be noted up front. For instance, the character `a` is encoded as `97` in ASCII:
+
+```sire
+97
+;; prints:
+%a
+
+| showNat %a
+;; prints:
+{97}
+;; The showNat function represents a nat as a string.
+;; Single curly braces wrapping a value means you're seeing a string.
+;; Think of {curly braces} as you would "double quotes", as far as the
+;; REPL is concerned.
+```
+
+### Bar - byte-array (also sort of Strings)
+
+A "bar" is an array of UTF-8 bytes. You declare a bar like this:
+
+```sire
+b#{some stuff here}
+```
+
+You only need to use the curly braces when spaces are present in your byte array:
+
+```
+b#thisIsAFineBar
+```
+
+This is subtly different than a String, although for most purposes you can think
+of bars and strings interchangeably.
+
+Trust us that you can and should basically just use bars for everything string-like and you can move along to the section on data structures below, but if you're interested in seeing the deep dive, it's [here](deeper/nat-representations.md).
+
 ## A Few Simple Data Structures
 
 ### Rows - `[]`
@@ -145,7 +201,7 @@ arr=[10 64 42]
 
 ### Lists - `~[]`
 
-Lists are zero-terminated, nested row 2-tuples. They are declared by prepending a `~` to what looks like row syntax, like this: `~[]` (in the repl we have to wrap this in parentheses):
+Lists are zero-terminated, nested row 2-tuples. They are declared by prepending a `~` to what looks like row syntax, like this: `~[]` (in the REPL we have to wrap this in parentheses):
 
 ```sire
 x=(~[10 64 42])
@@ -169,16 +225,8 @@ listy
 [2 [3 [4 0]]]
 ```
 
-There's a lot more about rows and lists in `sire/07_dat.sire`.
-
-### Maybe
-
-{% hint style="warning" %}
-**TODO: explain Maybes**
-{% endhint %}
-
 ## Moving on
 
-{% hint style="warning" %}
-TODO: Explain what's next. A whole bunch of convenience functions and standard library that you'll see in a basic cog.
-{% endhint %}
+This was a brief overview of the nuts and bolts of Sire. Printing out bars in the REPL is fun and all, but our goal is to build a web app, not test the limit of how many "hello world" strings we can fit in our terminal scrollback.  
+
+Next we'll take a look at a small sample of the standard library that we'll use while building our first Plunder Cog.
