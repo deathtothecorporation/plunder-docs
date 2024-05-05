@@ -35,6 +35,7 @@
 
 ## Deeper
 
+* [Various Nat Representations](deeper/nat-representations.md)
 * [Seed files](sire/seeds.md)
 * [Boot process](deeper/boot-process.md)
 * [Plunder vs Pallas](deeper/boot-process.md)

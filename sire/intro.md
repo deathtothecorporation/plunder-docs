@@ -160,7 +160,7 @@ b#thisIsAFineBar
 This is subtly different than a String, although for most purposes you can think
 of bars and strings interchangeably.
 
-Trust us that you can and should basically just use bars for everything string-like and you can move along to the section on data structures below, but if you're interested in seeing the deep dive, it's [here](deeper/nat-representations.md).
+Trust us that you can and should basically just use bars for everything string-like and you can move along to the section on data structures below, but if you're interested in seeing the deep dive, it's [here](/deeper/nat-representations.md).
 
 ## A Few Simple Data Structures
 
