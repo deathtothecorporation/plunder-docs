@@ -163,6 +163,13 @@ Similar to `barCat`, but operates on a list, rather than a row (note the `~` in 
  b#{hello world}
 ```
 
+## SOME; Maybe
+
+For when you're not sure if you're going to have a value.
+
+- fromSome
+
+
 ## Tabs
 
 A tab is a map from noun to noun. Like a dict in Haskell or python.
@@ -237,9 +244,45 @@ tabGet t {i dont exist}
 - writeRef
 - newRef
 - syscall, fork
-- `SOME`
-  - Probably move this to `Maybe` section in intro.md
-- fromSome
 - PIN
+
+## Finding additional standard library functions
+
+The entire "standard library" is defined in the consecutively-numbered `sire/sire_<n>_<name>.sire` files. If you're trying to complete some task and the functions described above don't help, there's a decent chance there's already a function defined in the standard library that will help.  
+
+Do a text-search on the `*.sire` files for a term that seems relevant (`slice`, `sum`, etc.) and look around nearby. Check out the list of imports at the top of the file to see what _this_ file depends on. Consult the list of sire files below and skim the files that might seem useful. When first encountering a file we suggest you skim the list of exports at the bottom (after reading any initial comment at the very top) to get a sense of the functions this file exports. Often, the `=?=` test cases can be very helpful.
+
+### Rough explanation of the standard library files
+
+Below is a summary of each of the standard library files. Particularly helpful ones are annotated with a `*`. Files that require a more advanced understanding and can be skipped for now are annotated with a `!`. Most of these files primarily define lower-level dependencies that other higher-order (and easier to understand) subsequent functions rely on.
+
+- `sire_01_fan.sire` - Defines named wrappers around PLAN operations
+- `sire_02_bit.sire` - Booleans
+- `sire_03_nat.sire` - Natural numbers and operating on them
+- `sire_04_cmp.sire` - Comparison, ordering and equality
+- `sire_05_row.sire` - Rows and basic operations on them
+- `!` `sire_06_rex.sire` - Representation for rex trees - mostly needed for macros.
+- `*` `sire_07_dat.sire` - Data structures; rows, lists, maybe, either, etc.
+- `sire_10_str.sire` - ASCII characters and strings
+- `sire_11_set.sire` - Sets
+- `*` `sire_12_tab.sire` - Tabs
+- `!` `sire_13_exp.sire` - More rex and macro utilities
+- `!` `sire_14_hax.sire` - Explains how the `#` rune is used for macros
+- `!` `sire_15_pad.sire` - Bit-strings encoded as nats
+- `*` `sire_16_bar.sire` - Byte-arrays and operations
+- `sire_17_sug.sire` - Syntactic sugar and convenience macros
+- `!` `sire_18_pat.sire` - Pattern matching
+- `!` `sire_19_bst.sire` - Binary search trees
+- `!` `sire_20_prp.sire` - Sire properties
+- `sire_21_switch.sire` - Atomic switch
+- `!` `sire_22_seed.sire` - Seed; serialization framework
+- `!` `sire_23_repl.sire` - REPL utilities
+- `!` `sire_24_rex.sire` - Rex
+- `sire_25_datatype.sire` - Datacase/Record
+- `!!` `sire_26_compile.sire` - Backend of the sire compiler
+- `!!` `sire_27_sire.sire` - Sire-in-sire; can be used to bootstrap itself
+
+Taking a look at this list above, you can also get a sense of how the Sire source files start at the basics of wrapping PLAN and incrementally build on each other until the full system is realized.  
+By starting with PLAN and going through all the files above, after a (relatively) small investment of time, you could understand the **entirety** of this computational model!
 
 Next we'll introduce some more advanced topics that you'll come across:

@@ -21,24 +21,24 @@ We're going to hands-on learn a few basic concepts: Top-level bindings, let bind
 A few meta-points to note at the outset:
 
 * `;` is a comment in Sire. used here, it'll be to explain what's happening inline
-* The arrow keys won't work in the repl. Use backspace. If you get into a strange state with carriage returns and are unable to backspace, just hit return a few times, ignore any errors, and start again. Type carefully :)
-* The repl will print ASCII values of integers. If you enter `65` you'll get back `%A`. Don't think about this too much yet, just use small numbers for you learnings here.
+* The arrow keys won't work in the REPL. Use backspace. If you get into a strange state with carriage returns and are unable to backspace, just hit return a few times, ignore any errors, and start again.
+* The REPL will print ASCII values of integers. If you enter `65` you'll get back `%A`. Don't think about this too much yet, just use small numbers for you learnings here. We'll cover this in detail on the next page.
 
 ### Top-level binding - `=`
 
 Binds a value globally - not scoped.
 
-In the repl:
+In the REPL:
 
 ```sire
 x=3
 ; now just type an x and hit enter:
 
 x ; the binding you are evaluating...
-3 ; the value returned from the repl
+3 ; the value returned from the REPL
 ```
 
-### Function application - `|` or `()`
+### Function application - `|`, `()`, `-`
 
 `add` is a function in Sire. It takes two arguments and adds them together. It's called like this:
 
@@ -58,6 +58,13 @@ You can also apply functions with `|`
 4   ; return value
 ```
 
+A less common style for function application that you might see is `-`:
+
+```
+add-1-3
+4
+```
+
 Let's combine both of the above concepts to create our own named function. Note the way in this case you start the line with the `=` (and a space) and the name of the function is the first value after the opening parenthesis.
 
 ```sire
@@ -65,7 +72,7 @@ Let's combine both of the above concepts to create our own named function. Note 
 | add 2 input
 ```
 
-The repl now has a function named `addTwo` bound to its top-level scope. The function takes a single value (called `input`) and all it does is apply (with `|`) the `add` function to two arguments, a hard-coded `2` and whatever input was provided.
+The REPL now has a function named `addTwo` bound to its top-level scope. The function takes a single value (called `input`) and all it does is apply (with `|`) the `add` function to two arguments, a hard-coded `2` and whatever input was provided.
 
 ```sire
 (addTwo 4)
@@ -88,7 +95,7 @@ We can see this by trivially modifying our `addTwo` function to bind an arbitrar
 
 On the second line, we bound a new variable, `renamedInput` with the value of `originalInput`. Then `2` is added to this variable.
 
-To prove to yourself that `renamedInput` is only bound within the function scope, try calling it at the top-level of the repl:
+To prove to yourself that `renamedInput` is only bound within the function scope, try calling it at the top-level of the REPL:
 
 ```sire
 renamedInput
@@ -276,9 +283,25 @@ Negation.
 
 ### `and`, `or`
 
-{% hint style="warning" %}
-**TODO:** finish
-{% endhint %}
+`and` and `or` are functions that do what you'd expect:
+
+```sire
+and 1 1
+;; returns:
+1
+
+and 1 0
+;; returns:
+0
+
+or 1 0
+;; returns:
+1
+
+or 0 0
+;; returns:
+0
+```
 
 ## Moving on
 
