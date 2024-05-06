@@ -1,7 +1,3 @@
----
-description: 'Document Type: Explanation'
----
-
 # Plunder
 
 We're going to explain a couple of special Plunder terms and then take a relatively deep tour into the big pieces that make the whole system works, down to the "bytecode" level.
@@ -59,15 +55,17 @@ But if we had started with `[1, 2]` and done `append 3` the result would have be
 The pattern to notice here is: given a current state and an input, we can reliably compute a next state.\
 Taking that step further: if you have a starting state, the proper transition function that modifies the state for a given input, **and a log of **_**all**_** inputs**, you have a strategy for persistence of any current state.
 
-The `transitionFunction` takes a `state` and an `input` and returns a `newState` and `newTransitionFunction` which is ready for the next input.
+The transition function `T` takes a `state` and an `input` and returns a `newState` and a new transition function `T'` which is ready for the next input:
 
-Because we're in a purely functional environment, we know that running all the inputs in the log will get us back to the last state.
+`T: (state, input) -> (newState, T')`
 
-This means you get a database engine just by writing functions. You may have gotten the wrong idea: that the programmer has to `include` some kind of event log library or manually cache the current state or something. No, the persistence strategy outlined above is handled by the runtime automatically for all applications in this system. It only needs to be implemented once (in fact, it's already done—you can have it) and it's trivially available to all applications. Because of this, it also means that optimizations happen in the runtime and are also available to all applications.
+Because we're in a purely functional environment, we know that running all the inputs in the log will get us back to the last state. This means you get a database engine just by writing functions.&#x20;
+
+You may have gotten the wrong idea: that the programmer has to `include` some kind of event log library or manually cache the current state. No, the persistence strategy outlined above is handled by the runtime automatically for all applications in Plunder. It only needs to be implemented once and it's trivially available to all applications. Because of this, it also means that optimizations happen in the runtime and are also available to all applications.
 
 One such optimization is snapshotting the current state to avoid recomputing from the event log on restarts.
 
-But how can you take a "current state snapshot" if there are partially-applied functions like `transitionFunction` mixed up in there? How do you store a partially applied function?\
+But how can you take a "current state snapshot" if there are partially-applied functions like `T`? How do you store a partially applied function?\
 With that question on the table, we're finally ready to explain PLAN by way of [closures](https://en.wikipedia.org/wiki/Closure\_\(computer\_programming\)).
 
 ### Closures and Supercombinators
@@ -81,12 +79,14 @@ With that question on the table, we're finally ready to explain PLAN by way of [
 In order to deal with that, we must store _closures_. We want to store functions _together with their arguments_. That is: their entire environment.
 
 The name for a function with zero free variables and no environment is a _supercombinator_.\
-PLAN is a data structure for supercombinators (and it's supercombinators, recursively, all the way down). Every function will always have all the context it could possibly need because they're all closures. When everything is speaking PLAN, all levels of the system agree on the representation of closures; on disk and in memory during execution.
+PLAN is a data structure for supercombinators (and it's supercombinators, recursively, all the way down). Every function will always have all the context it could possibly need because they're all closures. When everything is speaking PLAN, all levels of the system agree on the representation of closures; on-disk and in-memory during execution.
 
 ### PLAN
 
 PLAN is concrete, concise, and relatively readable, considering it's essentially a compiler binary (try reading the compiler binary of other systems).\
-It's also fast to compile to and easy to map back and forth between memory and disk - which is how you get a single-level store that essentially makes no distinction between on-memory and on-disk. Unplug it while it's running, move it to another physical machine and turn it back on and it picks up right where it left off.
+
+
+It's also fast to compile to and easy to map back and forth between memory and disk - which is how you get a [single-level store](https://en.wikipedia.org/wiki/Single-level\_store) that essentially makes no distinction between in-memory and on-disk. Unplug it while it's running, move it to another physical machine and turn it back on and it picks up right where it left off.
 
 Formally, it looks like this:
 
@@ -156,9 +156,9 @@ P(p,l,a,n,x:@}     = (n x)              |     R(n+1,f,b)
 
 A plucky computer science student could translate this to C, Rust or Python. A minimal but performant Haskell implementation is 180 lines.
 
-The Sire compiler is just 2000 lines of Sire. We have a compiled version _of the Sire compiler_ (that's `Sire-represented-in-PLAN`) that we feed to the runtime system, thereby bootstrapping a complete, extendable development environment.
+The Sire compiler is just 2000 lines of Sire. Plunder has a compiled version _of the Sire compiler_ (that's `Sire-in-PLAN`) that we feed to the runtime system, thereby bootstrapping a complete, extendable development environment.
 
-We aren't asking you to _trust_ our `Sire-in-PLAN` file. Since PLAN code is relatively readable, a programmer familiar with the system could verify it.
+We aren't asking you to _trust_ our `Sire-in-PLAN` file. Since PLAN code is relatively readable, a programmer familiar with the system can verify it directly.
 
 This is the PLAN code for the `foldr` function. It's going to look only slightly less scary than the spec above, but read on so we can un-scare you:
 

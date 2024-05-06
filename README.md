@@ -4,7 +4,7 @@
 
 Vaporware is a distributed operating system designed for use by individual people, not corporations. It is our belief that a personal internet, composed of computers entirely owned by normal people, is both possible and desirable. Our project owes its existence to the Urbit community—both for inspiration and support—but shares none of Urbit’s codebase and diverges from many of the principles and technical choices of the Urbit project.
 
-Vaporware runs on the Plunder virtual machine. Plunder is a solid-state interpreter: a programming environment which combines orthogonal persistence, functional programming, and homoiconicity. Imagine a Scheme Lisp machine with automatically persisted application state, and you’re not far off the mark. Plunder and Vaporware are not the same project, but share some of the same long term goals; Vaporware is the first third-party developer to adopt the Plunder software stack.
+Vaporware runs on the Plunder virtual machine. [Plunder is a solid-state interpreter](https://git.sr.ht/\~plan/plunder): a programming environment which combines orthogonal persistence, functional programming, and homoiconicity. Imagine a Scheme Lisp machine with automatically persisted application state, and you’re not far off the mark. Plunder and Vaporware are not the same project, but share some of the same long term goals; Vaporware is the first third-party developer to adopt the Plunder software stack.
 
 This documentation introduces the Plunder system:
 
@@ -14,7 +14,7 @@ This documentation introduces the Plunder system:
 
 This documentation is incomplete and should be supplemented with the primary Plunder repo.
 
-## Goals
+## Document Goals
 
 The goal of this documentation is to get you from "I have no idea what this system is" to a simple "Hello world" web app.
 

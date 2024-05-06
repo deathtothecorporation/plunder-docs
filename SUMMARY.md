@@ -43,7 +43,8 @@
 
 ## PLAN
 
-* [Page 4](plan/page-4.md)
+* [Definition](plan/page-4.md)
+* [Explanation](plan/explanation.md)
 
 ## Dustbin
 
