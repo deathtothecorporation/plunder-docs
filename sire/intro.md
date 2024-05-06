@@ -13,7 +13,7 @@ Open up a bootstrapped Sire REPL. As a reminder:
 
 ```
 nix develop
-plunder sire sire/boot.sire
+plunder sire sire/prelude.sire
 ```
 
 Or if you're using the docker images:

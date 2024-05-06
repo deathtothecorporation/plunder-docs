@@ -132,7 +132,7 @@ While the `repl` command looks attractive, it's not going to do exactly what you
 Remember that there is a [boot sequence](../overview/boot.md) required before we have all the necessary tools at hand. Since we want our environment to be hydrated properly, we'll do that boot sequence in order to get a proper repl:
 
 ```
-plunder sire sire/boot.sire
+plunder sire sire/prelude.sire
 ```
 
 You'll see something like this:
