@@ -16,6 +16,13 @@ nix develop
 plunder sire sire/boot.sire
 ```
 
+Or if you're using the docker images:
+
+```
+docker pull deathtothecorporation/sire-repl
+docker run -it deathtothecorporation/sire-repl
+```
+
 We're going to hands-on learn a few basic concepts: Top-level bindings, let bindings and function application.
 
 A few meta-points to note at the outset:
