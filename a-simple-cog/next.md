@@ -26,6 +26,7 @@ Whatever you choose (or if you just have general questions), we look forward to 
 
 Deeper dive topics:
 
+* [PLAN](/plan/definition.md)
 * [Various Nat Representations](/deeper/nat-representations.md)
 * [UI files](/deeper/ui-files.md)
 * [Seed files](/sire/seeds.md)

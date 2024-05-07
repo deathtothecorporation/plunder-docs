@@ -38,4 +38,3 @@
 ## PLAN
 
 * [Definition](plan/definition.md)
-* [Explanation](plan/explanation.md)
