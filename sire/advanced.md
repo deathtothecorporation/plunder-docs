@@ -85,3 +85,11 @@ maybeNine=(SOME 9)
 ; result:
 4
 ```
+
+## `PIN`
+
+Another one to note and ignore. All you need to know now is that `PIN`s help with memory-layout optimization during persistence. You can look at it like a `let` binding for now without being too far off the mark.
+
+---
+
+Next up, running a simple Cog:

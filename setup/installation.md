@@ -88,7 +88,7 @@ There is now a webserver running and you can access the app at the URL mentioned
 
 <figure><img src="../.gitbook/assets/mandelbrot-ui.png" alt=""><figcaption></figcaption></figure>
 
-Change the width and height to 100 and click "resize" (for expediency). Then click "generate fractal". After a few seconds you'll see a fractal appear in the canvas. Congratulations, you just ran a plunder app.
+Change the width and height to 100 and click "resize" (Keeping a small size for expediency). Then click "generate fractal". After a few seconds you'll see a fractal appear in the canvas. Congratulations, you just ran a plunder app.
 
 Soon you'll learn how to write one of your own.
 
@@ -126,10 +126,10 @@ Available commands:
 
 ```
 
-We'll get into booting machines and running cogs soon, but first let's just get a Sire repl to play with.\
-While the `repl` command looks attractive, it's not going to do exactly what you expect. **TODO: explain how seed files work** [**seed files**](../sire/seeds.md)
+We'll get into booting machines and running cogs soon, but first let's just get a Sire REPL to play with.\
+While the `repl` command looks attractive, it's not going to do exactly what you expect.
 
-Remember that there is a [boot sequence](../overview/boot.md) required before we have all the necessary tools at hand. Since we want our environment to be hydrated properly, we'll do that boot sequence in order to get a proper repl:
+There is a particular boot sequence required before we have all the necessary tools at hand. Since we want our environment to be hydrated properly, we'll execute the proper boot sequence in order to get a working REPL:
 
 ```
 plunder sire sire/prelude.sire

@@ -1,14 +1,11 @@
 ---
 description: 'Document Type: Tutorial'
 ---
+
 # Booting, Starting, Caching and Related Topics
 
 {% hint style="warning" %}
-> **TODO:**
-> - why does "boot" not trk on the second boot? where is this cached?!
-> - why is it that the countdown runs on every "start" _only if_ the current
-    time syscall is included? somewhere in the compilation/caching, something
-    knows that a value is going to change on subsequent runs.
+This page has many areas that need to be filled in.  
 {% endhint %}
 
 ## Boot
@@ -37,7 +34,7 @@ Notice that your `hello_world_cog.sire` file is being mentioned here in the `"LO
 FROM CACHE!"` message.
 
 {% hint style="warning" %}
-TODO: Explain the cache and state machines
+Coming soon: Explanation of caching
 {% endhint %}
 
 If you _change_ `hello_world_cog.sire`, delete the ship, and re-boot, you'll get a
@@ -146,7 +143,7 @@ No `trk` message on boot this time...
 
 
 {% hint style="warning" %}
-TODO: explain why that is.
+Coming soon: This will be explained
 {% endhint %}
 
 Let's start the cog:
@@ -207,9 +204,7 @@ without changing anything about `countdown_cog.sire`. You'll notice that you get
 the source code.
 
 {% hint style="warning" %}
-TODO: explain why that is.  
-TODO: _figure out_ why that is. probably because the caching/compiler knows that
-the call out with `syscall` is going to result in different values on each boot.
+Coming soon: This will be explained
 {% endhint %}
 
 # Next

@@ -1,3 +1,7 @@
+{% hint style="warning" %}
+🚧 This documentation collection is under active development. Similar callouts will be used to denote areas that are stubbed-out or coming soon. 🚧
+{% endhint %}
+
 # Introduction
 
 _This documentation is best viewed at [https://vaporware.gitbook.io/vaporware](https://vaporware.gitbook.io/vaporware)_.
@@ -33,7 +37,7 @@ We'll start off here with a very high-level overview of what Plunder is and how 
 - The main [Plunder repository](https://sr.ht/~plan/plunder/)
 - Vaporware's Plunder fork, [Pallas](https://github.com/deathtothecorporation/pallas)
 - The [Vaporware website](https://vaporware.network)
-- TODO: Telegram channel
+- [Plunder developer Telegram group](https://t.me/+fOiCOlHTMvg0YjEx)
 
 ---
 

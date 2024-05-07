@@ -4,7 +4,7 @@
 
 * [Introduction](README.md)
 * [Plunder](overview/overview.md)
-* [Runtime](overview/haskell-runtime.md)
+* [Runtime](overview/runtime.md)
 
 ## Installation
 
@@ -31,6 +31,7 @@
 * [Seed files](sire/seeds.md)
 * [Boot process](deeper/boot-process.md)
 * [Plunder vs Pallas](deeper/pallas.md)
+* [Cogs in depth](/deeper/cogs.md)
 * [Jets](deeper/jets.md)
 
 ## PLAN

@@ -4,7 +4,7 @@
 
 As already discussed, the _point_ of Sire is to get back PLAN. It is also possible to compile mainstream functional languages to PLAN. At that point, much Plunder development—including full-stack web applications—will be accomplished by writing in those languages only, leaving Sire only responsible for code that needs to be optimized by the runtime (like new crypto libraries, say).
 
-Until that time, we'll be writing Sire. But since our immediate goal for the moment is to build a cog that runs and does some stuff, we're not going to learn every character and nuance of Sire syntax. Just enough.\
+Until that time, we'll be writing Sire. But since our immediate goal for the moment is to build a cog that runs and does some stuff, we're not going to learn every character and nuance of Sire syntax. Just enough.  
 Don't worry if you don't fully understand _how_ a line of code does what it does, but do make sure you have a handle on _what_ it's doing.
 
 ## Getting familiar

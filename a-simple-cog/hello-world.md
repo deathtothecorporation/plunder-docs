@@ -3,9 +3,9 @@ description: 'Document Type: Tutorial'
 ---
 # "Hello World" Cog
 
-You're finally going to start writing code in `.sire` files that you boot and run, rather than directly into the REPL. A few things to note on that: You can't have blank new lines within the body of a function, comments (lines that start with `;`) are fine. Indentation matters, but you'll start to see that in practice - we won't explain it up front.
+You're finally going to start writing code in `.sire` files that you boot and run, rather than directly into the REPL. A few things to note on that: You can't have blank new lines within the body of a function, but comments (lines that start with `;`) are fine. Indentation matters, but you'll start to see that in practice - we won't explain it up front.
 
-This file would be saved as `sire/hello_world_cog.sire`. We'll talk about the boot/running procedure next. _**FINALLY!**_:
+_**FINALLY!**_:
 
 ```sire
 #### hello_world_cog <- prelude
@@ -25,11 +25,11 @@ main=(runCog helloWorld)
 
 Before we inspect the code, let's run it and see something happen!  
 
-First, create the file `sire/hello_world_cog.sire` with the above contents and save it.
+First, create the file `sire/hello_world_cog.sire` (within the plunder repo, right next to all the other `sire/*.sire` files) with the above contents and save it.
 
-Now, choose a directory where you want your plunder ships to get created. We'll use a
+Now, choose a directory where you want your plunder ships/VMs to get created. We'll use a
 `my_ships` directory for the examples here. We'll proclaim that the name of the
-ship that contains this cog will be "hello_world". Thus, the command to boot
+ship (the directory name) that contains this cog will be "hello_world". Thus, the command to boot
 this ship and initiate this cog is (you remembered to `nix develop` right?):
 
 ```

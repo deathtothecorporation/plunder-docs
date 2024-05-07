@@ -59,7 +59,7 @@ The transition function `T` takes a `state` and an `input` and returns a `newSta
 
 `T: (state, input) -> (newState, T')`
 
-Because we're in a purely functional environment, we know that running all the inputs in the log will get us back to the last state. This means you get a database engine just by writing functions.&#x20;
+Because we're in a purely functional environment, we know that running all the inputs in the log will get us back to the last state. This means you get a database engine just by writing functions.
 
 You may have gotten the wrong idea: that the programmer has to `include` some kind of event log library or manually cache the current state. No, the persistence strategy outlined above is handled by the runtime automatically for all applications in Plunder. It only needs to be implemented once and it's trivially available to all applications. Because of this, it also means that optimizations happen in the runtime and are also available to all applications.
 
@@ -112,11 +112,11 @@ No. You've (hopefully) gotten used to thinking about this system as a database e
 
 Sire is a sort of Lispy-Haskell, whose purpose is to provide an ergonomic experience sitting between a programmer's goals and the resulting PLAN that achieves these goals (We'll get into [programming with Sire itself](sire/intro.md) a little later). Sire compiles _itself_ to the PLAN data model we saw above.
 
-Below is the entire PLAN specification. Remember, PLAN is basically just the lambda calculus but without an implicit environment.\
+Below is the entire PLAN specification. Remember, PLAN is basically just the lambda calculus but without an implicit environment.  
 Don't get scared off or try to understand it just yet (or even _ever_, if you so choose), we're just showing off that it can fit on one page:
 
 ```
-Every PLAN vaue is either a pin x:<i>, a law x:{n a b}, an app x:(f g), a
+Every PLAN value is either a pin x:<i>, a law x:{n a b}, an app x:(f g), a
 nat x:@, or a black hole x:<>.  Black holes only exist during evaluation.
 
 (o <- x) mutates o in place, replacing it's value with x.
@@ -193,6 +193,6 @@ Now look at `_Not` above. It appears to be a function that takes an argument `a`
 
 Other bits are a little less clear to us right now, but the point remains: A programmer familiar with this system could verify the "compiler binaries" without trusting. There is nowhere for malicious code to hide.
 
-***
+---
 
-Next, we'll learn a bit about the Haskell runtime:
+Next, we'll learn a bit about the runtime:

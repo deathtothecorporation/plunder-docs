@@ -371,22 +371,6 @@ weld [1 2] [3 4]
 [1 2 3 4]
 ```
 
-- PIN
-
-{% hint style="warning" %}
-Ask jack about PIN. I'd rather not mention it at all because I think it also
-means getting into a whole bunch of stuff about Cog state, but people will
-see it in cog code and it might not be reasonable to just skip over it.
-{% endhint %}
-```
-* GET
-  # switch path
-  * b#{/status}
-    ; Builds a JSON blob of all the details for the UI on the other side.
-    : (PIN st) < readRef vSt ;; why do we have to PIN to st?
-    @ kvs | tabToPairs | **getCogStatus st
-```
-
 ## Finding additional standard library functions
 
 The entire "standard library" is defined in the consecutively-numbered `sire/sire_<n>_<name>.sire` files. If you're trying to complete some task and the functions described above don't help, there's a decent chance there's already a function defined in the standard library that will help.  
