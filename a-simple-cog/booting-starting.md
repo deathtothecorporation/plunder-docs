@@ -209,4 +209,4 @@ Coming soon: This will be explained
 
 # Next
 
-Our next goal is to construct a long-running cog that acts as a web server and keeps some state. In order to talk to a web client, our cog will need to reply in a manner that the browser understands. Beyond basic HTTP codes, we also want to send back useful data, and we're going to do so in JSON. So we'll take a little detour into how to encode plunder nats as JSON.
+Our next goal is to construct a long-running cog that acts as a web server and keeps some state. In order to talk to a web client, our cog will need to reply in a manner that the browser understands. Beyond basic HTTP codes, we also want to send back useful data, and we're going to do so in JSON. So we'll take a little detour into how to encode Plunder nats as JSON.

@@ -9,7 +9,7 @@ Eventually you should understand everything you're doing, but let's keep you mov
 
 ## Types
 
-Sire _sort of_ has types at the moment. This system will significantly change for the better in the future, but as a beginner we suggest you just sort of ignore types for now. That said, you should at least be familiar with the syntax.
+Sire _sort of_ has types at the moment. This system will significantly change for the better in the future, but as a beginner we suggest you just ignore types for now. That said, you should at least be familiar with the syntax.
 
 ```sire
 > Bar > Bar > Nat > Bit
@@ -44,8 +44,9 @@ First parameter is a bar ("needle"), second parameter is a bar ("haystack"), thi
 ```
 - `foo x y` is the function call. It accepts another function as an argument - the callback below:
 - `(a b c)` `a b c` are the arguments to the callback
+- The main function and callback can have any arguments - these were chosen arbitrarily for this example
 
-We definitely need an example to better understand this. We'll use the `gen` for the example (`gen` was covered in the [standard library](/sire/standard-library.md))
+We definitely need an example to better understand this. We'll use `gen` for the example (`gen` was covered in the [standard library](/sire/standard-library.md))
 
 ```sire
 ; we saw gen used like this:

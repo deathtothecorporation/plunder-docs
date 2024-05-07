@@ -75,7 +75,7 @@ Import `json.sire`, from which we'll need the `parseJson` function soon.
 
 We'll look at `datacase` next, but consider it a sort of switch or if/else for now.
 
-`asJsonRow` takes some parsed JSON and returns it as a sire row (if there's anything there; that's where `datacase` comes in).  
+`asJsonRow` takes some parsed JSON and returns it as a sire row (**if** there's anything there. That's where `datacase` comes in).  
 `asJsonNum` takes some parsed JSON and returns it as a nat.  
 `sire/json.sire` has similar helpers for JSON's nulls, boolens, strings and maps (objects) (`JNULL`, `JFALSE`, `JTRUE`, `JSTR`, `JMAP`).
 
@@ -113,7 +113,7 @@ Now that we have all the handlers in place, we can actually take a request from 
 We haven't yet looked at how a webserver cog works, but the point here is:
 - We get a `POST` request at a particular path from the web client
 - We parse the request body as JSON
-- Assuming we got dimensions as expected, we generate the fractal (`fractBar`) and respond to the request with this value.
+- Assuming we got dimensions as expected, we generate the fractal (`fractBar`) and respond to the request with this value. Responding with JSON is what we're looking at next.
 
 ## Responding **with** JSON
 
@@ -127,8 +127,8 @@ For an example of providing a JSON response from a cog to a web client, we'll pu
 = jsonContentType [(b#{content-type}, b#{application/json})]
 ```
 
-Once again, `json` is imported, which will give us many functions we need.
-This is a convenient binding that will make it easier to set response headers.
+Once again, `json` is imported, which will give us many functions we need.  
+`jsonContentType` is a convenient binding that will make it easier to set response headers.
 
 ```sire
 # switch method
@@ -166,13 +166,13 @@ And again, we're handling an HTTP request by switching on `method` and `path` in
 
 We haven't seen `readRef` and a few other bits here, but suffice it to say that we're fetching some values from the cog's "state" and binding them to `kvs`.
 
-The `jval` binding is doing most of the work here. The mandelbrot cog used some helper functions for JSON parsing while here the JSON encoding is happening directly inline with `JMAP` and related functions from the `json` library.  
+The `jval` binding is doing most of the work here. The mandelbrot cog we saw previously used some helper functions for JSON parsing while here the JSON encoding is happening directly inline with `JMAP` and related functions from the `json` library.  
 It's good to see both approaches.
 
 We won't go through this line-by-line - you can handle it by this stage. The broad strokes are:
 
 - For each of the timer cogs we know about, encode their statuses depending on which state they're in. These are encoded as a row of JSON objects (`JMAP`).
-- Get a JSON bar and appropriate headers and provide an HTTP 200 response with these.
+- Get a JSON bar and appropriate headers and provide an HTTP 200 response with these values.
 
 After doing two `POST /spin` requests to start a couple timers, a `GET /status` HTTP response provides this JSON body:
 

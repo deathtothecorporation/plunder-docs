@@ -6,7 +6,7 @@ description: 'Document Type: Reference'
 
 Our goal at this point is to get you familiar with enough of the Sire "standard library" of functions that you feel comfortable writing a basic cog. As such, this is not an exhaustive reference but an overview of common functions.  
 
-Feel free to skim this section for now and come back to it as needed while you work through building your first cogs.
+Feel free to skim this section for now and come back to it as needed while you work through the rest of the docs.
 
 ### `trk`
 
@@ -84,6 +84,8 @@ showNat "aa"
 {24929}
 ```
 
+If your eyes popped out of your head when you saw that last value (like mine did the first time I saw it), you'll want to [read this](/deeper/nat-representations.md)
+
 ### `natBar`
 
 Given a nat, will return its bar representation.
@@ -110,7 +112,7 @@ barNat x#9
 9
 barNat x#a
 10
-;; remember, x# is representing a byte-array as hexidecimal, in which the
+;; x# is representing a byte-array as hexidecimal, in which the
 ;; decimal number 10 is represented as hex 'a'.
 ```
 
@@ -233,7 +235,7 @@ unpackSome non
 
 ```sire
 ; if we have a value, we'll call the increment function on it
-; (remember our "som" maybe had the value 9
+; (remember our "som" maybe had the value 9)
 
 maybeCase som {got nothing} inc
 10
@@ -257,7 +259,7 @@ fmapMaybe non inc
 
 ## Tabs
 
-A tab is a map from noun to noun. Like a dict in Haskell or python.
+A tab is a map from noun to noun. Like a dict in Haskell or Python.
 
 ### Create a tab: `#[]` / `_MkTab`
 
@@ -379,35 +381,35 @@ Do a text-search on the `*.sire` files for a term that seems relevant (`slice`, 
 
 ### Rough explanation of the standard library files
 
-Below is a summary of each of the standard library files. Particularly helpful ones are annotated with a `*`. Files that require a more advanced understanding and can be skipped for now are annotated with a `!`. Most of these files primarily define lower-level dependencies that other higher-order (and easier to understand) subsequent functions rely on.
+Below is a summary of each of the standard library files. Particularly helpful ones for a beginner are annotated with a 👍. Files that require a more advanced understanding and can be skipped for now are annotated with a ❗. Most of these files primarily define lower-level dependencies that other higher-order (and easier to understand) subsequent functions rely on.
 
 - `sire_01_fan.sire` - Defines named wrappers around PLAN operations
 - `sire_02_bit.sire` - Booleans
 - `sire_03_nat.sire` - Natural numbers and operating on them
 - `sire_04_cmp.sire` - Comparison, ordering and equality
 - `sire_05_row.sire` - Rows and basic operations on them
-- `!` `sire_06_rex.sire` - Representation for rex trees - mostly needed for macros.
-- `*` `sire_07_dat.sire` - Data structures; rows, lists, maybe, either, etc.
-- `sire_10_str.sire` - ASCII characters and strings
+- ❗ `sire_06_rex.sire` - Representation for rex trees - mostly needed for macros.
+- 👍 `sire_07_dat.sire` - Data structures; rows, lists, maybe, either, etc.
+- 👍 `sire_10_str.sire` - ASCII characters and strings
 - `sire_11_set.sire` - Sets
-- `*` `sire_12_tab.sire` - Tabs
-- `!` `sire_13_exp.sire` - More rex and macro utilities
-- `!` `sire_14_hax.sire` - Explains how the `#` rune is used for macros
-- `!` `sire_15_pad.sire` - Bit-strings encoded as nats
-- `*` `sire_16_bar.sire` - Byte-arrays and operations
+- 👍 `sire_12_tab.sire` - Tabs
+- ❗ `sire_13_exp.sire` - More rex and macro utilities
+- ❗ `sire_14_hax.sire` - Explains how the `#` rune is used for macros
+- ❗ `sire_15_pad.sire` - Bit-strings encoded as nats
+- 👍 `sire_16_bar.sire` - Byte-arrays and operations
 - `sire_17_sug.sire` - Syntactic sugar and convenience macros
-- `!` `sire_18_pat.sire` - Pattern matching
-- `!` `sire_19_bst.sire` - Binary search trees
-- `!` `sire_20_prp.sire` - Sire properties
+- ❗ `sire_18_pat.sire` - Pattern matching
+- ❗ `sire_19_bst.sire` - Binary search trees
+- ❗ `sire_20_prp.sire` - Sire properties
 - `sire_21_switch.sire` - Atomic switch
-- `!` `sire_22_seed.sire` - Seed; serialization framework
-- `!` `sire_23_repl.sire` - REPL utilities
-- `!` `sire_24_rex.sire` - Rex
+- ❗ `sire_22_seed.sire` - Seed; serialization framework
+- ❗ `sire_23_repl.sire` - REPL utilities
+- ❗ `sire_24_rex.sire` - Rex
 - `sire_25_datatype.sire` - Datacase/Record
-- `!!` `sire_26_compile.sire` - Backend of the sire compiler
-- `!!` `sire_27_sire.sire` - Sire-in-sire; can be used to bootstrap itself
+- ⁉️ `sire_26_compile.sire` - Backend of the sire compiler
+- ⁉️ `sire_27_sire.sire` - Sire-in-sire; can be used to bootstrap itself
 
 Taking a look at this list above, you can also get a sense of how the Sire source files start at the basics of wrapping PLAN and incrementally build on each other until the full system is realized.  
-By starting with PLAN and going through all the files above, after a (relatively) small investment of time, you could understand the **entirety** of this computational model!
+By starting with PLAN and going through all the files above, after a (relatively) small investment of time, you could understand the **entirety** of this computational model. Pretty cool.
 
 Next we'll introduce some more advanced topics that you'll come across:

@@ -22,6 +22,7 @@
 * [Booting, Starting, Caching](a-simple-cog/booting-starting.md)
 * [JSON](a-simple-cog/json.md)
 * [Advanced Data Structures](sire/data-structures.md)
+* [Cog webserver end-to-end](/a-simple-cog/cog-web-end-to-end.md)
 * [Where To Go From Here](a-simple-cog/next.md)
 
 ## Deeper
