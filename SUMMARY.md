@@ -36,9 +36,5 @@
 
 ## PLAN
 
-* [Definition](plan/page-4.md)
-* [Explanation](plan/explanation.md)
-
-## Dustbin
-
-* [Trash](trash/trash.md)
+* [Definition](/plan/definition.md)
+* [Explanation](/plan/explanation.md)
