@@ -14,17 +14,10 @@
 
 * [Intro](sire/intro.md)
 * [Some Standard Library](sire/standard-library.md)
-* [Advanced Syntax To Recognize](sire/advanced.md)
+* [Bits To Recognize But Not Learn Yet](sire/advanced.md)
 
-## Kernel and IO
+## Cogs
 
-* [TODO: kernel state](kernel-and-io/kernel-state.md)
-* [IO primer](kernel-and-io/io.md)
-* [Cog primer](kernel-and-io/cogs.md)
-
-## A Simple "Web app" Cog
-
-* [Intro](a-simple-cog/intro.md)
 * ["Hello World" Cog](a-simple-cog/hello-world.md)
 * [Booting, Starting, Caching](a-simple-cog/booting-starting.md)
 * [TODO: UI files](a-simple-cog/ui-files.md)

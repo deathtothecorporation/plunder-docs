@@ -1,10 +1,12 @@
 # IO
 
 {% hint style="warning" %}
-**All below is TODO:**
+TODO. Don't read this yet.
 {% endhint %}
 
 ## IO and `runCog`
+
+- syscall, fork
 
 ```sire
 (runCog someCog)

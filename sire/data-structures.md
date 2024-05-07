@@ -7,6 +7,12 @@ description: 'Document Type: Reference'
 **TODO:** All below.
 {% endhint %}
 
+## `hmap`
+
+- hmLookup
+- hmInsert
+- hmSingleton
+
 ## `datacase`
 
 TODO: what is datacase
@@ -20,3 +26,10 @@ Explain in connection with updating cog state (perhaps from JSON requests)
 ---
 
 Now that we have an idea of the data record representation we'll be using, let's finally see how we persist this in a cog:
+
+
+body of the pin function ends at return ()
+
+look at gen
+
+write some functions with gen

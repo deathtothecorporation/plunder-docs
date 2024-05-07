@@ -3,6 +3,13 @@ description: 'Document Type: Tutorial'
 ---
 # TODO: "State"
 
+- getFiles
+  - `get*`, `set*` in general
+- readRef
+- writeRef
+- newRef
+
+
 {% hint style="warning" %}
 TODO: use `sire/vc_site_with_state.sire` as an example.
 

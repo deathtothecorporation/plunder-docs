@@ -1,9 +1,8 @@
 # Cogs
 
 {% hint style="warning" %}
-**All below is TODO:**
+TODO. Don't read this yet.
 {% endhint %}
-
 
 the state of every cog is a function.
 Let's say that you have state machine that takes in numbers, and spits out numbers.
