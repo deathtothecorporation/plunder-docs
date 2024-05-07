@@ -29,7 +29,7 @@ A few meta-points to note at the outset:
 
 * `;` is a comment in Sire. used here, it'll be to explain what's happening inline
 * The arrow keys won't work in the REPL. Use backspace. If you get into a strange state with carriage returns and are unable to backspace, just hit return a few times, ignore any errors, and start again.
-* The REPL will print ASCII values of integers. If you enter `65` you'll get back `%A`. Don't think about this too much yet, just use small numbers for you learnings here. We'll cover this in detail on the next page.
+* The REPL will print ASCII values of integers. If you enter `65` you'll get back `%A`. Don't think about this too much yet. We'll cover this in detail on the next page.
 
 ### Top-level binding - `=`
 
@@ -39,7 +39,7 @@ In the REPL:
 
 ```sire
 x=3
-; now just type an x and hit enter:
+; now just type x and hit enter:
 
 x ; the binding you are evaluating...
 3 ; the value returned from the REPL
@@ -72,7 +72,7 @@ add-1-3
 4
 ```
 
-Let's combine both of the above concepts to create our own named function. Note the way in this case you start the line with the `=` (and a space) and the name of the function is the first value after the opening parenthesis.
+Let's combine both of the above concepts to create our own named function. Note the way in this case you start the line with `=` (followed by a space) and the name of the function is the first value after the opening parenthesis.
 
 ```sire
 = (addTwo input)
@@ -89,7 +89,7 @@ The REPL now has a function named `addTwo` bound to its top-level scope. The fun
 ### Scoped/Let binding - `@`
 
 `@` binds a value to the present scope.\
-We can see this by trivially modifying our `addTwo` function to bind an arbitrary variable and use that for the addition:
+We can see this by trivially modifying our `addTwo` function to bind an arbitrary name and use that for the addition:
 
 ```sire
 = (addTwo originalInput)
@@ -100,7 +100,7 @@ We can see this by trivially modifying our `addTwo` function to bind an arbitrar
 6
 ```
 
-On the second line, we bound a new variable, `renamedInput` with the value of `originalInput`. Then `2` is added to this variable.
+On the second line, we bound a new name, `renamedInput` with the value of `originalInput`. Then `2` is added to it.
 
 To prove to yourself that `renamedInput` is only bound within the function scope, try calling it at the top-level of the REPL:
 
@@ -124,9 +124,9 @@ renamedInput
 
 The big takeaway from this section has to do with natural numbers, but we have to get a thing or two out of the way first about how the REPL deals with strings.
 
-The REPL renders strings in single curly braces, `{like this example}`. You can also enter a string this way, as in `= msg {hello world}` in order to bind the variable `msg` to the string `hello world`.
+The REPL renders strings in single curly braces, `{like this example}`. You can also enter a string this way, as in `= msg {hello world}` in order to bind the name `msg` to the string `hello world`.
 
-For a string without spaces, the REPL will opt to render it with a leading `%` as in `%houseboat`. Again, you can enter strings this way as well: `= color %blue` (which binds the string `blue` to the variable `color`). You may sometimes see this style referred to as an "atom" in some source files.
+For a string without spaces, the REPL will opt to render it with a leading `%` as in `%houseboat`. Again, you can enter strings this way as well: `= color %blue` (which binds the string `blue` to the name `color`). You may sometimes see this style referred to as an "atom" in some source files.
 
 It's worth mentioning that you _can enter_ a string with double-quotes as you may expect, but the REPL never prints them that way:
 
@@ -156,6 +156,8 @@ The REPL will represent these values as ASCII for printing purposes, which can b
 ;; Think of {curly braces} as you would "double quotes", as far as the
 ;; REPL is concerned.
 ```
+
+If this nat/string stuff is driving you crazy, the full explanation is [here](/deeper/nat-representations.md).
 
 ### Bar - byte-array, and Strings
 
@@ -274,8 +276,9 @@ Similarly, we have `neq` for "not equal". Also:
 `if` is a function with three parameters: what is being tested for truthiness; what to return if true; what to return if false.
 
 ```sire
-=?= {the if got a true} | if 1 {the if got a true} {the if got a false}
-;; assertion passes; the second parameter was returned.
+| if 1 {the if got a true} {the if got a false}
+; returns:
+{the if got a true}
 ```
 
 The `if` function's first parameter was `1`, a true value, so the second parameter was returned.
@@ -285,7 +288,9 @@ The `if` function's first parameter was `1`, a true value, so the second paramet
 Negation.
 
 ```sire
-=?= 1 | not FALSE
+| not FALSE
+; returns:
+1
 ```
 
 ### `and`, `or`

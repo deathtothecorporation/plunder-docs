@@ -2,7 +2,7 @@
 
 ## Docker
 
-If your system has Docker available you can simply pull use our Pallas image: https://github.com/deathtothecorporation/pallas-docker. That repo has [instructions](https://github.com/deathtothecorporation/pallas-docker) for quickly getting straight into a Sire REPL.
+If your system has Docker available you can simply pull use Pallas image [found here](https://github.com/deathtothecorporation/pallas-docker). That repo has [instructions](https://github.com/deathtothecorporation/pallas-docker) for quickly getting straight into a Sire REPL.
 
 Once you're in the REPL, you should see something this:
 
@@ -23,7 +23,7 @@ Once you're in the REPL, you should see something this:
 
 Try entering `(add 1 2)` and hitting enter.
 
-Let's [learn some more Sire now](sire/intro.md)
+Let's [learn some more Sire now](/sire/intro.md)
 
 ## From source
 
@@ -33,10 +33,6 @@ If you don't have Docker available, you can install from souce. First off, you'l
 
 > If your system does not or cannot run `nix`, you would need to install the Haskell and its build tool, `stack`, as well as `lmdb` and `zlib`. Once these requirements are satisfied, you can `stack install` at the root of the Pallas repo.
 > **Once again, we highly recommend docker or nix for now**. Once the runtime matures, running Pallas will be as easy as running a single binary.
-
-{% hint style="warning" %}
-TODO: is the above true? "running Pallas will be as easy as running a single binary."
-{% endhint %}
 
 Because the current runtime is somewhat experimental, enormous time has not been invested into portability just yet. As a result, using `nix` is the most straightforward way to get Pallas running. (installing and configuring `nix` is outside the scope of this guide. We recommend using Docker if you're unable to use `nix`)
 
@@ -48,7 +44,7 @@ nix develop
 
 You will forget to do this and wonder why nothing is working. That's probably why.
 
-Once you're in a nix development shell, run the following command to build the plunder environment:
+Once you're in a nix development shell, run the following command to build the Plunder environment:
 
 ```bash
 stack build
@@ -88,13 +84,13 @@ There is now a webserver running and you can access the app at the URL mentioned
 
 <figure><img src="../.gitbook/assets/mandelbrot-ui.png" alt=""><figcaption></figcaption></figure>
 
-Change the width and height to 100 and click "resize" (Keeping a small size for expediency). Then click "generate fractal". After a few seconds you'll see a fractal appear in the canvas. Congratulations, you just ran a plunder app.
+Change the width and height to 100 and click "resize" (Keeping a small size for expediency). Then click "generate fractal". After a few seconds you'll see a fractal appear in the canvas. Congratulations, you just ran a Plunder app.
 
 Soon you'll learn how to write one of your own.
 
 ## The `plunder` command and REPLs
 
-Enter this command in a shell (where you've remembered to first run `nix develop`):
+Enter this command in a shell at the root level of the pallas repo (where you've remembered to first run `nix develop`):
 
 ```
 plunder
@@ -153,5 +149,3 @@ You'll see something like this:
 ```
 
 Try entering `(add 1 2)` and hitting enter.
-
-Let's [learn some more Sire now](sire/intro.md)

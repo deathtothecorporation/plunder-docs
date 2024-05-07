@@ -1,6 +1,6 @@
 # Plunder
 
-We're going to explain a couple of special Plunder terms and then take a relatively deep tour into the big pieces that make the whole system works, down to the "bytecode" level.
+We're going to explain a couple of special Plunder terms and then take a relatively deep tour into the big pieces that make the whole system work, down to the "bytecode" level.
 
 ## Ships
 
@@ -21,7 +21,7 @@ ship1
 
 ## Cogs
 
-A "Cog" is a is a persistent process running on a ship. Cogs snapshot state and write inputs to an event log. They recover state after a restart by loading a recent snapshot and re-applying inputs. Cogs interact with the world by making system calls - which are included as part of their state (thus a cog's set of system calls also resume after a restart).
+A "Cog" is a persistent process running on a ship. Cogs snapshot state and write inputs to an event log. They recover state after a restart by loading a recent snapshot and re-applying inputs. Cogs interact with the world by making system calls - which are included as part of their state (thus a cog's set of system calls also resume after a restart).
 
 ## Persistence, PLAN
 
@@ -53,7 +53,7 @@ In these steps, we started with an empty list.\
 But if we had started with `[1, 2]` and done `append 3` the result would have been `[1, 2, 3]`. Likewise, if we had started with `[1]` and done `append 2` the result would have been `[1, 2]`, etc.
 
 The pattern to notice here is: given a current state and an input, we can reliably compute a next state.\
-Taking that step further: if you have a starting state, the proper transition function that modifies the state for a given input, **and a log of **_**all**_** inputs**, you have a strategy for persistence of any current state.
+Taking that step further: if you have a starting state, the proper transition function that modifies the state for a given input, **and a log of _all_ inputs**, you have a strategy for persistence of any current state.
 
 The transition function `T` takes a `state` and an `input` and returns a `newState` and a new transition function `T'` which is ready for the next input:
 
@@ -83,7 +83,7 @@ PLAN is a data structure for supercombinators (and it's supercombinators, recurs
 
 ### PLAN
 
-PLAN is concrete, concise, and relatively readable, considering it's essentially a compiler binary (try reading the compiler binary of other systems).\
+PLAN is concrete, concise, and relatively readable, considering it's essentially a compiler binary (try reading the compiler binary of other systems).
 
 
 It's also fast to compile to and easy to map back and forth between memory and disk - which is how you get a [single-level store](https://en.wikipedia.org/wiki/Single-level\_store) that essentially makes no distinction between in-memory and on-disk. Unplug it while it's running, move it to another physical machine and turn it back on and it picks up right where it left off.
@@ -110,7 +110,7 @@ No. You've (hopefully) gotten used to thinking about this system as a database e
 
 ### Sire
 
-Sire is a sort of Lispy-Haskell, whose purpose is to provide an ergonomic experience sitting between a programmer's goals and the resulting PLAN that achieves these goals (We'll get into [programming with Sire itself](sire/intro.md) a little later). Sire compiles _itself_ to the PLAN data model we saw above.
+Sire is a sort of Lispy-Haskell whose purpose is to provide an ergonomic experience sitting between a programmer's goals and the resulting PLAN that achieves these goals (We'll get into [programming with Sire itself](sire/intro.md) a little later). Sire compiles _itself_ to the PLAN data model we saw above.
 
 Below is the entire PLAN specification. Remember, PLAN is basically just the lambda calculus but without an implicit environment.  
 Don't get scared off or try to understand it just yet (or even _ever_, if you so choose), we're just showing off that it can fit on one page:
@@ -154,7 +154,7 @@ P(p,l,a,n,{n a b}) = (l n a b)          |     x <- R(n+1,f,v)
 P(p,l,a,n,x:@}     = (n x)              |     R(n+1,f,b)
 ```
 
-A plucky computer science student could translate this to C, Rust or Python. A minimal but performant Haskell implementation is 180 lines.
+A plucky computer science student could translate this to C, Rust, Python - whatever language they prefer. A minimal but performant Haskell implementation is 180 lines.
 
 The Sire compiler is just 2000 lines of Sire. Plunder has a compiled version _of the Sire compiler_ (that's `Sire-in-PLAN`) that we feed to the runtime system, thereby bootstrapping a complete, extendable development environment.
 
@@ -191,7 +191,7 @@ These are all the dependencies that the `foldr` function relies on.
 Take a look at the `(id a)=a` line. It's a function named `id` that takes a single value `a` and simply returns it.\
 Now look at `_Not` above. It appears to be a function that takes an argument `a`, and `_If` `a` is true, it returns `0` (or false), otherwise it returns `1` (or true). Not so bad.
 
-Other bits are a little less clear to us right now, but the point remains: A programmer familiar with this system could verify the "compiler binaries" without trusting. There is nowhere for malicious code to hide.
+Other bits are a little less clear to us right now, but the point remains: A programmer familiar with this system could verify the "compiler binaries" without trusting anyone. There is nowhere for malicious code to hide.
 
 ---
 
