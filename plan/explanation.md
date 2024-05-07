@@ -35,22 +35,9 @@ The `E()` function is responsible for evaluating an expression to its weak head 
        * It recursively calls `E()` on the updated `o` to continue the evaluation process.
 2. Finally, it returns the evaluated expression `o`.
 
-The `E()` function implements the evaluation strategy of the PLAN language, which is based on weak head normal form reduction. The goal is to evaluate an expression to a point where the outermost constructor is known, without necessarily evaluating the subexpressions.
-
-Here's a step-by-step breakdown of the evaluation process:
-
-1. If the expression is a hole (`'hol'`), it raises an exception, as evaluating a hole is not allowed and indicates a loop or an undefined value.
-2. If the expression is an application (`'app'`), it first evaluates the function (head of the application) to its WHNF by recursively calling `E()` on it.
-3. If the evaluated function has an arity of 1, it means the function is saturated (has enough arguments to be applied). In this case:
-   * It simplifies the expression by removing any unnecessary pins in the head of the application using the `S()` function.
-   * It performs one step of simplification on the saturated expression by calling `X(o, o)`, which applies the function to its argument and returns the simplified result.
-   * It updates the expression `o` with the simplified result.
-   * It recursively calls `E()` on the updated expression to continue the evaluation process until the WHNF is reached.
-4. If the expression is not an application or the function is not saturated, the evaluation stops, and the expression is considered to be in WHNF.
-
 The `E()` function relies on the `A()` function to determine the arity of a function, the `S()` function to simplify the expression by removing unnecessary pins, and the `X()` function to perform the actual simplification step on a saturated expression.
 
-The evaluation process continues recursively until the expression reaches its WHNF, which is a point where the outermost constructor is known, and no further reduction can be performed without evaluating the subexpressions.
+The evaluation process continues recursively until the expression reaches its WHNF.
 
 ## The X() Function
 

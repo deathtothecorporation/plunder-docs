@@ -27,14 +27,14 @@
 ## Deeper
 
 * [Various Nat Representations](deeper/nat-representations.md)
-* [UI files](a-simple-cog/ui-files.md)
+* [UI files](deeper/ui-files.md)
 * [Seed files](sire/seeds.md)
 * [Boot process](deeper/boot-process.md)
 * [Plunder vs Pallas](deeper/pallas.md)
-* [Cogs in depth](/deeper/cogs.md)
+* [Cogs in depth](deeper/cogs.md)
 * [Jets](deeper/jets.md)
 
 ## PLAN
 
-* [Definition](/plan/definition.md)
-* [Explanation](/plan/explanation.md)
+* [Definition](plan/definition.md)
+* [Explanation](plan/explanation.md)
