@@ -17,7 +17,7 @@ If you got adventurous in the previous section, you may have experimented with
 deleting the `~/my_ships/hello_world` ship directory and running the 
 
 ```
-plunder boot ~/my_ships/hello_world sire/test_cog.sire
+plunder boot ~/my_ships/hello_world sire/hello_world_cog.sire
 ```
 
 Command a second time.
@@ -30,17 +30,17 @@ The output would have ended with something like:
 ```
 ("datom","LOADED FROM CACHE!")
 ("prelude","LOADED FROM CACHE!")
-("test_cog","LOADED FROM CACHE!")
+("hello_world_cog","LOADED FROM CACHE!")
 ```
 
-Notice that your `test_cog.sire` file is being mentioned here in the `"LOADED
+Notice that your `hello_world_cog.sire` file is being mentioned here in the `"LOADED
 FROM CACHE!"` message.
 
 {% hint style="warning" %}
 TODO: Explain the cache and state machines
 {% endhint %}
 
-If you _change_ `test_cog.sire`, delete the ship, and re-boot, you'll get a
+If you _change_ `hello_world_cog.sire`, delete the ship, and re-boot, you'll get a
 fresh run with the new code (say we changed our `trk` string):
 
 ```
@@ -83,19 +83,14 @@ Shutting down...
 Hm, it didn't `trk` "hello world" - it just seemed to immediately shut down
 again.
 
-{% hint style="warning" %}
-TODO: explain why some cogs stop and others keep running.  
-But we probably want to do this in a subsequent section, actually.
-{% endhint %}
-
 ## Another Example Cog
 
-Here's another simple cog, `countdown.sire`, to illustrate this concept:
+Here's another simple cog, `countdown_cog.sire`, to illustrate this concept:
 
 ```sire
-#### countdown <- prelude
+#### countdown_cog <- prelude
 
-/+  prelude
+:|  prelude
 
 ;;;;;
 
@@ -110,13 +105,10 @@ Here's another simple cog, `countdown.sire`, to illustrate this concept:
 main=(runCog | countDownFrom 5)
 ```
 
-This is a simple looping/recursive cog. On each run, it starts off with a
-counter value and stores the current time to the binding `now` by asking the
-system `TIME_WHEN` (we'll discuss `syscall` more later). On the next line it
-prints out that time.  
-Then it checks if the counter value `isZero`. If it is, it
-prints out a completion message, otherwise it decrements the counter value
-(`(dec count)`) and recursively calls itself with that updated value.
+This is a simple looping/recursive cog. On each run, it starts off with a counter value and stores the current time to the binding `now` by asking the host machine `TIME_WHEN` (we'll discuss `syscall` more later). On the next line it prints out that time.  
+Then it checks if the counter value `isZero`. If it is, it prints out a completion message, otherwise it decrements the counter value (`(dec count)`) and recursively calls itself with that updated value.
+
+Incidentally, this is also the first time we're seeing indentation in sire.
 
 Another detail to notice here: in `main=` we're passing the argument `5` to the
 `countDownFrom` function: `main=(runCog | countDownFrom 5)`.
@@ -126,14 +118,12 @@ Here's a reminder of the binding for `countDownFrom`:
 = (countDownFrom count return)
 ```
 
-`countDownFrom` takes an additional arguments, `count`, along with the usual
-`return`. So when we kick the cog off, we have to provide that `count` value,
-which the simple function uses for its loop iterations.
+`countDownFrom` takes an additional arguments, `count`, along with the usual `return`. So when we kick the cog off, we have to provide that `count` value, which the simple function uses for its loop iterations.
 
 Let's boot it:
 
 ```
-plunder boot ~/my-ships/countdown sire/countdown.sire
+plunder boot ~/my-ships/countdown sire/countdown_cog.sire
 ```
 
 ```
@@ -201,11 +191,8 @@ _http_port=35509
 ++ [%currentCount 1 %currentTime 1705505764]
 
 
-Shutting down...
-
 ++ [%trk {2024-01-17T15:36:04.53489128Z}]
 ++ [%currentCount 0 %currentTime 1705505764]
-
 
 
 ++ [%trk {2024-01-17T15:36:04.534922057Z}]
@@ -215,7 +202,7 @@ Shutting down...
 Now we see the `trk` output, counting down from the `count` value we provided.
 
 Try deleting the `~/my-ships/countdown` directory, re-booting and re-starting
-without changing anything about `countdown.sire`. You'll notice that you get the
+without changing anything about `countdown_cog.sire`. You'll notice that you get the
 `trk` output every time you re-boot and re-start even though you didn't change
 the source code.
 
@@ -227,4 +214,4 @@ the call out with `syscall` is going to result in different values on each boot.
 
 # Next
 
-Next up, we'll look at how to stand up a web interface to a long-running cog.
+Our next goal is to construct a long-running cog that acts as a web server and keeps some state. In order to talk to a web client, our cog will need to reply in a manner that the browser understands. Beyond basic HTTP codes, we also want to send back useful data, and we're going to do so in JSON. So we'll take a little detour into how to encode plunder nats as JSON.

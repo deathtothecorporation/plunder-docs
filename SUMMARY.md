@@ -20,10 +20,10 @@
 
 * ["Hello World" Cog](a-simple-cog/hello-world.md)
 * [Booting, Starting, Caching](a-simple-cog/booting-starting.md)
-* [TODO: UI files](a-simple-cog/ui-files.md)
-* [TODO: JSON](a-simple-cog/json.md)
+* [JSON](a-simple-cog/json.md)
 * [Advanced Data Structures](sire/data-structures.md)
 * [TODO: Persisting, Modifying, and Querying State](a-simple-cog/state.md)
+* [TODO: UI files](a-simple-cog/ui-files.md)
 * [Where To Go From Here](a-simple-cog/next.md)
 
 ## Deeper

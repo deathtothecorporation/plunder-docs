@@ -3,6 +3,8 @@ description: 'Document Type: Tutorial'
 ---
 # TODO: "State"
 
+do the runcog demo here
+
 - getFiles
   - `get*`, `set*` in general
 - readRef
