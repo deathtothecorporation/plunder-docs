@@ -8,6 +8,7 @@ Check back for additional web app tutorials. We plan to add example implementati
 
 Additional topics:
 
+* [UI files served by cogs](/deeper/ui-files.md)
 * PLAN in depth
 * [Seed files](sire/seeds.md)
 * [Boot process](overview/boot.md)

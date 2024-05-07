@@ -11,6 +11,8 @@ learn regardless
 
 
 {% hint style="warning" %}
+A final note on UI files
+
 **TODO:** Fill out this explanation
 
 - [ ] Use mandelbrot UI as an example (since they've seen it already earlier on)
