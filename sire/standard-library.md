@@ -261,13 +261,13 @@ fmapMaybe non inc
 
 A tab is a map from noun to noun. Like a dict in Haskell or Python.
 
-### Create a tab: `#[]` / `_MkTab`
+### Create a tab: `#[]` / `tabFromPairs`
 
-To create a tab, you can use the `_MkTab` function or the `#[]` syntax.  
-`_MkTab` accepts two rows of nats for the keys and values, while `#[]` works more like a row of bindings.
+To create a tab, you can use the `tabFromPairs` function or the `#[]` syntax.  
+`tabFromPairs` accepts two rows of nats for the keys and values, while `#[]` works more like a row of bindings.
 
 ```sire
-= t | _MkTab [{one} {two} {three}] [1 2 3]
+= t | tabFromPairs [{one} {two} {three}] [1 2 3]
 ;; returns:
 t=[one=1 two=2 three=3]
 
