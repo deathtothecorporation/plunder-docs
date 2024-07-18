@@ -1,10 +1,10 @@
-# Plunder
+# Pallas
 
-We're going to explain a couple of special Plunder terms and then take a relatively deep tour into the big pieces that make the whole system work, down to the "bytecode" level.
+We're going to explain a couple of special Pallas terms and then take a relatively deep tour into the big pieces that make the whole system work, down to the "bytecode" level.
 
 ## Ships
 
-A Plunder Virtual Machine is colloquially referred to as a "Ship". On the host filesystem, a ship consists of a directory containing a `data.mdb`, `lock.mdb` and a `pins` directory:
+A Pallas Virtual Machine is colloquially referred to as a "Ship". On the host filesystem, a ship consists of a directory containing a `data.mdb`, `lock.mdb` and a `pins` directory:
 
 ```
 $ tree my-ships/ship1
@@ -25,10 +25,10 @@ A "Cog" is a persistent process running on a ship. Cogs snapshot state and write
 
 ## Persistence, PLAN
 
-PLAN is an evaluation model (you could think of this as the "machine code" of a Plunder VM) that implements a self-contained, purely-functional database with no external dependencies.\
+PLAN is an evaluation model (you could think of this as the "machine code" of a Pallas VM) that implements a self-contained, purely-functional database with no external dependencies.\
 That sounds vaguely intriguing, in the abstract, but what does it actually mean and what does this provide for you, in practice?
 
-We've mentioned purely functional systems and data persistence a few times so far. A deeper discussion of the PLAN data structure will bring these two concepts together, but before we inspect PLAN itself ("what is this 'PLAN' thing you keep mentioning?!") we have to take a brief detour into how the Plunder VM achieves persistence.
+We've mentioned purely functional systems and data persistence a few times so far. A deeper discussion of the PLAN data structure will bring these two concepts together, but before we inspect PLAN itself ("what is this 'PLAN' thing you keep mentioning?!") we have to take a brief detour into how the Pallas VM achieves persistence.
 
 ### Persistence; Event Log; Database Engine
 
@@ -61,7 +61,7 @@ The transition function `T` takes a `state` and an `input` and returns a `newSta
 
 Because we're in a purely functional environment, we know that running all the inputs in the log will get us back to the last state. This means you get a database engine just by writing functions.
 
-You may have gotten the wrong idea: that the programmer has to `include` some kind of event log library or manually cache the current state. No, the persistence strategy outlined above is handled by the runtime automatically for all applications in Plunder. It only needs to be implemented once and it's trivially available to all applications. Because of this, it also means that optimizations happen in the runtime and are also available to all applications.
+You may have gotten the wrong idea: that the programmer has to `include` some kind of event log library or manually cache the current state. No, the persistence strategy outlined above is handled by the runtime automatically for all applications in Pallas. It only needs to be implemented once and it's trivially available to all applications. Because of this, it also means that optimizations happen in the runtime and are also available to all applications.
 
 One such optimization is snapshotting the current state to avoid recomputing from the event log on restarts.
 
@@ -156,7 +156,7 @@ P(p,l,a,n,x:@}     = (n x)              |     R(n+1,f,b)
 
 A plucky computer science student could translate this to C, Rust, Python - whatever language they prefer. A minimal but performant Haskell implementation is 180 lines.
 
-The Sire compiler is just 2000 lines of Sire. Plunder has a compiled version _of the Sire compiler_ (that's `Sire-in-PLAN`) that we feed to the runtime system, thereby bootstrapping a complete, extendable development environment.
+The Sire compiler is just 2000 lines of Sire. Pallas has a compiled version _of the Sire compiler_ (that's `Sire-in-PLAN`) that we feed to the runtime system, thereby bootstrapping a complete, extendable development environment.
 
 We aren't asking you to _trust_ our `Sire-in-PLAN` file. Since PLAN code is relatively readable, a programmer familiar with the system can verify it directly.
 

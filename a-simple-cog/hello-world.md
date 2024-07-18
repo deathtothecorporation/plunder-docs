@@ -26,15 +26,15 @@ main=(runCog helloWorld)
 
 Before we inspect the code, let's run it and see something happen!  
 
-First, create the file `sire/hello_world_cog.sire` (within the plunder repo, right next to all the other `sire/*.sire` files) with the above contents and save it.
+First, create the file `sire/hello_world_cog.sire` (within the pallas repo, right next to all the other `sire/*.sire` files) with the above contents and save it.
 
-Now, choose a directory where you want your plunder ships/VMs to get created. We'll use a
+Now, choose a directory where you want your pallas ships/VMs to get created. We'll use a
 `my_ships` directory for the examples here. We'll proclaim that the name of the
 ship (the directory name) that contains this cog will be `hello_world`. Thus, the command to boot
 this ship and initiate this cog is (you remembered to `nix develop` right?):
 
 ```
-plunder boot ~/my_ships/hello_world sire/hello_world_cog.sire
+pallas boot ~/my_ships/hello_world sire/hello_world_cog.sire
 ```
 
 When you run this command, you'll see a whole bunch of output, with something
@@ -54,7 +54,7 @@ main=(KERNEL [0 0] 0 [0] [0])
 ("cache hash","7y5a286DrMFXWwSJBiPAXYnpoYjqEfJcvSJuiBw1GKV4")
 ```
 
-Congratulations, you've booted a plunder ship that runs a single cog which logs a string to the terminal.
+Congratulations, you've booted a pallas ship that runs a single cog which logs a string to the terminal.
 
 # Understanding the Cog
 

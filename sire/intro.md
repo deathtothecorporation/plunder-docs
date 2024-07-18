@@ -2,7 +2,7 @@
 
 ## Intro to Sire
 
-As already discussed, the _point_ of Sire is to get back PLAN. It is also possible to compile mainstream functional languages to PLAN. At that point, much Plunder development—including full-stack web applications—will be accomplished by writing in those languages only, leaving Sire only responsible for code that needs to be optimized by the runtime (like new crypto libraries, say).
+As already discussed, the _point_ of Sire is to get back PLAN. It is also possible to compile mainstream functional languages to PLAN. At that point, much Pallas development—including full-stack web applications—will be accomplished by writing in those languages only, leaving Sire only responsible for code that needs to be optimized by the runtime (like new crypto libraries, say).
 
 Until that time, we'll be writing Sire. But since our immediate goal for the moment is to build a cog that runs and does some stuff, we're not going to learn every character and nuance of Sire syntax. Just enough.  
 Don't worry if you don't fully understand _how_ a line of code does what it does, but do make sure you have a handle on _what_ it's doing.
@@ -13,7 +13,7 @@ Open up a bootstrapped Sire REPL. As a reminder:
 
 ```
 nix develop
-plunder sire sire/prelude.sire
+pallas sire sire/prelude.sire
 ```
 
 Or if you're using the docker images:
@@ -140,7 +140,7 @@ It is for this reason we suggest you get used to the `{}` and `%` style.
 
 ### Nat - natural number
 
-All values in Plunder are stored in memory as natural numbers. Throughout the system, these are referred to as "nats". They're sometimes also called "nouns".  
+All values in Pallas are stored in memory as natural numbers. Throughout the system, these are referred to as "nats". They're sometimes also called "nouns".  
 The REPL will represent these values as ASCII for printing purposes, which can be confusing at first and should be noted up front. For instance, the character `a` is encoded as `97` in ASCII:
 
 ```sire
@@ -319,4 +319,4 @@ or 0 0
 
 This was a brief overview of the nuts and bolts of Sire. Printing out bars in the REPL is fun and all, but our goal is to build a web app, not test the limit of how many "hello world" strings we can fit in our terminal scrollback.  
 
-Next we'll take a look at a small sample of the standard library that we'll use while building our first Plunder Cog.
+Next we'll take a look at a small sample of the standard library that we'll use while building our first Pallas Cog.

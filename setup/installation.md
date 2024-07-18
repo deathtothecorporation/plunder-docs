@@ -1,8 +1,8 @@
 # Environment Setup
 
-## Docker
+## Docker quickstart
 
-If your system has Docker available you can simply pull use Pallas image [found here](https://github.com/deathtothecorporation/pallas-docker). That repo has [instructions](https://github.com/deathtothecorporation/pallas-docker) for quickly getting straight into a Sire REPL.
+If you're interested in the quickest way to get a Sire REPL and start playing with the language and you have Docker on your system, you can simply pull the Pallas image [found here](https://github.com/deathtothecorporation/pallas-docker). That repo has [instructions](https://github.com/deathtothecorporation/pallas-docker) for quickly getting straight into a Sire REPL.
 
 Once you're in the REPL, you should see something this:
 
@@ -25,14 +25,94 @@ Try entering `(add 1 2)` and hitting enter.
 
 Let's [learn some more Sire now](/sire/intro.md)
 
-## From source
+## Prebuilt binary
 
-If you don't have Docker available, you can install from souce. First off, you'll need the Plunder source code. The Vaporware project maintains a fork of Plunder (called Pallas. You can read more about the distinction [here](/deeper/pallas.md)). Clone it from [https://github.com/deathtothecorporation/pallas](https://github.com/deathtothecorporation/pallas). The rest of this guide will assume you're at the root of that repo.
+1. Install dependencies:
+
+Dependencies:
+- libgmp (GNU Multiple Precision Arithmetic Library)
+- liblmdb (Lightning Memory-Mapped Database)
+- libz (zlib compression library)
+
+On Ubuntu or Debian-based systems, you can install these with:
+
+```console
+sudo apt-get update && sudo apt-get install -y \
+    libgmp10 \
+    liblmdb0 \
+    zlib1g
+```
+
+On MacOS, [Homebrew](https://brew.sh/) is a good option (assumes you have Homebrew installed):
+
+```console
+brew install gmp lmdb zlib
+```
+
+2. Get a prebuilt binary:
+
+Currently we provide the following prebuilt binaries:
+- Linux x86_64: [https://pallas-binaries.nyc3.cdn.digitaloceanspaces.com/linux_x86_64/pallas](https://pallas-binaries.nyc3.cdn.digitaloceanspaces.com/linux_x86_64/pallas)
+- Mac arm64/aarch64 (M1 macs): [https://pallas-binaries.nyc3.cdn.digitaloceanspaces.com/apple_m1_arm64/pallas](https://pallas-binaries.nyc3.cdn.digitaloceanspaces.com/apple_m1_arm64/pallas)
+
+Your browser may not prompt to download these files, in which case you can use `cURL`:
+
+`curl -L <URL of your choice here> -o pallas`
+
+Make it executable and move it somewhere on your path.
+
+3. Run the `pallas` binary to confirm all is well:
+
+```console
+$ pallas
+
+Run a Pallas machine
+
+Usage: pallas COMMAND
+
+  Pallas
+
+Available options:
+  -h,--help                Show this help text
+
+Available commands:
+  sire                     Run a standalone Sire repl.
+  save                     Load a sire file and save a seed.
+  show                     Print a seed file.
+  repl                     Interact with a seed file.
+  start                    Resume an idle machine.
+  boot                     Boot a machine.
+```
+
+4. Get a Sire REPL:
+
+Clone [the Pallas repository](https://github.com/operating-function/pallas) and navigate to its root. Then run:
+
+```console
+$ pallas sire sire/prelude.sire
+...
+...
+("prelude","LOADED FROM CACHE!")
+
+}
+} ==== Sire REPL ====
+}
+} Since input is multi-line, there is currently no input-prompt.
+} Just type away!
+}
+
+```
+
+(Ctrl-C to get out of the REPL)
+
+
+## Install from source
+
+First off, you'll need the Pallas source code. Clone it from [https://github.com/operating-function/pallas](https://github.com/operating-function/pallas). The rest of this guide will assume you're at the root of that repo.
 
 ### Dependency installation and first-run
 
 > If your system does not or cannot run `nix`, you would need to install the Haskell and its build tool, `stack`, as well as `lmdb` and `zlib`. Once these requirements are satisfied, you can `stack install` at the root of the Pallas repo.
-> **Once again, we highly recommend docker or nix for now**. Once the runtime matures, running Pallas will be as easy as running a single binary.
 
 Because the current runtime is somewhat experimental, enormous time has not been invested into portability just yet. As a result, using `nix` is the most straightforward way to get Pallas running. (installing and configuring `nix` is outside the scope of this guide. We recommend using Docker if you're unable to use `nix`)
 
@@ -44,7 +124,7 @@ nix develop
 
 You will forget to do this and wonder why nothing is working. That's probably why.
 
-Once you're in a nix development shell, run the following command to build the Plunder environment:
+Once you're in a nix development shell, run the following command to build the Pallas environment:
 
 ```bash
 stack build
@@ -73,7 +153,7 @@ _http_port=56191
 
 
 = _http_port_file
-} /home/your-user/plunder/.demo/4172716296342791002.http.port
+} /home/your-user/pallas/.demo/4172716296342791002.http.port
 
 
 Setting interface files...
@@ -84,26 +164,26 @@ There is now a webserver running and you can access the app at the URL mentioned
 
 <figure><img src="../.gitbook/assets/mandelbrot-ui.png" alt=""><figcaption></figcaption></figure>
 
-Change the width and height to 100 and click "resize" (Keeping a small size for expediency). Then click "generate fractal". After a few seconds you'll see a fractal appear in the canvas. Congratulations, you just ran a Plunder app.
+Change the width and height to 100 and click "resize" (Keeping a small size for expediency). Then click "generate fractal". After a few seconds you'll see a fractal appear in the canvas. Congratulations, you just ran a Pallas app.
 
 Soon you'll learn how to write one of your own.
 
-## The `plunder` command and REPLs
+## The `pallas` command and REPLs
 
 Enter this command in a shell at the root level of the pallas repo (where you've remembered to first run `nix develop`):
 
 ```
-plunder
+pallas
 ```
 
-As of the time of this writing, you'll see the usage hint for the `plunder` command:
+As of the time of this writing, you'll see the usage hint for the `pallas` command:
 
 ```
-new-network - a test for running plunder machines
+new-network - a test for running pallas machines
 
-Usage: plunder COMMAND
+Usage: pallas COMMAND
 
-  Let's run plunder.
+  Let's run pallas.
 
 Available options:
   -h,--help                Show this help text
@@ -128,7 +208,7 @@ While the `repl` command looks attractive, it's not going to do exactly what you
 There is a particular boot sequence required before we have all the necessary tools at hand. Since we want our environment to be hydrated properly, we'll execute the proper boot sequence in order to get a working REPL:
 
 ```
-plunder sire sire/prelude.sire
+pallas sire sire/prelude.sire
 ```
 
 You'll see something like this:

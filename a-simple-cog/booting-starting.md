@@ -14,7 +14,7 @@ If you got adventurous in the previous section, you may have experimented with
 deleting the `~/my_ships/hello_world` ship directory and running the 
 
 ```
-plunder boot ~/my_ships/hello_world sire/hello_world_cog.sire
+pallas boot ~/my_ships/hello_world sire/hello_world_cog.sire
 ```
 
 Command a second time.
@@ -50,7 +50,7 @@ fresh run with the new code (say we changed our `trk` string):
 
 # Booting vs Starting
 
-When you `plunder boot`, it creates a machine and runs the cog code (which is when we saw the `trk`
+When you `pallas boot`, it creates a machine and runs the cog code (which is when we saw the `trk`
 output). But you may have noticed that the ship _shut down_ after completing
 that task. Most of the time you want a ship to keep running and continue talking
 to the outside world.
@@ -59,7 +59,7 @@ To start an existing machine, you use the `start` command:
 
 
 ```
-plunder start ~/my-ships/hello_world
+pallas start ~/my-ships/hello_world
 ```
 
 ```
@@ -120,7 +120,7 @@ Here's a reminder of the binding for `countDownFrom`:
 Let's boot it:
 
 ```
-plunder boot ~/my-ships/countdown sire/countdown_cog.sire
+pallas boot ~/my-ships/countdown sire/countdown_cog.sire
 ```
 
 ```
@@ -149,7 +149,7 @@ Coming soon: This will be explained
 Let's start the cog:
 
 ```
-plunder start ~/my-ships/countdown
+pallas start ~/my-ships/countdown
 ```
 
 ```
@@ -209,4 +209,4 @@ Coming soon: This will be explained
 
 # Next
 
-Our next goal is to construct a long-running cog that acts as a web server and keeps some state. In order to talk to a web client, our cog will need to reply in a manner that the browser understands. Beyond basic HTTP codes, we also want to send back useful data, and we're going to do so in JSON. So we'll take a little detour into how to encode Plunder nats as JSON.
+Our next goal is to construct a long-running cog that acts as a web server and keeps some state. In order to talk to a web client, our cog will need to reply in a manner that the browser understands. Beyond basic HTTP codes, we also want to send back useful data, and we're going to do so in JSON. So we'll take a little detour into how to encode Pallas nats as JSON.
