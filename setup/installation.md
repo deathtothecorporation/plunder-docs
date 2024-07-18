@@ -27,7 +27,7 @@ Let's [learn some more Sire now](/sire/intro.md)
 
 ## From source
 
-If you don't have Docker available, you can install from souce. First off, you'll need the Plunder source code. The Vaporware project maintains a fork of Plunder (called Pallas. You can read more about the distinction [here](/deeper/pallas.md)). Clone it from [https://github.com/deathtothecorporation/pallas](https://github.com/deathtothecorporation/pallas). The rest of this guide will assume you're at the root of that repo.
+If you don't have Docker available, you can install from souce. First off, you'll need the Pallas source code. The Vaporware project maintains a fork of Pallas (called Pallas. You can read more about the distinction [here](/deeper/pallas.md)). Clone it from [https://github.com/deathtothecorporation/pallas](https://github.com/deathtothecorporation/pallas). The rest of this guide will assume you're at the root of that repo.
 
 ### Dependency installation and first-run
 
@@ -44,7 +44,7 @@ nix develop
 
 You will forget to do this and wonder why nothing is working. That's probably why.
 
-Once you're in a nix development shell, run the following command to build the Plunder environment:
+Once you're in a nix development shell, run the following command to build the Pallas environment:
 
 ```bash
 stack build
@@ -73,7 +73,7 @@ _http_port=56191
 
 
 = _http_port_file
-} /home/your-user/plunder/.demo/4172716296342791002.http.port
+} /home/your-user/pallas/.demo/4172716296342791002.http.port
 
 
 Setting interface files...
@@ -84,26 +84,26 @@ There is now a webserver running and you can access the app at the URL mentioned
 
 <figure><img src="../.gitbook/assets/mandelbrot-ui.png" alt=""><figcaption></figcaption></figure>
 
-Change the width and height to 100 and click "resize" (Keeping a small size for expediency). Then click "generate fractal". After a few seconds you'll see a fractal appear in the canvas. Congratulations, you just ran a Plunder app.
+Change the width and height to 100 and click "resize" (Keeping a small size for expediency). Then click "generate fractal". After a few seconds you'll see a fractal appear in the canvas. Congratulations, you just ran a Pallas app.
 
 Soon you'll learn how to write one of your own.
 
-## The `plunder` command and REPLs
+## The `pallas` command and REPLs
 
 Enter this command in a shell at the root level of the pallas repo (where you've remembered to first run `nix develop`):
 
 ```
-plunder
+pallas
 ```
 
-As of the time of this writing, you'll see the usage hint for the `plunder` command:
+As of the time of this writing, you'll see the usage hint for the `pallas` command:
 
 ```
-new-network - a test for running plunder machines
+new-network - a test for running pallas machines
 
-Usage: plunder COMMAND
+Usage: pallas COMMAND
 
-  Let's run plunder.
+  Let's run pallas.
 
 Available options:
   -h,--help                Show this help text
@@ -128,7 +128,7 @@ While the `repl` command looks attractive, it's not going to do exactly what you
 There is a particular boot sequence required before we have all the necessary tools at hand. Since we want our environment to be hydrated properly, we'll execute the proper boot sequence in order to get a working REPL:
 
 ```
-plunder sire sire/prelude.sire
+pallas sire sire/prelude.sire
 ```
 
 You'll see something like this:

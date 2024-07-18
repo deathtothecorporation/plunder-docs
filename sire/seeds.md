@@ -9,4 +9,3 @@ TODO: Explanation of seed files and serializiation.
 
 For now: [https://git.sr.ht/~plan/plunder/tree/master/item/doc/seed](https://git.sr.ht/~plan/plunder/tree/master/item/doc/seed)
 {% endhint %}
-

@@ -6,7 +6,7 @@ description: 'Document Type: Explanation'
 
 ## Handling JSON requests
 
-We're going to look at some selections from the `sire/demo_mandelbrot_ui.sire` cog that you saw when you first installed Plunder on your system.
+We're going to look at some selections from the `sire/demo_mandelbrot_ui.sire` cog that you saw when you first installed Pallas on your system.
 
 ```sire
 :| json
@@ -205,6 +205,6 @@ content-type: application/json
 
 ---
 
-Plunder is talking JSON to a web browser. Very nice.
+Pallas is talking JSON to a web browser. Very nice.
 
 We promised to tell you a bit about `datacase` and cog state, so let's do that next.

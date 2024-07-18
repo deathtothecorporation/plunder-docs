@@ -12,17 +12,17 @@ Check back for additional web app tutorials. We plan to add example implementati
 
 There are a number of directions to go from here depending on your skills and interests. Some of these areas are covered in the deeper dives linked below.
 
-- Learn more about how UI files are handled on the backend and see some examples of single-page web apps build on top of Plunder, then build some of your own.
+- Learn more about how UI files are handled on the backend and see some examples of single-page web apps build on top of Pallas, then build some of your own.
 - Study PLAN and implement the spec in your favorite language
 - Extend Sire with macros
 - Provide a [Guix](https://guix.gnu.org/) package 
 - If you're feeling extremely adventurous, write a Jet!
 - Read through the Haskell runtime files in `lib/`
-- Help improve these docs! [documentation repo](https://github.com/deathtothecorporation/plunder-docs)
+- Help improve these docs! [documentation repo](https://github.com/operating-function/pallas-docs)
 - Improve the [Docker images](https://github.com/deathtothecorporation/pallas-docker)
-- If you're interested in contributing to Plunder, the best place to do so is the [sr.ht repository](https://sr.ht/~plan/plunder/)
+- If you're interested in contributing to Pallas, the best place to do so is the [Pallas repository](https://github.com/operating-function/pallas)
 
-Whatever you choose (or if you just have general questions), we look forward to helping you out in the [Plunder Telegram group](https://t.me/+fOiCOlHTMvg0YjEx).
+Whatever you choose (or if you just have general questions), we look forward to helping you out in the [Pallas Telegram group](https://t.me/vaporwareNetwork).
 
 Deeper dive topics:
 
