@@ -4,7 +4,7 @@ We're going to explain a couple of special Pallas terms and then take a relative
 
 ## Ships
 
-A Pallas Virtual Machine is colloquially referred to as a "Ship". On the host filesystem, a ship consists of a directory containing a `data.mdb`, `lock.mdb` and a `pins` directory:
+A Pallas Virtual Machine is colloquially referred to as a "ship". On the host filesystem, a ship consists of a directory containing a `data.mdb`, `lock.mdb` and a `pins` directory:
 
 ```
 $ tree my-ships/ship1
@@ -53,7 +53,7 @@ In these steps, we started with an empty list.\
 But if we had started with `[1, 2]` and done `append 3` the result would have been `[1, 2, 3]`. Likewise, if we had started with `[1]` and done `append 2` the result would have been `[1, 2]`, etc.
 
 The pattern to notice here is: given a current state and an input, we can reliably compute a next state.\
-Taking that step further: if you have a starting state, the proper transition function that modifies the state for a given input, **and a log of _all_ inputs**, you have a strategy for persistence of any current state.
+Taking that step further: if you have a starting state, the proper transition function that modifies the state for a given input, **and a log of **_**all**_** inputs**, you have a strategy for persistence of any current state.
 
 The transition function `T` takes a `state` and an `input` and returns a `newState` and a new transition function `T'` which is ready for the next input:
 
@@ -85,8 +85,7 @@ PLAN is a data structure for supercombinators (and it's supercombinators, recurs
 
 PLAN is concrete, concise, and relatively readable, considering it's essentially a compiler binary (try reading the compiler binary of other systems).
 
-
-It's also fast to compile to and easy to map back and forth between memory and disk - which is how you get a [single-level store](https://en.wikipedia.org/wiki/Single-level\_store) that essentially makes no distinction between in-memory and on-disk. Unplug it while it's running, move it to another physical machine and turn it back on and it picks up right where it left off.
+It's also fast to compile to and easy to map back and forth between memory and disk - which is how you get a [single-level store](https://en.wikipedia.org/wiki/Single-level\_store) that essentially makes no distinction between in-memory and on-disk. Unplug it while it's running, move it to another physical machine, turn it back on and it picks up right where it left off.
 
 Formally, it looks like this:
 
@@ -112,7 +111,7 @@ No. You've (hopefully) gotten used to thinking about this system as a database e
 
 Sire is a sort of Lispy-Haskell whose purpose is to provide an ergonomic experience sitting between a programmer's goals and the resulting PLAN that achieves these goals (We'll get into [programming with Sire itself](sire/intro.md) a little later). Sire compiles _itself_ to the PLAN data model we saw above.
 
-Below is the entire PLAN specification. Remember, PLAN is basically just the lambda calculus but without an implicit environment.  
+Below is the entire PLAN specification. Remember, PLAN is basically just the lambda calculus but without an implicit environment.\
 Don't get scared off or try to understand it just yet (or even _ever_, if you so choose), we're just showing off that it can fit on one page:
 
 ```
@@ -158,7 +157,7 @@ A plucky computer science student could translate this to C, Rust, Python - what
 
 The Sire compiler is just 2000 lines of Sire. Pallas has a compiled version _of the Sire compiler_ (that's `Sire-in-PLAN`) that we feed to the runtime system, thereby bootstrapping a complete, extendable development environment.
 
-We aren't asking you to _trust_ our `Sire-in-PLAN` file. Since PLAN code is relatively readable, a programmer familiar with the system can verify it directly.
+We aren't asking you to _trust_ our `Sire-in-PLAN` file. Since PLAN code is readable, a programmer familiar with the system can verify it directly.
 
 This is the PLAN code for the `foldr` function. It's going to look only slightly less scary than the spec above, but read on so we can un-scare you:
 
@@ -193,6 +192,6 @@ Now look at `_Not` above. It appears to be a function that takes an argument `a`
 
 Other bits are a little less clear to us right now, but the point remains: A programmer familiar with this system could verify the "compiler binaries" without trusting anyone. There is nowhere for malicious code to hide.
 
----
+***
 
 Next, we'll learn a bit about the runtime:

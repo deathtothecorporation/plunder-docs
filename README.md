@@ -1,14 +1,24 @@
+# Introduction
+
 {% hint style="warning" %}
 🚧 This documentation collection is under active development. Similar callouts will be used to denote areas that are stubbed-out or coming soon. 🚧
 {% endhint %}
 
-# Introduction
+## Introduction
 
-_This documentation is best viewed at [https://vaporware.gitbook.io/pallas](https://vaporware.gitbook.io/pallas)_.
+Pallas is a purely functional exokernel and library OS, designed to radically simplify the modern networked computing stack. We call the libOS an "operating function" because it is defined as a pure function of its event input stream.
 
-## Pallas
+We hypothesize that by extending typed functional programming to the entire OS environment, small teams will be able to outcompete large technology companies. In particular, we believe this innovation will enable us to dissolve application boundaries, simplify distributed systems programming, eliminate large categories of devops, and dramatically expand the domain of end-user programming.
 
-The Pallas [SSI](https://wiki.vaporware.network/solid-state%20interpreter) programming environment is written in a purely functional, rune-based language called Sire. Sire is a sort of Lispy-Haskell with a visual resemblance to Hoon.
+Key system properties:
+
+* merkleized state and content-addressable memory pages
+* native networking with public keys as endpoints
+* serializable closures that can be transferred over the network
+* traditional Lisp-style metaprogramming (`defmacro` + syntax-rules)
+* automatic durable execution (orthogonal persistence)
+
+### Pallas
 
 This documentation introduces the Pallas system:
 
@@ -16,24 +26,23 @@ This documentation introduces the Pallas system:
 * **Sire:** a functional language, bootstrapped from PLAN
 * **Cogs:** a microservices architecture for userspace application development
 
-## Document Goals
+### Document Goals
 
 The goal of this documentation is to get you from "I have no idea what this system is" to a simple "Hello world" web app.
 
-The plan for this not-so-quick-start is:
+The plan for this quick-start is:
 
-1. Get familiar with enough of the Sire language to be immediately useful
-2. Gather enough context about how IO and Cogs work to have a decent mental model of what's going on when you build one
-3. Write a simple Cog from scratch
+1. Get familiar with a minimally useful amount of Sire.
+2. Develop intuition around IO and Cogs.
+3. Write a simple Cog from scratch.
 
-We'll start off here with a very high-level overview of what Pallas is and how it works at this point in time. There will be links out to deeper dives on some topics, but we recommend you first go through the main path of these docs before you deepen your understanding of any given core concept. If you're viewing on the web, use the "Next" button at the bottom of each page. If you're looking directly at the source files, `SUMMARY.md`, followed top-to-bottom provides the same path.
+We'll start off here with a high-level overview of Pallas. If you're viewing on the web, use the "Next" button at the bottom of each page. If you're looking directly at the source files, `SUMMARY.md`, followed top-to-bottom provides the same path.
 
-## Resources
+### Resources
 
-- [Pallas repo](https://github.com/operating-function/pallas)
-- The [Vaporware website](https://vaporware.network)
-- [Pallas developer Telegram group](https://t.me/vaporwareNetwork)
+* [Pallas repo](https://github.com/operating-function/pallas)
+* [Pallas developer Telegram group](https://t.me/vaporwareNetwork)
 
----
+***
 
-If you're interested in experimenting right away, head over to [Getting pallas installed on your machine](setup/installation.md). If you'd prefer to learn more about the system before handling it, continue on below:
+If you're interested in experimenting right away, head over to [Getting Pallas installed on your machine](setup/installation.md).&#x20;
