@@ -30,10 +30,10 @@
 * [Nat Representations](deeper/nat-representations.md)
 * [R-Expressions](deeper/r-expressions.md)
 * [Seed files](sire/seeds.md)
-* [UI files](deeper/ui-files.md)
-* [Boot process](deeper/boot-process.md)
 * [Cogs](deeper/cogs.md)
 * [Jets](deeper/jets.md)
+* [Boot process](deeper/boot-process.md)
+* [UI files](deeper/ui-files.md)
 * [Plunder vs Pallas](deeper/pallas.md)
 
 ## PLAN
