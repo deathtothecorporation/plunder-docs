@@ -22,18 +22,19 @@
 * [Booting, Starting, Caching](a-simple-cog/booting-starting.md)
 * [JSON](a-simple-cog/json.md)
 * [Advanced Data Structures](sire/data-structures.md)
-* [Cog webserver end-to-end](/a-simple-cog/cog-web-end-to-end.md)
+* [Cog webserver end-to-end](a-simple-cog/cog-web-end-to-end.md)
 * [Where To Go From Here](a-simple-cog/next.md)
 
 ## Deeper
 
-* [Various Nat Representations](deeper/nat-representations.md)
-* [UI files](deeper/ui-files.md)
+* [Nat Representations](deeper/nat-representations.md)
+* [R-Expressions](deeper/r-expressions.md)
 * [Seed files](sire/seeds.md)
+* [UI files](deeper/ui-files.md)
 * [Boot process](deeper/boot-process.md)
-* [Plunder vs Pallas](deeper/pallas.md)
 * [Cogs in depth](deeper/cogs.md)
 * [Jets](deeper/jets.md)
+* [Plunder vs Pallas](deeper/pallas.md)
 
 ## PLAN
 
