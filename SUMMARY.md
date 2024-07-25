@@ -32,7 +32,7 @@
 * [Seed files](sire/seeds.md)
 * [UI files](deeper/ui-files.md)
 * [Boot process](deeper/boot-process.md)
-* [Cogs in depth](deeper/cogs.md)
+* [Cogs](deeper/cogs.md)
 * [Jets](deeper/jets.md)
 * [Plunder vs Pallas](deeper/pallas.md)
 
