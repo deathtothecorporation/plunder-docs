@@ -155,7 +155,7 @@ P(p,l,a,n,x:@}     = (n x)              |     R(n+1,f,b)
 
 A plucky computer science student could translate this to C, Rust, Python - whatever language they prefer. A minimal but performant Haskell implementation is 180 lines.
 
-The Sire compiler is just 2000 lines of Sire. Pallas has a compiled version _of the Sire compiler_ (that's `Sire-in-PLAN`) that we feed to the runtime system, thereby bootstrapping a complete, extendable development environment.
+The Sire compiler is just 2000 lines of Sire. Pallas has a compiled version _of the Sire compiler_ (that's `Sire-in-PLAN`) that we feed to the runtime system, thereby bootstrapping a complete, extensible development environment.
 
 We aren't asking you to _trust_ our `Sire-in-PLAN` file. Since PLAN code is readable, a programmer familiar with the system can verify it directly.
 
