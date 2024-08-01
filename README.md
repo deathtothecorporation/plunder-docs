@@ -8,7 +8,7 @@
 
 Pallas is a purely functional exokernel and library OS, designed to radically simplify the modern networked computing stack. We call the libOS an "operating function" because it is defined as a pure function of its event input stream.
 
-We hypothesize that by extending typed functional programming to the entire OS environment, small teams will be able to outcompete large technology companies. In particular, we believe this innovation will enable us to dissolve application boundaries, simplify distributed systems programming, eliminate large categories of devops, and dramatically expand the domain of end-user programming.
+We hypothesize that by extending typed functional programming to the entire OS environment, it will become relatively easier for small teams or single individuals to outcompete large technology corporations. In particular, we believe this innovation will enable us to dissolve application boundaries, simplify distributed systems programming, eliminate large categories of devops, and dramatically expand the domain of end-user programming.
 
 Key system properties:
 
