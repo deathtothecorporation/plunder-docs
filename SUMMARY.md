@@ -39,3 +39,8 @@
 ## PLAN
 
 * [Definition](plan/definition.md)
+
+## Reference
+
+* [Chapter 1: Fan](reference/chapter-1-fan.md)
+* [Chapter 2: Bit](reference/chapter-2-bit.md)
