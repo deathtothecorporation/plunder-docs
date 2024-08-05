@@ -66,13 +66,13 @@ We don't want to get too far into the weeds just yet with includes, boot order a
 #### hello_world_cog <- prelude
 ```
 
-This has to do with includes and load order. `hello_world_cog.sire` is the name of the current file, and `prelude.sire` is the name of a dependency. the `#### foo <- bar` syntax says something like "Take `bar` and put it before `foo` in the load order, and then load `foo`".
+This has to do with load order. `hello_world_cog.sire` is the name of the current file, and `prelude.sire` is the name of its single allowed dependency. Sire files can only have 0 or 1 dependencies. If a file has 0 dependencies, then it only has access to raw PLAN opcodes. If it has 1 dependency, then it can use anything that was defined by its transitive chain of dependencies. The Sire interpreter is a very simple state machine which simply loads definitions in order and changes its state after each one, so the `#### foo <- bar` syntax is saying that we should load `bar.sire` before `foo.sire` (and the same goes for any dependency of `bar.sire`, so the Sire interpreter always starts with a file with 0 dependencies).
 
 ```sire
 :|  prelude
 ```
 
-The `:|` rune imports a module. In this case, `prelude.sire` just does a bunch of other importing of kernel code, convenience functions, syscalls, and basically everything else we need to run a cog.
+The `:|` rune imports a module. Whenever we declare load order using `#### foo <- bar`, we also enter a new namespace named `foo`, which any dependents need to explicitly import if they want to use definitions from it. In this case, `prelude.sire` first bootstraps Sire and then does a bunch of other importing of kernel code, convenience functions, syscalls, and basically everything else we need to run a cog.
 
 ```sire
 ;;;;;
