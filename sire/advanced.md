@@ -7,6 +7,15 @@ description: 'Document Type: Reference'
 The topics here are explained so that you can recognize them if you come across them, but don't worry about fully understanding and using everything you see here. For the purposes of getting familiar with the system and building some toy cogs, you can get away with copying existing instances of these patterns and changing them subtly to your needs.  
 Eventually you should understand everything you're doing, but let's keep you moving forward first.
 
+## Alternative function application syntax
+
+`-` can be used for function application. It's less commonly seen, but you should be aware of it so you understand it when you see it somewhere. It is most often used with single argument function application, like `f-x`.
+
+```sire
+inc-1
+2
+```
+
 ## Types
 
 Sire _sort of_ has types at the moment. This system will significantly change for the better in the future, but as a beginner we suggest you just ignore types for now. That said, you should at least be familiar with the syntax.

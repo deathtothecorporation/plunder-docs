@@ -30,6 +30,8 @@ A few meta-points to note at the outset:
 * `;` is a comment in Sire. used here, it'll be to explain what's happening inline
 * The arrow keys won't work in the REPL. Use backspace. If you get into a strange state with carriage returns and are unable to backspace, just hit return a few times, ignore any errors, and start again.
 * The REPL will print ASCII values of integers. If you enter `65` you'll get back `%A`. Don't think about this too much yet. We'll cover this in detail on the next page.
+* There is no input prompt in the REPL. And the result of the previous computation (after hitting `enter`) is just printed out on the next line. So if you're only reading and not following along live in the REPL, generally the first line of text you see in a code block is the user input, and the lines following it is the result of hitting the `enter` key.
+* The single-character "symbolic operators" you'll see here are referred to as _runes_. They are core syntactic elements that perform various functions in Sire, like function application and data structure definition.
 
 ### Top-level binding - `=`
 
@@ -38,43 +40,39 @@ Binds a value globally - not scoped.
 In the REPL:
 
 ```sire
+; At the blank link in the REPL, type the following:
 x=3
-; now just type x and hit enter:
-
-x ; the binding you are evaluating...
-3 ; the value returned from the REPL
+; And press enter.
+; Now just type "x"...
+x
+; And press enter.
+3 ; <-- the value returned from the REPL
 ```
 
-### Function application - `|`, `()`, `-`
+### Function application - `|`, `()`
 
-`add` is a function in Sire. It takes two arguments and adds them together. It's called like this:
-
-```sire
-(add 1 3)
-; ^ function name (add)
-;    ^ first argument (1)
-;      ^ second argument (3)
-
-4 ; return value
-```
-
-You can also apply functions with `|`
+`add` is a function in Sire. It takes two arguments and adds them together. We apply `add` to `1` and `3` like so:
 
 ```sire
 | add 1 3
+; ^ function name (add)
+;     ^ first argument (1)
+;       ^ second argument (3)
 4   ; return value
 ```
 
-A less common style for function application that you might see is `-`:
+You can also apply functions with `()`:
 
-```
-add-1-3
+```sire
+(add 1 3)
 4
 ```
+This is actually a short form for `(| add 1 3)` - we're still doing function application with `|` under the hood, but the `|` rune is a special case that can be omitted in this context. All runes can be written several different ways (as you'll see next with the `=` rune).
 
 Let's combine both of the above concepts to create our own named function. Note the way in this case you start the line with `=` (followed by a space) and the name of the function is the first value after the opening parenthesis.
 
 ```sire
+; We're using the prefix notation for = here, which we saw in "infix" notation above at x=3
 = (addTwo input)
 | add 2 input
 ```
@@ -122,25 +120,9 @@ renamedInput
 
 ## Natural numbers, byte-arrays and strings
 
-The big takeaway from this section has to do with natural numbers, but we have to get a thing or two out of the way first about how the REPL deals with strings.
-
-The REPL renders strings in single curly braces, `{like this example}`. You can also enter a string this way, as in `= msg {hello world}` in order to bind the name `msg` to the string `hello world`.
-
-For a string without spaces, the REPL will opt to render it with a leading `%` as in `%houseboat`. Again, you can enter strings this way as well: `= color %blue` (which binds the string `blue` to the name `color`). You may sometimes see this style referred to as an "atom" in some source files.
-
-It's worth mentioning that you _can enter_ a string with double-quotes as you may expect, but the REPL never prints them that way:
-
-```
-= msg "hello world"
-msg
-;; prints:
-{hello world}
-```
-It is for this reason we suggest you get used to the `{}` and `%` style.
-
 ### Nat - natural number
 
-All values in Pallas are stored in memory as natural numbers. Throughout the system, these are referred to as "nats". They're sometimes also called "nouns".  
+All values in Pallas are stored in memory as natural numbers. Throughout the system, these are referred to as "nats".
 The REPL will represent these values as ASCII for printing purposes, which can be confusing at first and should be noted up front. For instance, the character `a` is encoded as `97` in ASCII:
 
 ```sire
@@ -154,14 +136,14 @@ The REPL will represent these values as ASCII for printing purposes, which can b
 ;; The showNat function represents a nat as a string.
 ;; Single curly braces wrapping a value means you're seeing a string.
 ;; Think of {curly braces} as you would "double quotes", as far as the
-;; REPL is concerned.
+;; REPL is concerned. Same for the % leading the "a" a few lines above.
 ```
 
-If this nat/string stuff is driving you crazy, the full explanation is [here](/deeper/nat-representations.md).
+The full explanation is of how nats are rendered is [here](/deeper/nat-representations.md), but we suggest you continue along for now without getting too bogged down in the REPL representation of nats.
 
 ### Bar - byte-array, and Strings
 
-A "bar" is an array of UTF-8 bytes. You declare a bar like this:
+A "bar" is an array of UTF-8 bytes. You create a bar like this:
 
 ```sire
 b#{some stuff here}
@@ -173,10 +155,9 @@ You only need to use the curly braces when spaces are present in your byte array
 b#thisIsAFineBar
 ```
 
-Although for many purposes you can think of bars and strings interchangeably. One difference is that there are more standard library functions for working with bars on a structural level (folding, splitting at indexes, filtering, etc) while the string standard library functions are more geared to character-level functions like capitalization and checking if a character is an alphanumeric.  
+While it may be attractive to think about bars and strings interchangeably, they are not identical and when working between the two you'll often need to use conversion functions (like [natBar](/sire/standard-library.md#natBar) and [barNat](/sire/standard-library.md#barNat). There are more standard library functions for working with bars on a structural level (folding, splitting at indexes, filtering, etc.) while the string standard library functions are more geared to character-level functions like capitalization and checking if a character is an alphanumeric.  
 
-Because a bar is an array and the byte width of its constituent parts is important for it to be a proper representation, it sort of acts as a "string with some extra baggage around it".  
-Converting between bars and strings is trivial for the cases where you need string functions but you have a bar at hand (or vice-versa). We'll see more on this on the next page. The conversions are basically about removing or adding that "extra baggage" mentioned above.
+
 
 Trust us that you can and should basically just use bars for everything string-like and you can move along to the section on data structures below, but if you're interested in seeing the deep dive, it's [here](/deeper/nat-representations.md).
 
@@ -223,6 +204,9 @@ Lists are zero-terminated, nested row 2-tuples. They are declared by prepending 
 
 ```sire
 x=(~[10 64 42])
+; Note, parentheses are added around the list because of the infix =
+; You could also write this as:  = x ~[10 64 42]
+; The choice between infix and prefix is most often one of visual clarity.
 
 [10 [64 [42 0]]]
 
@@ -247,9 +231,33 @@ listy
 
 `TRUE` is represented as the nat `1`, while `FALSE` is the nat `0`.
 
+The `=?=` operation here is an assertion. It is often used for "unit testing". It takes two arguments and crashes if they are not equal, otherwise it evaluates without issue (it technically it takes a third argument, a continuation - the remainder of the program).
+
 ```sire
-=?= 1 | TRUE
-=?= 0 | FALSE
+=?= 1 TRUE
+=?= 0 FALSE
+; These two expressions evaluate without issue.
+
+=?= 1 FALSE
+; This one crashes:
+++ %crash
+++ {Failed to Parse Sire}
+++   `   # block
+           =?= 1 | FALSE
+         # where REPL:26
+         # problem
+           =?= 1 | FALSE
+         # reason
+           {++ {Failed to Parse Sire}
+++   `   # block
+           =?= 1 | FALSE
+         # where REPL:26
+         # problem
+           =?=
+             * 1
+             * 0
+         # reason {ASSERTION FAILURE}
+
 ```
 
 ### `eql` and friends
