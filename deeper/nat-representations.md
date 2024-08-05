@@ -4,7 +4,7 @@
 
 ## Another word on relationship between bars and strings
 
-In the [intro](/sire/intro.md) we briefly covered bars and strings, but it's worth saying a bit more about them here. Because bars are _arrays of bytes_ (which we can interpret as UTF-8), and strings are stored as opaque nats, a bar representation and a string representation that look the same on the surface are _not_ equivalent nats:
+In the [intro](/sire/intro.md) we briefly covered bars and strings, but it's worth saying a bit more about them here. Because bars are _arrays of bytes_ (which we can interpret as UTF-8), and strings are stored as opaque nats, a bar representation and a string representation that look the same on the surface are _not_ equivalent PLAN values:
 
 ```sire
 =?= b#{a string} {a string}
