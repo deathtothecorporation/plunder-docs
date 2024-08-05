@@ -13,19 +13,18 @@ Feel free to skim this section for now and come back to it as needed while you w
 This is a printf, a `console.log`.
 
 ```Sire
-(trk %something)
+; input:
+| trk %hello
+| inc 1
 
-:: prints:
-(_Trace %hello)
+; output:
+%hello ; the logged message
+2      ; the result of inc 1
 ```
 
-```Sire
-= x %hello_world
-| trk [%someMessage x]
-
-;; prints:
-trk=[%someMessage {hello_world}]
-```
+`trk` prints its first argument. Its second argument is a continuation - typically the rest of the program. If we were to give `trk` a Haskelly type signature, it would be `trk : a -> b -> b` and we would say that it prints `a` and returns `b`.  
+That's why in this example we have to supply it with an (arbitrary) additional argument, the `inc` function.
+`trk` _feels_ like it only takes a single argument when it is used in the "middle" of other lines of code, but since it does technically take a second argument, you can't just call it on its own or have it as the final line of a function. Most of the time you will use `trk` within other lines and you won't notice this caveat, but you should be aware of it.
 
 ### `=?=`
 
@@ -263,10 +262,10 @@ A tab is a map from noun to noun. Like a dict in Haskell or Python.
 ### Create a tab: `#[]` / `tabFromPairs`
 
 To create a tab, you can use the `tabFromPairs` function or the `#[]` syntax.\
-`tabFromPairs` accepts two rows of nats for the keys and values, while `#[]` works more like a row of bindings.
+`tabFromPairs` accepts a row of pairs of nats for the keys and values, while `#[]` works more like a row of bindings.
 
 ```sire
-= t | tabFromPairs [{one} {two} {three}] [1 2 3]
+= t | tabFromPairs [[{one} 1] [{two} 2] [{three} 3]]
 ;; returns:
 t=[one=1 two=2 three=3]
 
@@ -282,21 +281,15 @@ In the above example, `one`, `two` and `three` are string keys; `1` `2` and `3` 
 
 ```sire
 ;; this is a valid tab:
-= t | _MkTab [b#{I'm a bar} {I'm a string}] [b#{bar value} {string value}]
+= t | tabFromPairs [[b#{one} 1] [b#{two} 2]]
 
 ;; but the same keys/values will choke the #[] version:
-= t | #[b#{I'm a bar}={I'm a string}] [b#{bar value}={string value}]
+= t | #[b#{one}=1] [b#{2}=2]
 ++ %crash
 ++ {Failed to Parse Sire}
 ```
 
-### `tabFromPairs`
-
-Another way to construct a tab from a row of pairs:
-
-```sire
-= t | tabFromPairs [[{one} 1] [{two} 2] [{three} 3]]
-[one=1 two=2 three=3]
+This comes down to syntax intricacies that we'll leave as an exercise to you to inspect, if you like. Use the `tabFromPairs` approach and you'll be okay.
 ```
 
 ### `tabGet`
