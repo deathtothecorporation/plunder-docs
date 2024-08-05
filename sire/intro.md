@@ -122,7 +122,7 @@ renamedInput
 
 ### Nat - natural number
 
-All values in Pallas are stored in memory as natural numbers. Throughout the system, these are referred to as "nats".
+All values in Pallas are trees, whose leaves are natural numbers. Throughout the system, these are referred to as "nats".
 The REPL will represent these values as ASCII for printing purposes, which can be confusing at first and should be noted up front. For instance, the character `a` is encoded as `97` in ASCII:
 
 ```sire
