@@ -231,7 +231,7 @@ listy
 
 `TRUE` is represented as the nat `1`, while `FALSE` is the nat `0`.
 
-The `=?=` operation here is an assertion. It is often used for "unit testing". It takes two arguments and crashes if they are not equal, otherwise it evaluates without issue (it technically it takes a third argument, a continuation - the remainder of the program).
+The `=?=` operation here is an assertion. It is often used for "unit testing". It takes two arguments and crashes if they are not equal, otherwise it evaluates without issue.
 
 ```sire
 =?= 1 TRUE
