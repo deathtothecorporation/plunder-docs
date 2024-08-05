@@ -40,7 +40,7 @@ Binds a value globally - not scoped.
 In the REPL:
 
 ```sire
-; At the blank link in the REPL, type the following:
+; On the blank line in the REPL, type the following:
 x=3
 ; And press enter.
 ; Now just type "x"...
