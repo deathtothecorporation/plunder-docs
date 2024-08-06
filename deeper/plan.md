@@ -6,7 +6,7 @@ This document provides an in-depth exploration of PLAN. We'll start by examining
 
 ## PLAN Opcodes
 
-PLAN is built upon five fundamental opcodes, each represented by one of the first four natural numbers. These opcodes form the foundation of PLAN's computation model.
+PLAN is built upon five fundamental opcodes, each represented by one of the first five natural numbers. These opcodes form the foundation of PLAN's computational model.
 
 ### 0: Law Construction
 
