@@ -284,7 +284,7 @@ In the above example, `one`, `two` and `three` are string keys; `1` `2` and `3` 
 = t | tabFromPairs [[b#{one} 1] [b#{two} 2]]
 
 ;; but the same keys/values will choke the #[] version:
-= t | #[b#{one}=1 b#{2}=2]
+= t | #[b#{one}=1 b#{two}=2]
 ++ %crash
 ++ {Failed to Parse Sire}
 ```
