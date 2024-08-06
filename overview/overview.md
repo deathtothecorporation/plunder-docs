@@ -152,7 +152,7 @@ No. You've (hopefully) gotten used to thinking about this system as a database e
 
 ### Sire
 
-Sire is a sort of Lispy-Haskell whose purpose is to provide an ergonomic experience sitting between a programmer's goals and the resulting PLAN that achieves these goals (We'll get into [programming with Sire itself](sire/intro.md) a little later). Sire compiles _itself_ to the PLAN data model we saw above.
+Sire is a sort of Haskelly-Lisp whose purpose is to provide an ergonomic experience sitting between a programmer's goals and the resulting PLAN that achieves these goals (We'll get into [programming with Sire itself](sire/intro.md) a little later). Sire compiles _itself_ to the PLAN data model we saw above.
 
 Below is the entire PLAN specification. Remember, PLAN is basically just the lambda calculus but without any need for an implicit environment.\
 Don't get scared off or try to understand it just yet (or even _ever_, if you so choose), we're just showing off that it can fit on one page:
