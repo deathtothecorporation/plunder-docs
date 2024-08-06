@@ -38,5 +38,4 @@
 
 ## PLAN
 
-* [In Depth](plan/in-depth.md)
 * [Definition](plan/definition.md)
