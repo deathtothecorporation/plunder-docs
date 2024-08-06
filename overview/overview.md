@@ -106,16 +106,23 @@ With that question on the table, we're finally ready to explain PLAN by way of [
 
 ### Closures and Supercombinators
 
-[The Lambda Calculus](https://en.wikipedia.org/wiki/Lambda\_calculus) provides a formalism which would we could use to "persist" a function. But there are two problems with using the lambda calculus directly:
+[The Lambda Calculus](https://en.wikipedia.org/wiki/Lambda\_calculus) provides a formalism which would we could use to serialize and then persist a function. But there is a problem with using the lambda calculus directly: If you don't use an environment that tracks free variables, it is inefficient; but if you do use an environment, you've introduced implicit state.
 
-1. It's an inefficient representation and thus not ideal for use in production systems.
-2. It assumes an environment that tracks free variables.
+We want to be able to easily write to and read from disk without any risk that there are free variables or assumed environment.\
+In order to deal with that apparent contradiction, we must store _closures_. We want to store functions _together with their environment_.
 
-`#2` is a problem because we want to be able to easily write to and read from disk without any risk that there are free variables or assumed environment.\
-In order to deal with that, we must store _closures_. We want to store functions _together with their arguments_. That is: their entire environment.
+The name for a function with zero free variables and no environment is a [_supercombinator_](https://wiki.haskell.org/Super_combinator).\
+PLAN is a data structure for supercombinators. Every function will always have all the context it could possibly need because they're all closures.
 
-The name for a function with zero free variables and no environment is a _supercombinator_.\
-PLAN is a data structure for supercombinators (and it's supercombinators, recursively, all the way down). Every function will always have all the context it could possibly need because they're all closures. When everything is speaking PLAN, all levels of the system agree on the representation of closures; on-disk and in-memory during execution.
+
+With PLAN at the bottom of the system, the same data structure is used on-disk and in-memory during execution. As a data structure, PLAN strikes a balance between:
+
+- Human readability
+- Candidacy for functional compile target
+- Good memory representation
+- Good on-disk representation
+
+Other systems present alternative approaches for optimizing _one_ (or maybe two) of the above, but we believe PLAN is the best solution for accomplishing _all of the above_ well. Other systems solve each of these in isolation, which necessitates complicated transitions between specialized formats. That is obviated with PLAN, allowing the user more direct control over the system and "proximity to the metal" without loss of expressivity or performance.
 
 ### PLAN
 
@@ -147,7 +154,7 @@ No. You've (hopefully) gotten used to thinking about this system as a database e
 
 Sire is a sort of Lispy-Haskell whose purpose is to provide an ergonomic experience sitting between a programmer's goals and the resulting PLAN that achieves these goals (We'll get into [programming with Sire itself](sire/intro.md) a little later). Sire compiles _itself_ to the PLAN data model we saw above.
 
-Below is the entire PLAN specification. Remember, PLAN is basically just the lambda calculus but without an implicit environment.\
+Below is the entire PLAN specification. Remember, PLAN is basically just the lambda calculus but without any need for an implicit environment.\
 Don't get scared off or try to understand it just yet (or even _ever_, if you so choose), we're just showing off that it can fit on one page:
 
 ```
