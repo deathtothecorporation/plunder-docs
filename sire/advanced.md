@@ -36,60 +36,122 @@ First parameter is a bar ("needle"), second parameter is a bar ("haystack"), thi
 
 ## Col macro
 
+```
+; the 'syscall' function takes two arguments:
+; - a request type of TIME_WHEN ("give me the current system time" in this case)
+; - a continuation function
+; we want to pass an argument to **the continuation** also, so
+; we use & to define an anonymous lambda with one argument, "now" which
+; is the result of the TIME_WHEN current time system call.
+;
+| syscall TIME_WHEN
+& now
+;
+; We are in the body of the continuation function here and have the "now"
+; binding included in scope. Once again we're seeing the continuation-passing
+; style here.
+```
+
 "Col" as in "colon"
 
 ```sire
-: (a b c) < foo x y
-; the rest of the computation below
+: a < foo x
+; the rest of the computation below.
+; a is in scope here
 ```
-- `foo x y` is the function call. It accepts another function as an argument - the callback below:
-- `(a b c)` `a b c` are the arguments to the callback
-- The main function and callback can have any arguments - these were chosen arbitrarily for this example
+`foo x` is the function call. We can imagine its type signature would be `foo : x -> y -> i`, in which case we would notice that it accepts a second argument `y`. When the final argument to a function is a continuation _and we want to pass arguments to the continuation_, using the col macro is a way to do continuation passing that _feels_ like assignment.
 
-We definitely need an example to better understand this. We'll use `gen` for the example (`gen` was covered in the [standard library](/sire/standard-library.md))
+`a` will be bound to the result of `foo x` and will be passed as the argument to `foo`'s final parameter, which is the rest of the code below it.
 
+We'll use `gen` for examples (`gen` was covered in the [standard library](/sire/standard-library.md))
+
+We previously saw gen used like this:
 ```sire
-; we saw gen used like this:
 gen 10 | mul 2
 [0 2 4 6 8 10 12 14 16 18]
+```
 
-; Here it is with col:
+Here it is with col:
 
+```sire
 : index < gen 5
 | mul index 2
 [0 2 4 6 8]
+```
 
-; and an example with maybeCase
+The same goal achieved with an anonymous lambda:
 
+```sire
+| gen 5
+& i
+| mul i 2
+
+[0 2 4 6 8]
+```
+
+Here's an example with `maybeCase`, which we also saw earlier. Remember, `maybeCase` takes three arguments: a maybe, a default guard value to return when the value is NONE, and a function to call on the value when it is SOME. In this example, that final function is the continuation we want to handle legibly with the col macro.
+
+```sire
 maybeNine=(SOME 9)
-: actuallyNine < maybeCase maybeNine {wasn't nine}
-| inc actuallyNine
+: isItNine < maybeCase maybeNine {wasn't nine}
+| inc isItNine
 
 ; returns:
 10
 
 maybeNine=NONE
-: actuallyNine < maybeCase maybeNine {wasn't nine}
-| inc actuallyNine
+: isItNine < maybeCase maybeNine {wasn't nine}
+| inc isItNine
 
 ; returns:
 {wasn't nine}
 ```
 
-This might look trivial (after all, you could have written `maybeCase (SOME 9) wasn't nine} inc` and arrived at `10` without using the col macro) so to drive the point home a bit more: Notice that in the next example, the remainder of the continued computation is acting on `actuallyNine` without having to use a let binding or order the function application pipeline strangely.
+The same written with an anonymous lambda:
 
 ```sire
 maybeNine=(SOME 9)
-: actuallyNine < maybeCase maybeNine {no}
+| maybeCase maybeNine {wasn't nine}
+& isItNine
+| inc isItNine
+
+10
+
+
+maybeNine=NONE
+| maybeCase maybeNine {wasn't nine}
+& isItNine
+| inc isItNine
+
+{wasn't nine}
+```
+
+
+This might look trivial (after all, you could have written `maybeCase (SOME 9) wasn't nine} inc` and arrived at `10` without using the col macro). But what if you don't have a simple function like `inc` to call? To drive the point home a bit more: Notice that in the next example, the remainder of the continued computation is acting on `actuallyNine` without having to use a let binding or order the function application pipeline strangely.
+
+```sire
+maybeNine=(SOME 9)
+: actuallyNine < maybeCase maybeNine {wasn't nine}
 | add 1 | div actuallyNine 3
 
 ; result:
 4
 ```
 
+One more time, with an anonymous lambda:
+
+```sire
+| maybeCase maybeNine {wasn't nine}
+& actuallyNine
+| add 1
+| div actuallyNine 3
+
+4
+```
+
 ## `PIN`
 
-Another one to note and ignore. All you need to know now is that `PIN`s help with memory-layout optimization during persistence. You can look at it like a `let` binding for now without being too far off the mark.
+Another one to note and ignore. All you need to know now is that Pins help with memory-layout optimization in the runtime. If you see `PIN` in a cog example somewhere, recognize it as a performance feature and move on for now.
 
 ---
 
