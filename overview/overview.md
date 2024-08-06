@@ -55,11 +55,47 @@ But if we had started with `[1, 2]` and done `append 3` the result would have be
 The pattern to notice here is: given a current state and an input, we can reliably compute a next state.\
 Taking that step further: if you have a starting state, the proper transition function that modifies the state for a given input, **and a log of **_**all**_** inputs**, you have a strategy for persistence of any current state.
 
-The transition function `T` takes a `state` and an `input` and returns a `newState` and a new transition function `T'` which is ready for the next input:
+#### Persistence and Event Sourcing
 
-`T: (state, input) -> (newState, T')`
+Let's start by explaining the core concept of event sourcing using a simple representation:
 
-Because we're in a purely functional environment, we know that running all the inputs in the log will get us back to the last state. This means you get a database engine just by writing functions.
+```
+T : (input, state) -> (outputs, newState)
+```
+
+In this model, our transition function `T` takes an input and the current state, and produces outputs along with a new state. This representation is intuitive for understanding basic event sourcing:
+
+1. We have a current state
+2. We receive an input
+3. We apply the transition function T, which gives us:
+   - Outputs
+   - A new state
+
+By logging all inputs and starting from an initial state, we can always reconstruct the current state by replaying these inputs through our transition function.
+
+#### A Self-Upgrading System
+
+Pallas supports self-upgrading code, where the system can modify its own behavior over time. To represent this capability, we need a slightly different model:
+
+```
+T : (state, input) -> (newState, T')
+```
+
+In this representation:
+1. We still have a state and an input.
+2. We produce a new state, but instead of static outputs, we now produce a new transition function `T'`.
+
+This new `T'` can have modified behavior compared to the original `T`. It represents the system's ability to upgrade itself based on inputs and current state.
+
+#### Why This Representation?
+
+Keep in mind that this is not a formal definition of Pallas, but a representation to help illustrate some concepts. This representation was chosen because:
+
+1. It shows state management, which is necessary for understanding persistence.
+2. It shows upgradeable code.
+3. It strikes a balance between simplicity and accuracy, making it accessible to newcomers while still representing key advanced features.
+
+#### Persistence "for free"
 
 You may have gotten the wrong idea: that the programmer has to `include` some kind of event log library or manually cache the current state. No, the persistence strategy outlined above is handled by the runtime automatically for all applications in Pallas. It only needs to be implemented once and it's trivially available to all applications. Because of this, it also means that optimizations happen in the runtime and are also available to all applications.
 
