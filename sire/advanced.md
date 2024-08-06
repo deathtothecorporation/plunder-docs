@@ -36,8 +36,7 @@ First parameter is a bar ("needle"), second parameter is a bar ("haystack"), thi
 
 ## Col macro
 
-"Col" as in "colon"
-
+The col macro ("col" as in "colon") is useful for writing continuation-passing style in a manner that looks and feels like assignment or almost like a "do block". We'll look at a few examples of its usage as well as equivalent implementations using anonymous lambdas to illustrate what's going on.
 ```sire
 : a < foo x
 ; the rest of the computation below.
