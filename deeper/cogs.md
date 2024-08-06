@@ -8,13 +8,16 @@ TODO: Update with new work.
 
 In the Pallas VM, a "Machine" is a set of persistent processes, which are referred to as Cogs.
 
-Cogs can survive restarts. Their inputs are written to an event log, and their state is occasionally snapshotted to disk. On restart, we recover the most recent state by loading the most recent snapshot and passing in each input.
+A user creates a cog by writing a transition function of a particular shape and giving that to the runtime. The details around getting the transition function into this "particular shape" are easily handled by a small library.
 
-Cogs interact with the world by making system calls. The set of active system calls made by Cogs is a part of its state. When it is reloaded, all of the calls will be resumed as well.
+Cogs survive restarts. The runtime writes their inputs to an event log, and occasionally snapshots their states. On restart, the runtime recovers the most recent state of a cog by loading its most recent snapshot and then replaying all inputs after that point. Because of this built-in persistence strategy, you can view a cog as a database.
 
-There is no hidden state in a machine. A machine can shutdown and resume without a visible effect. The formal state of a full Machine is the Pallas value `(Tab Nat Fan)`, where each cog has a process id mapping to its formal state.
+Cogs interact with the world by making system calls. The set of active system calls made by a cog is part of its current formal state. When a cog is reloaded, the runtime will resume any active calls as well.
 
-### Cogs
+There is no hidden state in a machine. A machine can shut down and resume without any visible effect. The formal state of a full Machine is a PLAN value of shape `Tab Nat PLAN`: a mapping from IDs to cogs.
+
+### From the old docs
+*The following is conceptually right but details are wrong. It should be updated and edited.*
 
 A cog is a Pallas function partially applied to a row of syscalls.
 
