@@ -22,7 +22,7 @@ This is a printf, a `console.log`.
 2      ; the result of inc 1
 ```
 
-`trk` prints its first argument. Its second argument is a continuation - typically the rest of the program. If we were to give `trk` a Haskelly type signature, it would be `trk : a -> b -> b` and we would say that it prints `a` and returns `b`.  
+`trk` prints its first argument. Its second argument is typically the rest of the function we're currently defining. If we were to give `trk` a Haskelly type signature, it would be `trk : a -> b -> b` and we would say that it prints `a` and returns `b`.
 That's why in this example we have to supply it with an (arbitrary) additional argument, the `inc` function.
 `trk` _feels_ like it only takes a single argument when it is used in the "middle" of other lines of code, but since it does technically take a second argument, you can't just call it on its own or have it as the final line of a function. Most of the time you will use `trk` within other lines and you won't notice this caveat, but you should be aware of it.
 
