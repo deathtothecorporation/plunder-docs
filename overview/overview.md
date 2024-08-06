@@ -21,7 +21,7 @@ ship1
 
 ## Cogs
 
-A "Cog" is a persistent process running on a ship. Cogs snapshot state and write inputs to an event log. They recover state after a restart by loading a recent snapshot and re-applying inputs. Cogs interact with the world by making system calls - which are included as part of their state (thus a cog's set of system calls also resume after a restart).
+A "Cog" is a persistent process running on a ship. Cogs interact with the world by making system calls - which are included as part of their state (thus a cog's set of system calls also resume after a restart). [Much more on Cogs](/deeper/cogs.md).
 
 ## Persistence, PLAN
 
