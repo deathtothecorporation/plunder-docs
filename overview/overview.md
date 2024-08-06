@@ -133,9 +133,9 @@ It's also fast to compile to and easy to map back and forth between memory and d
 Formally, it looks like this:
 
 ```
-Plan ::= <Plan>           # Pin
-       | {Nat Nat Plan}   # Law
-       | (Plan Plan)      # App
+PLAN ::= <PLAN>           # Pin
+       | {Nat Nat PLAN}   # Law
+       | (PLAN PLAN)      # App
        | Nat              # Nat
 ```
 
