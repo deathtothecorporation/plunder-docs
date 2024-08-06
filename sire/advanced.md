@@ -89,7 +89,7 @@ The same goal achieved with an anonymous lambda:
 [0 2 4 6 8]
 ```
 
-Here's an example with `maybeCase`, which we also saw earlier. Remember, `maybeCase` takes three arguments: a maybe, a default guard value to return when the value is NONE, and a function to call on the value when it is SOME. In this example, that final function is the continuation we want to handle legibly with the col macro.
+Here's an example with `maybeCase`, which we also saw earlier. Remember, `maybeCase` takes three arguments: a maybe, a default guard value to return when the maybe is NONE, and a function to call on the contained value when the maybe is SOME. In this example, that final function is the continuation we want to handle legibly with the col macro.
 
 ```sire
 maybeNine=(SOME 9)
