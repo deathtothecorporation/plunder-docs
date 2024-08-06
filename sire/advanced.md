@@ -36,22 +36,6 @@ First parameter is a bar ("needle"), second parameter is a bar ("haystack"), thi
 
 ## Col macro
 
-```
-; the 'syscall' function takes two arguments:
-; - a request type of TIME_WHEN ("give me the current system time" in this case)
-; - a continuation function
-; we want to pass an argument to **the continuation** also, so
-; we use & to define an anonymous lambda with one argument, "now" which
-; is the result of the TIME_WHEN current time system call.
-;
-| syscall TIME_WHEN
-& now
-;
-; We are in the body of the continuation function here and have the "now"
-; binding included in scope. Once again we're seeing the continuation-passing
-; style here.
-```
-
 "Col" as in "colon"
 
 ```sire
