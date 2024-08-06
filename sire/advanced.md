@@ -59,7 +59,7 @@ First parameter is a bar ("needle"), second parameter is a bar ("haystack"), thi
 ; the rest of the computation below.
 ; a is in scope here
 ```
-`foo x` is the function call. We can imagine its type signature would be `foo : x -> y -> i`, in which case we would notice that it accepts a second argument `y`. When the final argument to a function is a continuation _and we want to pass arguments to the continuation_, using the col macro is a way to do continuation passing that _feels_ like assignment.
+`foo x` is the function call. We can imagine its type signature would be `foo : a -> (b -> c) -> d`, in which case we would notice that it accepts a function as its second argument. When the final argument to a function is a continuation function, using the col macro is a way to do continuation passing that _feels_ like assignment.
 
 `a` will be bound to the result of `foo x` and will be passed as the argument to `foo`'s final parameter, which is the rest of the code below it.
 
