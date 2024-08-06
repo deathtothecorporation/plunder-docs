@@ -127,7 +127,7 @@ maybeNine=NONE
 ```
 
 
-This might look trivial (after all, you could have written `maybeCase (SOME 9) wasn't nine} inc` and arrived at `10` without using the col macro). But what if you don't have a simple function like `inc` to call? To drive the point home a bit more: Notice that in the next example, the remainder of the continued computation is acting on `actuallyNine` without having to use a let binding or order the function application pipeline strangely.
+This might look trivial (after all, you could have written `maybeCase (SOME 9) {wasn't nine} inc` and arrived at `10` without using the col macro). But what if you don't have a simple function like `inc` to call? To drive the point home a bit more: Notice that in the next example, the remainder of the continued computation is acting on `actuallyNine` without having to use a let binding or order the function application pipeline strangely.
 
 ```sire
 maybeNine=(SOME 9)
