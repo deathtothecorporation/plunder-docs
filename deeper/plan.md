@@ -173,7 +173,7 @@ PLAN is designed to strike a balance between several aspects of computation and 
 
 In discussions of PLAN, there may be some confusion regarding the syntax and semantics of certain constructs. It's important to clarify that:
 
-- `{}` is used to denote a law (function definition) in PLAN. It's not a general-purpose list constructor.
+- `{n a b}` is used for laws, which are user-defined functions. It is a law with the name `n`, arity `a`, and body `b`.
 - `(f x)` is used for function application. The things which count as "functions" are laws, primops, pins `<a>` where `a` is a function, or another application `(g y)` where `g` is a function.
   If `f` is a function with arity >1, the value `(f x)` will simply be kept around as a tuple. This allows us to encode more complicated data structures directly in PLAN. If `f` is not a function, `(f x)` will crash immediately.
 
