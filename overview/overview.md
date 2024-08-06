@@ -21,7 +21,7 @@ ship1
 
 ## Cogs
 
-A "Cog" is a persistent process running on a ship. Cogs snapshot state and write inputs to an event log. They recover state after a restart by loading a recent snapshot and re-applying inputs. Cogs interact with the world by making system calls - which are included as part of their state (thus a cog's set of system calls also resume after a restart).
+A "Cog" is a persistent process running on a ship. Cogs interact with the world by making system calls - which are included as part of their state (thus a cog's set of system calls also resume after a restart). [Much more on Cogs](/deeper/cogs.md).
 
 ## Persistence, PLAN
 
@@ -53,13 +53,49 @@ In these steps, we started with an empty list.\
 But if we had started with `[1, 2]` and done `append 3` the result would have been `[1, 2, 3]`. Likewise, if we had started with `[1]` and done `append 2` the result would have been `[1, 2]`, etc.
 
 The pattern to notice here is: given a current state and an input, we can reliably compute a next state.\
-Taking that step further: if you have a starting state, the proper transition function that modifies the state for a given input, **and a log of **_**all**_** inputs**, you have a strategy for persistence of any current state.
+Taking that step further: if you have a starting state, the proper transition function that modifies the state for a given input, **and a log of **_**all**_** inputs**, you have a strategy for recovering the current state.
 
-The transition function `T` takes a `state` and an `input` and returns a `newState` and a new transition function `T'` which is ready for the next input:
+#### Persistence and Event Sourcing
 
-`T: (state, input) -> (newState, T')`
+Let's start by explaining the core concept of event sourcing using a simple representation:
 
-Because we're in a purely functional environment, we know that running all the inputs in the log will get us back to the last state. This means you get a database engine just by writing functions.
+```
+T : (input, state) -> (outputs, newState)
+```
+
+In this model, our transition function `T` takes an input and the current state, and produces outputs along with a new state. This representation is intuitive for understanding basic event sourcing:
+
+1. We have a current state
+2. We receive an input
+3. We apply the transition function T, which gives us:
+   - Outputs
+   - A new state
+
+By logging all inputs and starting from an initial state, we can always reconstruct the current state by replaying these inputs through our transition function.
+
+#### A Self-Upgrading System
+
+Pallas supports self-upgrading code, where the system can modify its own behavior over time. To represent this capability, we need a slightly different model:
+
+```
+T : (state, input) -> (newState, T')
+```
+
+In this representation:
+1. We still have a state and an input.
+2. We produce a new state, but instead of static outputs, we now produce a new transition function `T'`.
+
+This new `T'` can have modified behavior compared to the original `T`. It represents the system's ability to upgrade itself based on inputs and current state.
+
+#### Why This Representation?
+
+Keep in mind that this is not a formal definition of Pallas, but a representation to help illustrate some concepts. This representation was chosen because:
+
+1. It shows state management, which is necessary for understanding persistence.
+2. It shows upgradeable code.
+3. It strikes a balance between simplicity and accuracy, making it accessible to newcomers while still representing key advanced features.
+
+#### Persistence "for free"
 
 You may have gotten the wrong idea: that the programmer has to `include` some kind of event log library or manually cache the current state. No, the persistence strategy outlined above is handled by the runtime automatically for all applications in Pallas. It only needs to be implemented once and it's trivially available to all applications. Because of this, it also means that optimizations happen in the runtime and are also available to all applications.
 
@@ -70,16 +106,23 @@ With that question on the table, we're finally ready to explain PLAN by way of [
 
 ### Closures and Supercombinators
 
-[The Lambda Calculus](https://en.wikipedia.org/wiki/Lambda\_calculus) provides a formalism which would we could use to "persist" a function. But there are two problems with using the lambda calculus directly:
+[The Lambda Calculus](https://en.wikipedia.org/wiki/Lambda\_calculus) provides a formalism which would we could use to serialize and then persist a function. But there is a problem with using the lambda calculus directly: If you don't use an environment that tracks free variables, it is inefficient; but if you do use an environment, you've introduced implicit state.
 
-1. It's an inefficient representation and thus not ideal for use in production systems.
-2. It assumes an environment that tracks free variables.
+We want to be able to easily write to and read from disk without any risk that there are free variables or assumed environment.\
+In order to deal with that apparent contradiction, we must store _closures_. We want to store functions _together with their environment_.
 
-`#2` is a problem because we want to be able to easily write to and read from disk without any risk that there are free variables or assumed environment.\
-In order to deal with that, we must store _closures_. We want to store functions _together with their arguments_. That is: their entire environment.
+The name for a function with zero free variables and no environment is a [_supercombinator_](https://wiki.haskell.org/Super_combinator).\
+PLAN is a data structure for supercombinators. Every function will always have all the context it could possibly need because they're all closures.
 
-The name for a function with zero free variables and no environment is a _supercombinator_.\
-PLAN is a data structure for supercombinators (and it's supercombinators, recursively, all the way down). Every function will always have all the context it could possibly need because they're all closures. When everything is speaking PLAN, all levels of the system agree on the representation of closures; on-disk and in-memory during execution.
+
+With PLAN at the bottom of the system, the same data structure is used on-disk and in-memory during execution. As a data structure, PLAN strikes a balance between:
+
+- Human readability
+- Candidacy for functional compile target
+- Good memory representation
+- Good on-disk representation
+
+Other systems present alternative approaches for optimizing _one_ (or maybe two) of the above, but we believe PLAN is the best solution for accomplishing _all of the above_ well. Other systems solve each of these in isolation, which necessitates complicated transitions between specialized formats. That is obviated with PLAN, allowing the user more direct control over the system and "proximity to the metal" without loss of expressivity or performance.
 
 ### PLAN
 
@@ -90,15 +133,15 @@ It's also fast to compile to and easy to map back and forth between memory and d
 Formally, it looks like this:
 
 ```
-Plan ::= <Plan>           # Pin
-       | {Nat Nat Plan}   # Law
-       | (Plan Plan)      # App
+PLAN ::= <PLAN>           # Pin
+       | {Nat Nat PLAN}   # Law
+       | (PLAN PLAN)      # App
        | Nat              # Nat
 ```
 
-Where a `Nat` is a natural number and a `Law` is a user-defined function. `()` denotes function application, `{}` is a list of values and `<> / Pin` is a sort of runtime hint that has to do with optimizing memory layout.
+Where a `Nat` is a natural number and a `Law` is a user-defined function. `() / App` denotes function application, `{} / Law` is a list of values and `<> / Pin` is a sort of runtime hint that has to do with optimizing memory layout.
 
-We'll talk about what this means in a while, but for now let's just make clear that this is the **entire** data model of our system.
+We'll talk about what this means in a while, but for now let's just make clear that this is the **entire** data model of our system _and_ anything that users write using this system.
 
 ## Bootstrapping
 
@@ -109,9 +152,9 @@ No. You've (hopefully) gotten used to thinking about this system as a database e
 
 ### Sire
 
-Sire is a sort of Lispy-Haskell whose purpose is to provide an ergonomic experience sitting between a programmer's goals and the resulting PLAN that achieves these goals (We'll get into [programming with Sire itself](sire/intro.md) a little later). Sire compiles _itself_ to the PLAN data model we saw above.
+Sire is a sort of Haskelly-Lisp whose purpose is to provide an ergonomic experience sitting between a programmer's goals and the resulting PLAN that achieves these goals (We'll get into [programming with Sire itself](sire/intro.md) a little later). Sire compiles _itself_ to the PLAN data model we saw above.
 
-Below is the entire PLAN specification. Remember, PLAN is basically just the lambda calculus but without an implicit environment.\
+Below is the entire PLAN specification. Remember, PLAN is basically just the lambda calculus but without any need for an implicit environment.\
 Don't get scared off or try to understand it just yet (or even _ever_, if you so choose), we're just showing off that it can fit on one page:
 
 ```
