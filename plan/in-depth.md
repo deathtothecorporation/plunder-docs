@@ -1,4 +1,4 @@
-# PLAN in Depth
+# In Depth
 
 ## Introduction
 
@@ -124,9 +124,8 @@ Law = Self                -- self-reference
 
 These constructs are encoded within PLAN using partially applied forms of PLAN's native opcodes:
 
-|---------|--------------------|
 | pattern | meaning            |
-|---------|--------------------|
+| ------- | ------------------ |
 | (0 f x) | (f x)              |
 | (1 v b) | let v in b         |
 | (2 k)   | Const k            |
@@ -134,7 +133,6 @@ These constructs are encoded within PLAN using partially applied forms of PLAN's
 | 1       | var 1              |
 | 2       | var 2              |
 | x       | Const x (fallback) |
-|---------|--------------------|
 
 It's important to note that none of these patterns reduce under normal PLAN evaluation rules. This allows any valid AST of the EDSL to be stored using this encoding.
 
@@ -173,11 +171,10 @@ PLAN is designed to strike a balance between several aspects of computation and 
 
 In discussions of PLAN, there may be some confusion regarding the syntax and semantics of certain constructs. It's important to clarify that:
 
-- `{n a b}` is used for laws, which are user-defined functions. It is a law with the name `n`, arity `a`, and body `b`.
-- `(f x)` is used for function application. The things which count as "functions" are laws, primops, pins `<a>` where `a` is a function, or another application `(g y)` where `g` is a function.
-  If `f` is a function with arity >1, the value `(f x)` will simply be kept around as a tuple. This allows us to encode more complicated data structures directly in PLAN. If `f` is not a function, `(f x)` will crash immediately.
+* `{n a b}` is used for laws, which are user-defined functions. It is a law with the name `n`, arity `a`, and body `b`.
+* `(f x)` is used for function application. The things which count as "functions" are laws, primops, pins `<a>` where `a` is a function, or another application `(g y)` where `g` is a function. If `f` is a function with arity >1, the value `(f x)` will simply be kept around as a tuple. This allows us to encode more complicated data structures directly in PLAN. If `f` is not a function, `(f x)` will crash immediately.
 
 Neither `{}` nor `()` should be thought of as general "lists of values". Instead:
 
-- `{n a b}` represents a law with name `n`, arity `a`, and body `b`.
-- `(f x)` represents the application of `f` to `x`, which could be function application when `f` is a function, law, primop or unsaturated app. If `f` is not a function, then `(f x)` will crash immediately upon construction.
+* `{n a b}` represents a law with name `n`, arity `a`, and body `b`.
+* `(f x)` represents the application of `f` to `x`, which could be function application when `f` is a function, law, primop or unsaturated app. If `f` is not a function, then `(f x)` will crash immediately upon construction.
