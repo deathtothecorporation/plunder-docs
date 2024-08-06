@@ -290,7 +290,6 @@ In the above example, `one`, `two` and `three` are string keys; `1` `2` and `3` 
 ```
 
 This comes down to syntax intricacies that we'll leave as an exercise to you to inspect, if you like. Use the `tabFromPairs` approach and you'll be okay.
-```
 
 ### `tabGet`
 
