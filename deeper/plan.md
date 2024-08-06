@@ -84,7 +84,7 @@ F(o) =
     o
 ```
 
-### Application (A)
+### Arity (A)
 
 ```txt
 A((f x))     = A(f)-1
