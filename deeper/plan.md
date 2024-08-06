@@ -145,7 +145,7 @@ The EDSL and PLAN proper are tightly intertwined:
 
 This dual-language structure allows PLAN to maintain a simple core while providing more expressive power for defining functions.
 
-## Reflexivity in PLAN
+## Reflection in PLAN
 
 In PLAN, any program can deconstruct and analyze any terms it encounters during execution. This means that PLAN programs have the ability to:
 
@@ -153,7 +153,7 @@ In PLAN, any program can deconstruct and analyze any terms it encounters during 
 2. Make decisions based on the form of expressions
 3. Modify or generate new code dynamically
 
-This level of reflexivity is not common in many programming languages or evaluation models.
+This level of reflection is not common in many programming languages or evaluation models.
 
 ## PLAN as a Comprehensive Data Structure
 
