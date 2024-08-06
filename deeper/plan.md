@@ -157,7 +157,7 @@ This level of reflexivity is not common in many programming languages or evaluat
 
 ## PLAN as a Comprehensive Data Structure
 
-While it's not entirely accurate to call PLAN a format for human-readable executables or binaries, this perspective highlights PLAN's unique position as a comprehensive data structure that bridges multiple domains of computation and storage.
+PLAN is a format for human-readable executables. Considering PLAN from this perspective highlights its unique position as a comprehensive data structure that bridges multiple domains of computation and storage.
 
 ### Balancing Multiple Concerns
 
@@ -174,9 +174,9 @@ PLAN is designed to strike a balance between several aspects of computation and 
 In discussions of PLAN, there may be some confusion regarding the syntax and semantics of certain constructs. It's important to clarify that:
 
 - `{}` is used to denote a law (function definition) in PLAN. It's not a general-purpose list constructor.
-- `()` is used for function application, but it's also used more generally to construct applications (which can be thought of as pairs).
+- `()` is used for function application, but it's also used more generally to construct applications (which are structurally pairs that reduce; an indication that the first item in the pair was a function whose arity was saturated. If the arity was not saturated, it would not reduce; this is _partial application_).
 
 Neither `{}` nor `()` should be thought of as general "lists of values". Instead:
 
 - `{n a b}` represents a law with name `n`, arity `a`, and body `b`.
-- `(f x)` represents the application of `f` to `x`, which could be function application if `f` is a function, or could just be a pair if `f` is not a function.
+- `(f x)` represents the application of `f` to `x`, which could be function application when `f` is a function, law, primop or unsaturated app. If `f` is not a function, then `(f x)` will crash immediately upon construction.
