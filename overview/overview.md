@@ -53,7 +53,7 @@ In these steps, we started with an empty list.\
 But if we had started with `[1, 2]` and done `append 3` the result would have been `[1, 2, 3]`. Likewise, if we had started with `[1]` and done `append 2` the result would have been `[1, 2]`, etc.
 
 The pattern to notice here is: given a current state and an input, we can reliably compute a next state.\
-Taking that step further: if you have a starting state, the proper transition function that modifies the state for a given input, **and a log of **_**all**_** inputs**, you have a strategy for persistence of any current state.
+Taking that step further: if you have a starting state, the proper transition function that modifies the state for a given input, **and a log of **_**all**_** inputs**, you have a strategy for recovering the current state.
 
 #### Persistence and Event Sourcing
 
