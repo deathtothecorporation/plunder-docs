@@ -130,43 +130,15 @@ Once you're in a nix development shell, run the following command to build the P
 stack build
 ```
 
-This might take a while! When it's done, you should be able to verify all went well by running the mandelbrot web app demo:
+This might take a while! When it's done, you should be able to verify all went well by running a simple cog:
 
-```bash
-bash sh/mandelbrot-ui-demo
+```console
+stack run pallas boot /tmp/counter sire/demo_count_up.sire
+stack run pallas start /tmp/counter
 ```
 
-That command should output something like this:
-
-```
-
-<...A lot more stuff up here...>
-
-tabSplitLT          MATCHED
-    , e "tabSplitLT"          "UdzPypcfJLtyMjLy87ukmU7nRHtfEv3nnZbfJ34isWM"
-tabSing             MATCHED
-    , e "tabSing"             "7AfouhmiExP9KSySjrw4k4VZ5JY2TE4cW53xo1EhHsfz"
-[{2024-01-12T16:22:20.897758578Z} {REPLAY TIME: 0 ns}]
-
-HTTP_SPINNING
-_http_port=56191
-
-
-= _http_port_file
-} /home/your-user/pallas/.demo/4172716296342791002.http.port
-
-
-Setting interface files...
-Interface files are set. Running on http://localhost:56191/index.html
-```
-
-There is now a webserver running and you can access the app at the URL mentioned in the final line of output. **NOTE: the `index.html` at the end is required!**
-
-<figure><img src="../.gitbook/assets/mandelbrot-ui.png" alt=""><figcaption></figcaption></figure>
-
-Change the width and height to 100 and click "resize" (Keeping a small size for expediency). Then click "generate fractal". After a few seconds you'll see a fractal appear in the canvas. Congratulations, you just ran a Pallas app.
-
-Soon you'll learn how to write one of your own.
+You should see a process that logs a message every second.  
+Press `CTRL-C` when you're ready to exit the process.
 
 ## The `pallas` command and REPLs
 
@@ -202,7 +174,7 @@ Available commands:
 
 ```
 
-We'll get into booting machines and running cogs soon, but first let's just get a Sire REPL to play with.\
+We'll more get into booting machines and running cogs soon, but first let's just get a Sire REPL to play with.\
 While the `repl` command looks attractive, it's not going to do exactly what you expect.
 
 There is a particular boot sequence required before we have all the necessary tools at hand. Since we want our environment to be hydrated properly, we'll execute the proper boot sequence in order to get a working REPL:
