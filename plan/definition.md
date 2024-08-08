@@ -1,3 +1,7 @@
+---
+hidden: true
+---
+
 # Definition
 
 Like [Urbit's Nock](https://developers.urbit.org/reference/nock/definition), PLAN is a combinator interpreter. It is defined by the following pseudocode:
