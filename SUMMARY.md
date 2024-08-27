@@ -3,7 +3,7 @@
 ## What is this thing? <a href="#overview" id="overview"></a>
 
 * [Introduction](README.md)
-* [Pallas](overview/overview.md)
+* [Architecture](overview/overview.md)
 * [Runtime](overview/runtime.md)
 
 ## Installation
