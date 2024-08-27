@@ -7,6 +7,5 @@ This page coming soon.
 * How it interacts with the host machine
 * How it interacts with Pallas/PLAN
 * Why it's currently implemented in Haskell
-* What's the story on the C runtime
 * Future directions for the runtime
 {% endhint %}

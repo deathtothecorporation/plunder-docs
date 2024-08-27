@@ -22,13 +22,11 @@ This is a printf, a `console.log`.
 2      ; the result of inc 1
 ```
 
-`trk` prints its first argument. Its second argument is typically the rest of the function we're currently defining. If we were to give `trk` a Haskelly type signature, it would be `trk : a -> b -> b` and we would say that it prints `a` and returns `b`.
-That's why in this example we have to supply it with an (arbitrary) additional argument, the `inc` function.
-`trk` _feels_ like it only takes a single argument when it is used in the "middle" of other lines of code, but since it does technically take a second argument, you can't just call it on its own or have it as the final line of a function. Most of the time you will use `trk` within other lines and you won't notice this caveat, but you should be aware of it.
+`trk` prints its first argument. Its second argument is typically the rest of the function we're currently defining. If we were to give `trk` a Haskelly type signature, it would be `trk : a -> b -> b` and we would say that it prints `a` and returns `b`. That's why in this example we have to supply it with an (arbitrary) additional argument, the `inc` function. `trk` _feels_ like it only takes a single argument when it is used in the "middle" of other lines of code, but since it does technically take a second argument, you can't just call it on its own or have it as the final line of a function. Most of the time you will use `trk` within other lines and you won't notice this caveat, but you should be aware of it.
 
 ### `=?=`
 
-Assertion. Crashes when the assertion is false. Often used for basic unit tests.
+Assertion. It takes two arguments and exists source file loading if they are not equal, otherwise it evaluates without issue.&#x20;
 
 ```sire
 ;; I say 1 is equal to 2!
@@ -70,7 +68,7 @@ We won't cover all the basic arithmetic functions because they're quite straight
 
 ### `showNat`
 
-Prints a nat as a string. Mostly used in the REPL.&#x20;
+Prints a nat as a string. Mostly used in the REPL.
 
 ```sire
 showNat 100
@@ -257,7 +255,7 @@ fmapMaybe non inc
 
 ## Tabs
 
-A tab is a map from noun to noun. Like a dict in Haskell or Python.
+A tab is a map from noun to noun. A noun is a nat or a two-tuple. Like a dict in Haskell or Python.
 
 ### Create a tab: `#[]` / `tabFromPairs`
 
@@ -374,31 +372,31 @@ Do a text-search on the `*.sire` files for a term that seems relevant (`slice`, 
 
 Below is a summary of each of the standard library files. Particularly helpful ones for a beginner are annotated with a 👍. Files that require a more advanced understanding and can be skipped for now are annotated with a ❗. Most of these files primarily define lower-level dependencies that other higher-order (and easier to understand) subsequent functions rely on.
 
-* `sire_01_fan.sire` - Defines named wrappers around PLAN operations
-* `sire_02_bit.sire` - Booleans
-* `sire_03_nat.sire` - Natural numbers and operating on them
-* `sire_04_cmp.sire` - Comparison, ordering and equality
-* `sire_05_row.sire` - Rows and basic operations on them
-* ❗ `sire_06_rex.sire` - Representation for rex trees - mostly needed for macros.
-* 👍 `sire_07_dat.sire` - Data structures; rows, lists, maybe, either, etc.
-* 👍 `sire_10_str.sire` - ASCII characters and strings
-* `sire_11_set.sire` - Sets
-* 👍 `sire_12_tab.sire` - Tabs
-* ❗ `sire_13_exp.sire` - More rex and macro utilities
-* ❗ `sire_14_hax.sire` - Explains how the `#` rune is used for macros
-* ❗ `sire_15_pad.sire` - Bit-strings encoded as nats
-* 👍 `sire_16_bar.sire` - Byte-arrays and operations
-* `sire_17_sug.sire` - Syntactic sugar and convenience macros
-* ❗ `sire_18_pat.sire` - Pattern matching
-* ❗ `sire_19_bst.sire` - Binary search trees
-* ❗ `sire_20_prp.sire` - Sire properties
-* `sire_21_switch.sire` - Atomic switch
-* ❗ `sire_22_seed.sire` - Seed; serialization framework
-* ❗ `sire_23_repl.sire` - REPL utilities
-* ❗ `sire_24_rex.sire` - Rex
-* `sire_25_datatype.sire` - Datacase/Record
-* ⁉️ `sire_26_compile.sire` - Backend of the sire compiler
-* ⁉️ `sire_27_sire.sire` - Sire-in-sire; can be used to bootstrap itself
+* [`sire_01_fan.sire`](https://github.com/operating-function/pallas/blob/master/sire/sire\_01\_fan.sire) - Defines named wrappers around PLAN operations
+* [`sire_02_bit.sire`](https://github.com/operating-function/pallas/blob/master/sire/sire\_02\_bit.sire) - Booleans
+* [`sire_03_nat.sire`](https://github.com/operating-function/pallas/blob/master/sire/sire\_03\_nat.sire) - Natural numbers and operating on them
+* [`sire_04_cmp.sire`](https://github.com/operating-function/pallas/blob/master/sire/sire\_04\_cmp.sire) - Comparison, ordering and equality
+* [`sire_05_row.sire`](https://github.com/operating-function/pallas/blob/master/sire/sire\_05\_row.sire) - Rows and basic operations on them
+* ❗ [`sire_06_rex.sire`](https://github.com/operating-function/pallas/blob/master/sire/sire\_06\_rex.sire) - Representation for rex trees - mostly needed for macros.
+* 👍 [`sire_07_dat.sire`](https://github.com/operating-function/pallas/blob/master/sire/sire\_07\_dat.sire) - Data structures; rows, lists, maybe, either, etc.
+* 👍 [`sire_10_str.sire`](https://github.com/operating-function/pallas/blob/master/sire/sire\_10\_str.sire) - ASCII characters and strings
+* [`sire_11_set.sire`](https://github.com/operating-function/pallas/blob/master/sire/sire\_11\_set.sire) - Sets
+* 👍 [`sire_12_tab.sire`](https://github.com/operating-function/pallas/blob/master/sire/sire\_12\_tab.sire) - Tabs
+* ❗ [`sire_13_exp.sire`](https://github.com/operating-function/pallas/blob/master/sire/sire\_13\_exp.sire) - More rex and macro utilities
+* ❗ [`sire_14_hax.sire`](https://github.com/operating-function/pallas/blob/master/sire/sire\_14\_hax.sire) - Explains how the `#` rune is used for macros
+* ❗ [`sire_15_pad.sire`](https://github.com/operating-function/pallas/blob/master/sire/sire\_15\_pad.sire) - Bit-strings encoded as nats
+* 👍 [`sire_16_bar.sire`](https://github.com/operating-function/pallas/blob/master/sire/sire\_16\_bar.sire) - Byte-arrays and operations
+* [`sire_17_sug.sire`](https://github.com/operating-function/pallas/blob/master/sire/sire\_17\_sug.sire) - Syntactic sugar and convenience macros
+* ❗ [`sire_18_pat.sire`](https://github.com/operating-function/pallas/blob/master/sire/sire\_18\_pat.sire) - Pattern matching
+* ❗ [`sire_19_bst.sire`](https://github.com/operating-function/pallas/blob/master/sire/sire\_19\_bst.sire) - Binary search trees
+* ❗ [`sire_20_prp.sire`](https://github.com/operating-function/pallas/blob/master/sire/sire\_20\_prp.sire) - Sire properties
+* [`sire_21_switch.sire`](https://github.com/operating-function/pallas/blob/master/sire/sire\_21\_switch.sire) - Atomic switch
+* ❗ [`sire_22_seed.sire`](https://github.com/operating-function/pallas/blob/master/sire/sire\_22\_seed.sire) - Seed; serialization framework
+* ❗ [`sire_23_repl.sire`](https://github.com/operating-function/pallas/blob/master/sire/sire\_23\_repl.sire) - REPL utilities
+* ❗ [`sire_24_rex.sire`](https://github.com/operating-function/pallas/blob/master/sire/sire\_24\_rex.sire) - Rex
+* [`sire_25_datatype.sire`](https://github.com/operating-function/pallas/blob/master/sire/sire\_25\_datatype.sire) - Datacase/Record
+* ⁉️ [`sire_26_compile.sire`](https://github.com/operating-function/pallas/blob/master/sire/sire\_26\_compile.sire) - Backend of the sire compiler
+* ⁉️ [`sire_27_sire.sire`](https://github.com/operating-function/pallas/blob/master/sire/sire\_27\_sire.sire) - Sire-in-sire; can be used to bootstrap itself
 
 Taking a look at this list above, you can also get a sense of how the Sire source files start at the basics of wrapping PLAN and incrementally build on each other until the full system is realized.\
 By starting with PLAN and going through all the files above, after a (relatively) small investment of time, you could understand the **entirety** of this computational model. Pretty cool.

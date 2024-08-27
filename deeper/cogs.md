@@ -1,12 +1,8 @@
 # Cogs
 
-{% hint style="warning" %}
-TODO: Update with new work.
-{% endhint %}
+### Machines
 
-### Machine
-
-In the Pallas VM, a "Machine" is a set of persistent processes, which are referred to as Cogs.
+In the Pallas VM, a "machine" is a set of persistent processes, which are referred to as "cogs".
 
 A user creates a cog by writing a transition function of a particular shape and giving that to the runtime. The details around getting the transition function into this "particular shape" are easily handled by a small library.
 
@@ -16,8 +12,11 @@ Cogs interact with the world by making system calls. The set of active system ca
 
 There is no hidden state in a machine. A machine can shut down and resume without any visible effect. The formal state of a full Machine is a PLAN value of shape `Tab Nat PLAN`: a mapping from IDs to cogs.
 
-### From the old docs
-*The following is conceptually right but details are wrong. It should be updated and edited.*
+### From the Old Docs
+
+{% hint style="warning" %}
+_The following is conceptually right but details are wrong. It should be updated and edited._
+{% endhint %}
 
 A cog is a Pallas function partially applied to a row of syscalls.
 

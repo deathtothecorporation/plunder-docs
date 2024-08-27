@@ -1,3 +1,7 @@
+---
+hidden: true
+---
+
 # Where To Go From Here
 
 {% hint style="warning" %}
@@ -30,6 +34,6 @@ Deeper dive topics:
 * [UI files](../deeper/ui-files.md)
 * [Seed files](../sire/seeds.md)
 * [Boot process](../deeper/boot-process.md)
-* [Plunder vs Pallas](../deeper/pallas.md)
+* [Plunder vs Pallas](broken-reference)
 * [Cogs in depth](../deeper/cogs.md)
 * [Jets](../deeper/jets.md)

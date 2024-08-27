@@ -4,23 +4,42 @@
 🚧 This documentation collection is under active development. Similar callouts will be used to denote areas that are stubbed-out or coming soon. 🚧
 {% endhint %}
 
-## Introduction
+Pallas is an event sourced, purely functional application platform, called an _**operating function**_. Every operation inside an operating function is ACID. Pallas is currently instantiated as a VM and can be run on Linux, Mac, or Nix. The platform ships with a minimal bootstrapping language called _Sire_, but includes an efficient axiomatic IR which can be targeted by mainstream functional languages.
 
-Pallas is an event sourced, purely functional operating system, called an _**operating function**_**.**&#x20;
+### Problem
 
-Pallas provides an entirely unique set of features, but is inspired by a long history of systems and language research, including [MIT’s exokernel](https://pdos.csail.mit.edu/archive/exo/). Pallas collapses the distinction between database, virtual machine, and language platform, creating a stable, simple, and extensible application environment.
+_Software is being destroyed by accidental complexity_. Our most popular applications require hundreds or thousands of developers to build and maintain. This complexity benefits large corporations who use their dominant capital positions to monopolize and rent seek. This dynamic increases the cost of software, reduces the set of economically viable programs, and disempowers developers and users alike.
 
-The cost to this design is a clean break with legacy systems, including Unix and most popular programming languages. In return, Pallas offers a set of features that are found nowhere else:
+This is not an abstract moral problem. Software is the best tool we have for identifying, organizing, and solving societal issues. Instability in software trickles down to every other domain of human activity.
 
-* All application code is automatically persisted, without imports or boilerplate. To create a database, you write a pure function. System calls are included in persisted state.
-* Partially applied functions can be serialized and stored on-disk, or sent over the wire. Programs in mid-execution can be paused, moved to a new machine, and resumed with no impact.
-* Program execution can be parallelized via a process model. A single machine can spawn and manage multiple processes.
-* The system’s default language blends features from both Lisp and Haskell. It uses a more readable and flexible syntax than S-expressions, without sacrificing regularity or metaprogramming capabilities. In particular, it supports hot reload, macro-based type systems, all the way up to custom compilers.
-* Data and code is deduplicated, merkleized, and stored in content-addressable memory pages. This creates a global referentially-transparent content store, which is naturally complemented by protocols like BitTorrent.
+### Solution
 
-By reading our documentation and examples, you will be able to prove to yourself that these claims are true.
+More composable software systems directly result in more software freedom. The more power individual developers wield, the more that power is widely distributed. This is true even if "scrolling through silos" is the highest state of computing.
 
-The foundation of Pallas is untyped, but conceptually we can say that a database is a function of the type:
+To increase developer power and software freedom, your entire computer needs to be inspectable and understandable. It should be composable and made of highly generic, unopinionated, easily understood, reusable building blocks. These properties need to be stable regardless of underlying hardware changes and should guarantee a high degree of backward and forward compatibility.
+
+Pallas is a prototype of such a system.
+
+### Features
+
+* **No database code**
+  * All application data is automatically persisted, without the need for imports or boilerplate. To create a database, you write a pure function.
+* **Serialize anything, running programs included**
+  * Closures can be serialized and stored on-disk, or sent over the wire. Programs in mid-execution can be paused, moved to a new machine, and resumed with no impact. Open syscalls are included in persisted state and are resumed on reboot.
+* **Parallelism with deterministic replay**
+  * Results from spawned processes, IO, and runtime evaluated expressions are recorded as events using an event-log-and-snapshot model. On replay, terminated events are recomputed with perfect determinism.
+* **Global referentially-transparent content store**
+  * Data and code is deduplicated, merkleized, and stored in content-addressable memory pages. This creates a global referentially-transparent content store, which is naturally complemented by protocols like BitTorrent.
+* **Native networking and identity**
+  * VMs and spawned processes are identified by one or more cryptographic keys. The networking protocol is stateless and guarantees at-least-once-delivery. The runtime implements the protocol, allowing transport details to evolve without breaking internal software.
+* **Formally specified system calls**
+  * Software breaks at boundaries, so syscalls are specified as pure functions and their spec is designed to be frozen. Runtimes are responsible for matching... (_TODO: enforcing semantics?_)
+* **Extensible language platform**
+  * Metaprogramming capabilities include hot reload, zero-overhead virtualization, macro-based type systems, all the way up to custom compilers.
+
+### System Overview
+
+The foundation of Pallas is untyped, but conceptually we can say that a process is database. Each database is a function of the type
 
 ```haskell
 type DB = Input -> (Output, DB)
@@ -34,10 +53,7 @@ The recursive part of the type above might seem strange. You can think of it alm
 type OtherDB = (State, Input) -> (State, Output)
 ```
 
-The difference is that instead of changing the state value, the recursive version would change itself. The current version of the function is the state. In other words: programs can upgrade themselves dynamically. Code can construct code. Because of this, we can put an entire compiler toolchain inside the system and the programs it generates have zero dependencies on the outside world.\
-
-
-This project is a fork of [Plunder](https://sr.ht/\~plan/plunder/).
+The difference is that instead of changing the state value, the recursive version would change itself. The current version of the function is the state. In other words: programs can upgrade themselves dynamically. Code can construct code. Because of this, we can put an entire compiler toolchain inside the system and the programs it generates have zero dependencies on the outside world.
 
 ### Pallas
 
@@ -62,7 +78,7 @@ We'll start off here with a high-level overview of Pallas. If you're viewing on 
 ### Resources
 
 * [Pallas repo](https://github.com/operating-function/pallas)
-* [Pallas developer Telegram group](https://t.me/vaporwareNetwork)
+* [Telegram Support](https://t.me/vaporwareNetwork)
 
 ***
 

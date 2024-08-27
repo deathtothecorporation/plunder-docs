@@ -1,14 +1,21 @@
-# Pallas
+# Architecture
 
-We're going to explain a couple of special Pallas terms and then take a relatively deep tour into the big pieces that make the whole system work, down to the "bytecode" level.
+This section provides an overview of Pallas's architecture and introduces core system concepts, including:
 
-## Ships
+* **Machines:** our virtual machine model
+* **Cogs:** a virtualized process / database&#x20;
+* **PLAN:** an ultra minimal, purely functional combinator interpreter (equivalent to "bytecode")
+* **Sire:** the default system language
 
-A Pallas Virtual Machine is colloquially referred to as a "ship". On the host filesystem, a ship consists of a directory containing a `data.mdb`, `lock.mdb` and a `pins` directory:
+<figure><img src="../.gitbook/assets/system.png" alt=""><figcaption></figcaption></figure>
+
+## Machines
+
+A Pallas VM is colloquially referred to as a "machine". On the host filesystem, a machine consists of a directory containing a `data.mdb`, `lock.mdb` and a `pins` directory:
 
 ```
-$ tree my-ships/ship1
-ship1
+$ tree my-machines/machine1
+machine1
 ├── data.mdb
 ├── lock.mdb
 └── pins
@@ -21,18 +28,21 @@ ship1
 
 ## Cogs
 
-A "Cog" is a persistent process running on a ship. Cogs interact with the world by making system calls - which are included as part of their state (thus a cog's set of system calls also resume after a restart). [Much more on Cogs](/deeper/cogs.md).
+A "cog" is a persistent process running on a machine. Cogs interact with the world by making system calls - which are included as part of their state (thus a cog's set of system calls also resume after a restart). [Much more on cogs](../deeper/cogs.md).
 
-## Persistence, PLAN
+## PLAN
 
-PLAN is an evaluation model (you could think of this as the "machine code" of a Pallas VM) that implements a self-contained, purely-functional database with no external dependencies.\
-That sounds vaguely intriguing, in the abstract, but what does it actually mean and what does this provide for you, in practice?
+1. [Persistence; Event Log; Database Engine](overview.md#persistence-event-log-database-engine)
+2. [Closures and Supercombinators](overview.md#closures-and-supercombinators)
+3. [PLAN](overview.md#plan-1)
 
-We've mentioned purely functional systems and data persistence a few times so far. A deeper discussion of the PLAN data structure will bring these two concepts together, but before we inspect PLAN itself ("what is this 'PLAN' thing you keep mentioning?!") we have to take a brief detour into how the Pallas VM achieves persistence.
+Nearly every core innovation of Pallas emerges from the design of PLAN. It's not necessary to understand PLAN to write applications, but if you understand PLAN, you'll understand the system. &#x20;
+
+PLAN is an evaluation model (you could think of this as the "machine code" of a Pallas VM) that implements a self-contained, purely-functional database with no external dependencies. A deeper discussion of the PLAN data structure will bring these two concepts together, but before we inspect PLAN itself we have to take a brief detour into how the Pallas VM achieves persistence.
 
 ### Persistence; Event Log; Database Engine
 
-Let's say I wanted a write a small program that manages a list of numbers, starting with an empty list.
+Let's say you wanted a write a small program that manages a list of numbers, starting with an empty list.
 
 ```
 // Initial state
@@ -49,11 +59,10 @@ Let's say I wanted a write a small program that manages a list of numbers, start
 [1, 2, 3]
 ```
 
-In these steps, we started with an empty list.\
-But if we had started with `[1, 2]` and done `append 3` the result would have been `[1, 2, 3]`. Likewise, if we had started with `[1]` and done `append 2` the result would have been `[1, 2]`, etc.
+In these steps, we started with an empty list, but if we had started with `[1, 2]` and done `append 3` the result would have been `[1, 2, 3]`. Likewise, if we had started with `[1]` and done `append 2` the result would have been `[1, 2]`, etc.
 
 The pattern to notice here is: given a current state and an input, we can reliably compute a next state.\
-Taking that step further: if you have a starting state, the proper transition function that modifies the state for a given input, **and a log of **_**all**_** inputs**, you have a strategy for recovering the current state.
+Taking that step further: if you have a starting state, the proper transition function that modifies the state for a given input, and a log of **all** **inputs**, you have a strategy for recovering the current state.
 
 #### Persistence and Event Sourcing
 
@@ -68,8 +77,8 @@ In this model, our transition function `T` takes an input and the current state,
 1. We have a current state
 2. We receive an input
 3. We apply the transition function T, which gives us:
-   - Outputs
-   - A new state
+   * Outputs
+   * A new state
 
 By logging all inputs and starting from an initial state, we can always reconstruct the current state by replaying these inputs through our transition function.
 
@@ -82,6 +91,7 @@ T : (state, input) -> (newState, T')
 ```
 
 In this representation:
+
 1. We still have a state and an input.
 2. We produce a new state, but instead of static outputs, we now produce a new transition function `T'`.
 
@@ -101,26 +111,25 @@ You may have gotten the wrong idea: that the programmer has to `include` some ki
 
 One such optimization is snapshotting the current state to avoid recomputing from the event log on restarts.
 
-But how can you take a "current state snapshot" if there are partially-applied functions like `T`? How do you store a partially applied function?\
+_But how can you take a "current state snapshot" if there are partially-applied functions like `T`? How do you store a partially applied function?_
+
 With that question on the table, we're finally ready to explain PLAN by way of [closures](https://en.wikipedia.org/wiki/Closure\_\(computer\_programming\)).
 
 ### Closures and Supercombinators
 
 [The Lambda Calculus](https://en.wikipedia.org/wiki/Lambda\_calculus) provides a formalism which would we could use to serialize and then persist a function. But there is a problem with using the lambda calculus directly: If you don't use an environment that tracks free variables, it is inefficient; but if you do use an environment, you've introduced implicit state.
 
-We want to be able to easily write to and read from disk without any risk that there are free variables or assumed environment.\
-In order to deal with that apparent contradiction, we must store _closures_. We want to store functions _together with their environment_.
+We want to be able to easily write to and read from disk without any risk that there are free variables or assumed environment. In order to deal with that apparent contradiction, we must store _closures_. We want to store functions _together with their environment_.
 
-The name for a function with zero free variables and no environment is a [_supercombinator_](https://wiki.haskell.org/Super_combinator).\
+The name for a function with zero free variables and no environment is a [_supercombinator_](https://wiki.haskell.org/Super\_combinator).\
 PLAN is a data structure for supercombinators. Every function will always have all the context it could possibly need because they're all closures.
-
 
 With PLAN at the bottom of the system, the same data structure is used on-disk and in-memory during execution. As a data structure, PLAN strikes a balance between:
 
-- Human readability
-- Candidacy for functional compile target
-- Good memory representation
-- Good on-disk representation
+* Human readability
+* Candidacy for functional compile target
+* Good memory representation
+* Good on-disk representation
 
 Other systems present alternative approaches for optimizing _one_ (or maybe two) of the above, but we believe PLAN is the best solution for accomplishing _all of the above_ well. Other systems solve each of these in isolation, which necessitates complicated transitions between specialized formats. That is obviated with PLAN, allowing the user more direct control over the system and "proximity to the metal" without loss of expressivity or performance.
 
@@ -154,8 +163,7 @@ No. You've (hopefully) gotten used to thinking about this system as a database e
 
 Sire is a sort of Haskelly-Lisp whose purpose is to provide an ergonomic experience sitting between a programmer's goals and the resulting PLAN that achieves these goals (We'll get into [programming with Sire itself](sire/intro.md) a little later). Sire compiles _itself_ to the PLAN data model we saw above.
 
-Below is the entire PLAN specification. Remember, PLAN is basically just the lambda calculus but without any need for an implicit environment.\
-Don't get scared off or try to understand it just yet (or even _ever_, if you so choose), we're just showing off that it can fit on one page:
+Below is the entire PLAN specification. Remember, PLAN is basically just the lambda calculus but without any need for an implicit environment. Don't get scared off or try to understand it just yet (or even _ever_, if you so choose), we're just showing off that it can fit on one page:
 
 ```
 Every PLAN value is either a pin x:<i>, a law x:{n a b}, an app x:(f g), a

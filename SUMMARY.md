@@ -10,20 +10,26 @@
 
 * [Environment Setup](setup/installation.md)
 
+## Quickstart Tutorial
+
+* ["Hello World" Cog](quickstart-tutorial/hello-world.md)
+* [Booting, Starting, Caching](quickstart-tutorial/booting-starting.md)
+* [JSON](quickstart-tutorial/json.md)
+* [Cog webserver end-to-end](quickstart-tutorial/cog-web-end-to-end.md)
+* [Advanced Data Structures](quickstart-tutorial/data-structures.md)
+* [Where To Go From Here](quickstart-tutorial/next.md)
+
 ## Sire
 
 * [Intro](sire/intro.md)
 * [Some Standard Library](sire/standard-library.md)
 * [Bits To Recognize But Not Learn Yet](sire/advanced.md)
 
-## Cogs
+## Databases / Cogs
 
-* ["Hello World" Cog](a-simple-cog/hello-world.md)
-* [Booting, Starting, Caching](a-simple-cog/booting-starting.md)
-* [JSON](a-simple-cog/json.md)
-* [Advanced Data Structures](sire/data-structures.md)
-* [Cog webserver end-to-end](a-simple-cog/cog-web-end-to-end.md)
-* [Where To Go From Here](a-simple-cog/next.md)
+* [Creating a Cog](databases-cogs/creating-a-cog.md)
+* [Using a Cog](databases-cogs/using-a-cog.md)
+* [Inter-Cog Communication](databases-cogs/inter-cog-communication.md)
 
 ## Deeper
 
@@ -34,7 +40,6 @@
 * [Jets](deeper/jets.md)
 * [Boot process](deeper/boot-process.md)
 * [UI files](deeper/ui-files.md)
-* [Plunder vs Pallas](deeper/pallas.md)
 
 ## PLAN
 

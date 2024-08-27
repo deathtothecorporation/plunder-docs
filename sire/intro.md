@@ -2,9 +2,9 @@
 
 ## Intro to Sire
 
-As already discussed, the _point_ of Sire is to get back PLAN. It is also possible to compile mainstream functional languages to PLAN. At that point, much Pallas development—including full-stack web applications—will be accomplished by writing in those languages only, leaving Sire only responsible for code that needs to be optimized by the runtime (like new crypto libraries, say).
+Sire is the default language for Pallas and is bootstrapped directly from PLAN. It is also possible to compile mainstream functional languages to PLAN. At that point, much Pallas development—including full-stack web applications—will be accomplished by writing in those languages only, leaving Sire responsible for code that needs to be optimized by the runtime (like new crypto libraries, say).
 
-Until that time, we'll be writing Sire. But since our immediate goal for the moment is to build a cog that runs and does some stuff, we're not going to learn every character and nuance of Sire syntax. Just enough.  
+Until that time, we'll be writing Sire. But since our immediate goal for the moment is to build a cog that runs and does some stuff, we're not going to learn every character and nuance of Sire syntax. Just enough.\
 Don't worry if you don't fully understand _how_ a line of code does what it does, but do make sure you have a handle on _what_ it's doing.
 
 ## Getting familiar
@@ -67,6 +67,7 @@ You can also apply functions with `()`:
 (add 1 3)
 4
 ```
+
 This is actually a short form for `(| add 1 3)` - we're still doing function application with `|` under the hood, but the `|` rune is a special case that can be omitted in this context. All runes can be written several different ways (as you'll see next with the `=` rune).
 
 Let's combine both of the above concepts to create our own named function. Note the way in this case you start the line with `=` (followed by a space) and the name of the function is the first value after the opening parenthesis.
@@ -122,8 +123,7 @@ renamedInput
 
 ### Nat - natural number
 
-All values in Pallas are trees, whose leaves are natural numbers. Throughout the system, these are referred to as "nats".
-The REPL will represent these values as ASCII for printing purposes, which can be confusing at first and should be noted up front. For instance, the character `a` is encoded as `97` in ASCII:
+All values in Pallas are trees, whose leaves are natural numbers. Throughout the system, these are referred to as "nats". The REPL will represent these values as ASCII for printing purposes, which can be confusing at first and should be noted up front. For instance, the character `a` is encoded as `97` in ASCII:
 
 ```sire
 97
@@ -139,7 +139,7 @@ The REPL will represent these values as ASCII for printing purposes, which can b
 ;; REPL is concerned. Same for the % leading the "a" a few lines above.
 ```
 
-The full explanation is of how nats are rendered is [here](/deeper/nat-representations.md), but we suggest you continue along for now without getting too bogged down in the REPL representation of nats.
+The full explanation is of how nats are rendered is [here](../deeper/nat-representations.md), but we suggest you continue along for now without getting too bogged down in the REPL representation of nats.
 
 ### Bar - byte-array, and Strings
 
@@ -155,11 +155,9 @@ You only need to use the curly braces when spaces are present in your byte array
 b#thisIsAFineBar
 ```
 
-While it may be attractive to think about bars and strings interchangeably, they are not identical and when working between the two you'll often need to use conversion functions (like [natBar](/sire/standard-library.md#natBar) and [barNat](/sire/standard-library.md#barNat). There are more standard library functions for working with bars on a structural level (folding, splitting at indexes, filtering, etc.) while the string standard library functions are more geared to character-level functions like capitalization and checking if a character is an alphanumeric.  
+While it may be attractive to think about bars and strings interchangeably, they are not identical and when working between the two you'll often need to use conversion functions (like [natBar](standard-library.md#natBar) and [barNat](standard-library.md#barNat). There are more standard library functions for working with bars on a structural level (folding, splitting at indexes, filtering, etc.) while the string standard library functions are more geared to character-level functions like capitalization and checking if a character is an alphanumeric.
 
-
-
-Trust us that you can and should basically just use bars for everything string-like and you can move along to the section on data structures below, but if you're interested in seeing the deep dive, it's [here](/deeper/nat-representations.md).
+Trust us that you can and should basically just use bars for everything string-like and you can move along to the section on data structures below, but if you're interested in seeing the deep dive, it's [here](../deeper/nat-representations.md).
 
 ## A Few Simple Data Structures
 
@@ -231,7 +229,9 @@ listy
 
 `TRUE` is represented as the nat `1`, while `FALSE` is the nat `0`.
 
-The `=?=` operation here is an assertion. It is often used for "unit testing". It takes two arguments and crashes if they are not equal, otherwise it evaluates without issue.
+The `=?=` operator is a unit test. It's scope is the same as a top level definition and so it cannot be used within a function.&#x20;
+
+It takes two arguments and exists source file loading if they are not equal, otherwise it evaluates without issue.&#x20;
 
 ```sire
 =?= 1 TRUE
@@ -274,10 +274,10 @@ eql 1 999
 
 Similarly, we have `neq` for "not equal". Also:
 
-- `lth` - true when first parameter is less than second
-- `lte` - true when first parameter is less then or equal to second
-- `gth` - true when first parameter is greater than second
-- `gte` - true when first parameter is greater than or equal to second
+* `lth` - true when first parameter is less than second
+* `lte` - true when first parameter is less then or equal to second
+* `gth` - true when first parameter is greater than second
+* `gte` - true when first parameter is greater than or equal to second
 
 ### `if`
 
@@ -325,6 +325,6 @@ or 0 0
 
 ## Moving on
 
-This was a brief overview of the nuts and bolts of Sire. Printing out bars in the REPL is fun and all, but our goal is to build a web app, not test the limit of how many "hello world" strings we can fit in our terminal scrollback.  
+This was a brief overview of the nuts and bolts of Sire. Printing out bars in the REPL is fun and all, but our goal is to build a web app, not test the limit of how many "hello world" strings we can fit in our terminal scrollback.
 
 Next we'll take a look at a small sample of the standard library that we'll use while building our first Pallas Cog.
