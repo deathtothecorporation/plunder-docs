@@ -32,10 +32,6 @@ A "cog" is a persistent process running on a machine. Cogs interact with the wor
 
 ## PLAN
 
-1. [Persistence; Event Log; Database Engine](overview.md#persistence-event-log-database-engine)
-2. [Closures and Supercombinators](overview.md#closures-and-supercombinators)
-3. [PLAN](overview.md#plan-1)
-
 Nearly every core innovation of Pallas emerges from the design of PLAN. It's not necessary to understand PLAN to write applications, but if you understand PLAN, you'll understand the system. &#x20;
 
 PLAN is an evaluation model (you could think of this as the "machine code" of a Pallas VM) that implements a self-contained, purely-functional database with no external dependencies. A deeper discussion of the PLAN data structure will bring these two concepts together, but before we inspect PLAN itself we have to take a brief detour into how the Pallas VM achieves persistence.

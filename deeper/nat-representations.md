@@ -1,10 +1,10 @@
 # Nat Representations
 
-(This section assumes you've already gone through the [standard library tour](../sire/standard-library.md). If not, you'll see some functions here with which you're not familiar.)
+(This section assumes you've already gone through the [standard library tour](../sire-reference/standard-library.md). If not, you'll see some functions here with which you're not familiar.)
 
 ## Bars and Strings
 
-In the [intro](../sire/intro.md) we briefly covered bars and strings, but it's worth saying a bit more about them here. Because bars are _arrays of bytes_ (which we can interpret as UTF-8), and strings are stored as opaque nats, a bar representation and a string representation that look the same on the surface are _not_ equivalent PLAN values:
+In the [intro](../sire-reference/intro.md) we briefly covered bars and strings, but it's worth saying a bit more about them here. Because bars are _arrays of bytes_ (which we can interpret as UTF-8), and strings are stored as opaque nats, a bar representation and a string representation that look the same on the surface are _not_ equivalent PLAN values:
 
 ```sire
 =?= b#{a string} {a string}

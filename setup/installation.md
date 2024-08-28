@@ -23,16 +23,17 @@ Once you're in the REPL, you should see something this:
 
 Try entering `(add 1 2)` and hitting enter.
 
-Let's [learn some more Sire now](/sire/intro.md)
+Let's [learn some more Sire now](../sire-reference/intro.md)
 
 ## Prebuilt binary
 
 1. Install dependencies:
 
 Dependencies:
-- libgmp (GNU Multiple Precision Arithmetic Library)
-- liblmdb (Lightning Memory-Mapped Database)
-- libz (zlib compression library)
+
+* libgmp (GNU Multiple Precision Arithmetic Library)
+* liblmdb (Lightning Memory-Mapped Database)
+* libz (zlib compression library)
 
 On Ubuntu or Debian-based systems, you can install these with:
 
@@ -52,8 +53,9 @@ brew install gmp lmdb zlib
 2. Get a prebuilt binary:
 
 Currently we provide the following prebuilt binaries:
-- Linux x86_64: [https://pallas-binaries.nyc3.cdn.digitaloceanspaces.com/linux_x86_64/pallas](https://pallas-binaries.nyc3.cdn.digitaloceanspaces.com/linux_x86_64/pallas)
-- Mac arm64/aarch64 (M1 macs): [https://pallas-binaries.nyc3.cdn.digitaloceanspaces.com/apple_m1_arm64/pallas](https://pallas-binaries.nyc3.cdn.digitaloceanspaces.com/apple_m1_arm64/pallas)
+
+* Linux x86\_64: [https://pallas-binaries.nyc3.cdn.digitaloceanspaces.com/linux\_x86\_64/pallas](https://pallas-binaries.nyc3.cdn.digitaloceanspaces.com/linux\_x86\_64/pallas)
+* Mac arm64/aarch64 (M1 macs): [https://pallas-binaries.nyc3.cdn.digitaloceanspaces.com/apple\_m1\_arm64/pallas](https://pallas-binaries.nyc3.cdn.digitaloceanspaces.com/apple\_m1\_arm64/pallas)
 
 Your browser may not prompt to download these files, in which case you can use `cURL`:
 
@@ -105,7 +107,6 @@ $ pallas sire sire/prelude.sire
 
 (Ctrl-C to get out of the REPL)
 
-
 ## Install from source
 
 First off, you'll need the Pallas source code. Clone it from [https://github.com/operating-function/pallas](https://github.com/operating-function/pallas). The rest of this guide will assume you're at the root of that repo.
@@ -137,7 +138,7 @@ stack run pallas boot /tmp/counter sire/demo_count_up.sire
 stack run pallas start /tmp/counter
 ```
 
-You should see a process that logs a message every second.  
+You should see a process that logs a message every second.\
 Press `CTRL-C` when you're ready to exit the process.
 
 ## The `pallas` command and REPLs

@@ -1,6 +1,6 @@
 # Definition
 
-Like [Urbit's Nock](https://developers.urbit.org/reference/nock/definition), PLAN is a combinator interpreter. It is defined by the following pseudocode:
+PLAN is a combinator interpreter. It is defined by the following pseudocode:
 
 ```
 Every PLAN vaue is either a pin x:<i>, a law x:{n a b}, an app x:(f g), a

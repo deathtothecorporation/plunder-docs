@@ -19,17 +19,21 @@
 * [Advanced Data Structures](quickstart-tutorial/data-structures.md)
 * [Where To Go From Here](quickstart-tutorial/next.md)
 
-## Sire
-
-* [Intro](sire/intro.md)
-* [Some Standard Library](sire/standard-library.md)
-* [Bits To Recognize But Not Learn Yet](sire/advanced.md)
-
 ## Databases / Cogs
 
 * [Creating a Cog](databases-cogs/creating-a-cog.md)
 * [Using a Cog](databases-cogs/using-a-cog.md)
 * [Inter-Cog Communication](databases-cogs/inter-cog-communication.md)
+
+## Sire Reference
+
+* [Intro](sire-reference/intro.md)
+* [Some Standard Library](sire-reference/standard-library.md)
+* [Bits To Recognize But Not Learn Yet](sire-reference/advanced.md)
+* [WIP - Standard Library](sire-reference/wip-standard-library/README.md)
+  * [Rows](sire-reference/wip-standard-library/rows.md)
+  * [Lists](sire-reference/wip-standard-library/lists.md)
+  * [Rex](sire-reference/wip-standard-library/rex.md)
 
 ## Deeper
 
