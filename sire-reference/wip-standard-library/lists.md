@@ -12,7 +12,7 @@ Represents an empty list.
 
 ```sire
 NIL                                         == 0 (the empty list)
-listCase NIL 'empty' (\_ _ -> 'not empty')  == 'empty'
+listCase NIL b#empty (\_ _ -> 'not empty')  == b#empty
 listFromRow [] == NIL                       == TRUE
 ```
 
@@ -31,9 +31,9 @@ CONS 1 (CONS 2 (CONS 3 NIL))  == [1 [2 [3 0]]] (a list with three elements)
 Pattern matches on a list, providing cases for empty and non-empty lists.
 
 ```sire
-listCase NIL 'empty' (\x xs -> 'not empty')           == 'empty'
-listCase (CONS 1 NIL) 'empty' (\x xs -> x)            == 1
-listCase (CONS 1 (CONS 2 NIL)) 'empty' (\x xs -> xs)  == [2 0]
+listCase NIL b#empty (\x xs -> 'not empty')           == b#empty
+listCase (CONS 1 NIL) b#empty (\x xs -> x)            == 1
+listCase (CONS 1 (CONS 2 NIL)) b#empty (\x xs -> xs)  == [2 0]
 ```
 
 ### listSing
@@ -42,7 +42,7 @@ Creates a singleton list containing one element.
 
 ```sire
 listSing 5        == [5 0]
-listSing 'hello'  == ['hello' 0]
+listSing b#hello  == [b#hello 0]
 listSing []       == [[] 0]
 ```
 
