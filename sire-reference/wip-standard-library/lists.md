@@ -1,19 +1,13 @@
----
-hidden: true
----
-
 # Lists
 
 Lists are zero-terminated, nested row 2-tuples. They are declared by prepending a `~` to what looks like row syntax, like this: `~[]` (in the REPL we have to wrap this in parentheses):
 
 ### NIL
 
-Represents an empty list.
+Evaluates to 0.
 
 ```sire
-NIL                                         == 0 (the empty list)
-listCase NIL b#empty (\_ _ -> 'not empty')  == b#empty
-listFromRow [] == NIL                       == TRUE
+NIL    == 0    ; the empty list
 ```
 
 ### CONS
@@ -21,29 +15,29 @@ listFromRow [] == NIL                       == TRUE
 Constructs a new list by adding an element to the front of an existing list.
 
 ```sire
-CONS 1 NIL                    == [1 0] (a list with one element)
-CONS b#a (CONS b#b NIL)       == [b#a [b#b 0]] (a list with two elements)
-CONS 1 (CONS 2 (CONS 3 NIL))  == [1 [2 [3 0]]] (a list with three elements)
+CONS 1 NIL                    == [1 0]            ; a list with one element
+CONS b#a (CONS b#b NIL)       == [b#a [b#a 0]]    ; a list with two elements
+CONS 1 (CONS 2 (CONS 3 NIL))  == [1 [2 [3 0]]]    ; a list with three elements
 ```
 
 ### listCase
 
 Pattern matches on a list, providing cases for empty and non-empty lists.
 
-```sire
-listCase NIL b#empty (\x xs -> 'not empty')           == b#empty
-listCase (CONS 1 NIL) b#empty (\x xs -> x)            == 1
-listCase (CONS 1 (CONS 2 NIL)) b#empty (\x xs -> xs)  == [2 0]
+{% hint style="danger" %}
 ```
+TODO: find a nice example for listCase that doesn't require a lambda.
+```
+{% endhint %}
 
 ### listSing
 
 Creates a singleton list containing one element.
 
 ```sire
-listSing 5        == [5 0]
-listSing b#hello  == [b#hello 0]
-listSing []       == [[] 0]
+listSing 5          == [5 0]
+listSing b#hello    == [b#hello 0]
+listSing []         == [[] 0]
 ```
 
 ### listMap
@@ -51,9 +45,9 @@ listSing []       == [[] 0]
 Applies a function to every element of a list.
 
 ```sire
-listMap (mul 2) ~[1 2 3]            == [2 [4 [6 0]]]
-listMap show (CONS 1 (CONS 2 NIL))  == ["1" ["2" 0]]
-listMap id NIL                      == NIL
+listMap (mul 2) ~[1 2 3]                 == [2 [4 [6 0]]]
+listMap isNat (CONS 3 (CONS b#a NIL))    == [1 [0 0]]
+listMap id NIL                           == 0 ; NIL
 ```
 
 ### listForEach
@@ -61,19 +55,19 @@ listMap id NIL                      == NIL
 Alias for `listMap`. Applies a function to every element of a list.
 
 ```sire
-listForEach (* 2) (CONS 1 (CONS 2 (CONS 3 NIL)))  == [2 [4 [6 0]]]
-listForEach show (CONS 1 (CONS 2 NIL))            == ["1" ["2" 0]]
-listForEach id NIL                                == NIL
+listForEach (CONS 1 (CONS 2 (CONS 3 NIL))) (mul 2)    == [2 [4 [6 0]]]
+listForEach (~[3 [b#a 0]]) isNat                      == [1 [0 0]]
+listForEach NIL id                                    == NIL
 ```
 
 ### listHead
 
-Returns the first element of a list wrapped in a Maybe, or NONE if the list is empty.
+Returns the first element of a list.
 
 ```sire
-listHead (CONS 1 (CONS 2 NIL))  == SOME 1
-listHead (CONS b#a NIL)         == SOME b#a
-listHead NIL                    == NONE
+listHead (CONS 2 (CONS 3 NIL))    == (0 2)
+listHead (CONS b#a NIL)           == (0 b#a)
+listHead NIL                      == 0
 ```
 
 ### listSafeHead
@@ -81,9 +75,9 @@ listHead NIL                    == NONE
 Returns the first element of a list, or a fallback value if the list is empty.
 
 ```sire
-listSafeHead 0 (CONS 1 (CONS 2 NIL))  == 1
-listSafeHead 'x' (CONS b#a NIL)       == b#a
-listSafeHead 'default' NIL            == 'default'
+listSafeHead 0 (CONS 1 (CONS 2 NIL))    == 1
+listSafeHead b#x (CONS b#a NIL)         == b#a
+listSafeHead b#default NIL              == b#default
 ```
 
 ### listUnsafeHead
@@ -91,9 +85,9 @@ listSafeHead 'default' NIL            == 'default'
 Returns the first element of a list. Unsafe if the list is empty.
 
 ```sire
-listUnsafeHead (CONS 1 (CONS 2 NIL))  == 1
-listUnsafeHead (CONS b#a NIL)         == b#a
-listUnsafeHead NIL                    ; Undefined behavior
+listUnsafeHead (CONS 1 (CONS 2 NIL))    == 1
+listUnsafeHead (CONS b#a NIL)           == b#a
+listUnsafeHead NIL                      == 0 ; NIL
 ```
 
 ### listUnsafeTail
@@ -101,9 +95,9 @@ listUnsafeHead NIL                    ; Undefined behavior
 Returns the tail of a list (all elements except the first). Unsafe if the list is empty.
 
 ```sire
-listUnsafeTail (CONS 1 (CONS 2 NIL))  == [2 0]
-listUnsafeTail (CONS b#a NIL)         == NIL
-listUnsafeTail NIL                    ; Undefined behavior
+listUnsafeTail (CONS 1 (CONS 2 NIL))    == [2 0]
+listUnsafeTail (CONS b#a NIL)           == 0
+listUnsafeTail NIL                      == 0 ; NIL
 ```
 
 ### listIdxCps
@@ -111,9 +105,9 @@ listUnsafeTail NIL                    ; Undefined behavior
 Continuation-passing style function to get the element at a given index in a list.
 
 ```sire
-listIdxCps 1 (CONS b#a (CONS b#b NIL)) 'not found' id  == b#b
-listIdxCps 0 (CONS 1 NIL) 'not found' id               == 1
-listIdxCps 2 (CONS 1 (CONS 2 NIL)) 'not found' id      == 'not found'
+listIdxCps 1 (CONS b#a (CONS b#b NIL)) b#{not found} id    == b#b
+listIdxCps 0 (CONS 1 NIL) b#{not found} id                 == 1
+listIdxCps 2 (CONS 1 (CONS 2 NIL)) b#{not found} id        == b#{not found}
 ```
 
 ### listIdxOr
@@ -121,9 +115,9 @@ listIdxCps 2 (CONS 1 (CONS 2 NIL)) 'not found' id      == 'not found'
 Returns the element at a given index in a list, or a fallback value if the index is out of bounds.
 
 ```sire
-listIdxOr 0 1 (CONS b#a (CONS b#b NIL))     == b#a
-listIdxOr 99 'z' (CONS b#a (CONS b#b NIL))  == 'z'
-listIdxOr 0 'default' NIL                   == 'default'
+listIdxOr 0 1 (CONS b#a (CONS b#b NIL))       == b#b
+listIdxOr b#z 99 (CONS b#a (CONS b#b NIL))    == b#z
+listIdxOr b#default 0 NIL                     == b#default
 ```
 
 ### listIdx
@@ -131,9 +125,9 @@ listIdxOr 0 'default' NIL                   == 'default'
 Returns the element at a given index in a list, or 0 if the index is out of bounds.
 
 ```sire
-listIdx 1 (CONS b#a (CONS b#b NIL))  == b#b
-listIdx 0 (CONS 1 NIL)               == 1
-listIdx 2 (CONS 1 (CONS 2 NIL))      == 0
+listIdx 1 (CONS b#a (CONS b#b NIL))    == b#b
+listIdx 0 (CONS 1 NIL)                 == 1
+listIdx 2 (CONS 1 (CONS 2 NIL))        == 0
 ```
 
 ### listLastOr
@@ -141,9 +135,9 @@ listIdx 2 (CONS 1 (CONS 2 NIL))      == 0
 Returns the last element of a list, or a fallback value if the list is empty.
 
 ```sire
-listLastOr 0 (CONS 1 (CONS 2 NIL))  == 2
-listLastOr 'z' (CONS b#a NIL)       == b#a
-listLastOr 'default' NIL            == 'default'
+listLastOr 0 (CONS 1 (CONS 2 NIL))    == 2
+listLastOr b#z ~[b#a 0]               == 0
+listLastOr b#z ~[]                    == b#z
 ```
 
 ### listUnsafeLast
@@ -151,19 +145,19 @@ listLastOr 'default' NIL            == 'default'
 Returns the last element of a list. Unsafe if the list is empty.
 
 ```sire
-listUnsafeLast (CONS 1 (CONS 2 NIL))  == 2
-listUnsafeLast (CONS b#a NIL)         == b#a
-listUnsafeLast NIL                    ; Undefined behavior
+listUnsafeLast (CONS 1 (CONS 2 NIL))    == 2
+listUnsafeLast (CONS b#a NIL)           == b#a
+listUnsafeLast NIL                      == 0 ; NIL
 ```
 
 ### listLast
 
-Returns the last element of a list wrapped in a Maybe, or NONE if the list is empty.
+Returns the last element of a list.
 
 ```sire
-listLast (CONS 1 (CONS 2 NIL))  == SOME 2
-listLast (CONS b#a NIL)         == SOME b#a
-listLast NIL                    == NONE
+listLast (CONS 1 (CONS 2 NIL))    == (0 2)
+listLast ~[b#a]                   == (0 b#a)
+listLast NIL                      == 0
 ```
 
 ### listFoldl
@@ -171,9 +165,9 @@ listLast NIL                    == NONE
 Left-associative fold of a list.
 
 ```sire
-listFoldl (+) 0 (CONS 1 (CONS 2 (CONS 3 NIL)))              == 6
-listFoldl (^) "" (CONS "a" (CONS "b" (CONS "c" NIL)))       == "abc"
-listFoldl (\acc x -> CONS x acc) NIL (CONS 1 (CONS 2 NIL))  == [2 [1 0]]
+listFoldl add 0 ~[1 2 3]                 == 6
+listFoldl barWeld b#{} ~[b#a b#b b#c]    == b#abc
+listFoldl (flip CONS) NIL ~[1 2 3]       == [3 [2 [1 0]]]                    
 ```
 
 ### listFoldl1
@@ -181,9 +175,9 @@ listFoldl (\acc x -> CONS x acc) NIL (CONS 1 (CONS 2 NIL))  == [2 [1 0]]
 Left-associative fold of a non-empty list, using the first element as the initial accumulator.
 
 ```sire
-listFoldl1 (-) (CONS 10 (CONS 5 (CONS 3 NIL)))       == 2
-listFoldl1 max (CONS 1 (CONS 5 (CONS 3 NIL)))        == 5
-listFoldl1 (^) (CONS "a" (CONS "b" (CONS "c" NIL)))  == "abc"
+listFoldl1 add ~[2 3 4]                          == 9
+listFoldl1 max (CONS 1 (CONS 5 (CONS 3 NIL)))    == 5
+listFoldl1 barWeld ~[b#a b#b b#c]                == b#abc
 ```
 
 ### listFoldr
@@ -191,9 +185,9 @@ listFoldl1 (^) (CONS "a" (CONS "b" (CONS "c" NIL)))  == "abc"
 Right-associative fold of a list.
 
 ```sire
-listFoldr (-) 0 (CONS 1 (CONS 2 (CONS 3 NIL)))         == 1 - (2 - (3 - 0)) = 2
-listFoldr (^) "" (CONS "a" (CONS "b" (CONS "c" NIL)))  == "abc"
-listFoldr CONS NIL (CONS 1 (CONS 2 NIL))               == [1 [2 0]]
+listFoldr sub 0 (~[1 2 3])               == 1
+listFoldr barWeld b#{} ~[b#a b#b b#c]    == b#abc
+listFoldr (flip CONS) NIL ~[1 2 3]       == [[[0 3] 2] 1]
 ```
 
 ### listLen
@@ -201,9 +195,9 @@ listFoldr CONS NIL (CONS 1 (CONS 2 NIL))               == [1 [2 0]]
 Computes the length of a list.
 
 ```sire
-listLen (CONS 1 (CONS 2 (CONS 3 NIL)))  == 3
-listLen (CONS b#a NIL)                  == 1
-listLen NIL                             == 0
+listLen (CONS 1 (CONS 2 (CONS 3 NIL)))    == 3
+listLen (CONS b#a NIL)                    == 1
+listLen NIL                               == 0
 ```
 
 ### listToRow
@@ -211,7 +205,7 @@ listLen NIL                             == 0
 Converts a list to a row.
 
 ```sire
-listToRow (CONS 1 (CONS 2 (CONS 3 NIL)))  == [1 2 3]
+listToRow ~[1 2 3]  == [1 2 3]
 listToRow (CONS b#a (CONS b#b NIL))       == [b#a b#b]
 listToRow NIL                             == []
 ```
@@ -221,9 +215,9 @@ listToRow NIL                             == []
 Converts a list to a row of a specified size, padding with zeros if necessary.
 
 ```sire
-sizedListToRow 3 (CONS 1 (CONS 2 NIL))           == [1 2 0]
-sizedListToRow 2 (CONS 1 (CONS 2 (CONS 3 NIL)))  == [1 2]
-sizedListToRow 4 NIL                             == [0 0 0 0]
+sizedListToRow 3 ~[1 2]                            == [1 2 0]
+sizedListToRow 2 (CONS 1 (CONS 2 (CONS 3 NIL)))    == [1 2]
+sizedListToRow 4 NIL                               == [0 0 0 0]
 ```
 
 ### sizedListToRowRev
@@ -231,9 +225,9 @@ sizedListToRow 4 NIL                             == [0 0 0 0]
 Converts a list to a row of a specified size in reverse order, padding with zeros if necessary.
 
 ```sire
-sizedListToRowRev 3 (CONS 1 (CONS 2 NIL))           == [0 2 1]
-sizedListToRowRev 2 (CONS 1 (CONS 2 (CONS 3 NIL)))  == [2 1]
-sizedListToRowRev 4 NIL                             == [0 0 0 0]
+sizedListToRowRev 3 (CONS 1 (CONS 2 NIL))    == [0 2 1]
+sizedListToRowRev 2 ~[1 2 3]                 == [2 1]
+sizedListToRowRev 4 NIL                      == [0 0 0 0]
 ```
 
 ### listToRowRev
@@ -241,9 +235,9 @@ sizedListToRowRev 4 NIL                             == [0 0 0 0]
 Converts a list to a row in reverse order.
 
 ```sire
-listToRowRev (CONS 1 (CONS 2 (CONS 3 NIL)))  == [3 2 1]
-listToRowRev (CONS b#a (CONS b#b NIL))       == [b#b b#a]
-listToRowRev NIL                             == []
+listToRowRev (CONS 1 (CONS 2 (CONS 3 NIL)))    == [3 2 1]
+listToRowRev (~[b#a b#b])                      == [b#b b#a]
+listToRowRev NIL                               == []
 ```
 
 ### listFromRow
@@ -251,9 +245,9 @@ listToRowRev NIL                             == []
 Converts a row to a list.
 
 ```sire
-listFromRow [1 2 3]    == CONS 1 (CONS 2 (CONS 3 NIL))
-listFromRow [b#a b#b]  == CONS b#a (CONS b#b NIL)
-listFromRow []         == NIL
+listFromRow [1 2 3]       == [1 [2 [3 0]]]
+listFromRow [b#a b#b]     == [b#a [b#b 0]]
+listFromRow (gen 4 id)    == [0 [1 [2 [3 0]]]]
 ```
 
 ### listAnd
@@ -261,9 +255,9 @@ listFromRow []         == NIL
 Returns TRUE if all elements in the list are TRUE, otherwise FALSE.
 
 ```sire
-listAnd (CONS TRUE (CONS TRUE NIL))   == TRUE
-listAnd (CONS TRUE (CONS FALSE NIL))  == FALSE
-listAnd NIL                           == TRUE
+listAnd (CONS TRUE (CONS TRUE NIL))     == 1 ; TRUE
+listAnd (CONS TRUE (CONS FALSE NIL))    == 0 ; FALSE
+listAnd NIL                             == 1 ; TRUE
 ```
 
 ### listOr
@@ -271,9 +265,9 @@ listAnd NIL                           == TRUE
 Returns TRUE if any element in the list is TRUE, otherwise FALSE.
 
 ```sire
-listOr (CONS FALSE (CONS TRUE NIL))   == TRUE
-listOr (CONS FALSE (CONS FALSE NIL))  == FALSE
-listOr NIL                            == FALSE
+listOr (CONS FALSE (CONS TRUE NIL))    == 1 ; TRUE
+listOr ~[FALSE 0]                      == 0 ; FALSE
+listOr NIL                             == 0 ; FALSE
 ```
 
 ### listSum
@@ -281,9 +275,9 @@ listOr NIL                            == FALSE
 Computes the sum of all elements in a list of numbers.
 
 ```sire
-listSum (CONS 1 (CONS 2 (CONS 3 NIL)))  == 6
-listSum (CONS (-1) (CONS 1 NIL))        == 0
-listSum NIL                             == 0
+listSum (CONS 1 (CONS 2 (CONS 3 NIL)))    == 6
+listSum (~[1 2 3])                        == 6
+listSum NIL                               == 0
 ```
 
 ### listAll
@@ -291,9 +285,9 @@ listSum NIL                             == 0
 Returns TRUE if all elements in the list satisfy the given predicate.
 
 ```sire
-listAll even (CONS 2 (CONS 4 (CONS 6 NIL)))      == TRUE
-listAll (> 0) (CONS 1 (CONS 2 (CONS (-1) NIL)))  == FALSE
-listAll id NIL                                   == TRUE
+listAll even (CONS 2 (CONS 4 (CONS 6 NIL)))    == 1 ; TRUE
+listAll (gte 1) (~[1 2 3])                     == 0 ; FALSE
+listAll id NIL                                 == 1 ; TRUE
 ```
 
 ### listAllEql
@@ -301,9 +295,9 @@ listAll id NIL                                   == TRUE
 Returns TRUE if all elements in the list are equal.
 
 ```sire
-listAllEql (CONS 1 (CONS 1 (CONS 1 NIL)))  == TRUE
-listAllEql (CONS b#a (CONS b#a NIL))       == TRUE
-listAllEql (CONS 1 (CONS 2 NIL))           == FALSE
+listAllEql (CONS 1 (CONS 1 (CONS 1 NIL)))    == 1 ; TRUE
+listAllEql (~[b#a b#a])                      == 1 ; TRUE
+listAllEql (CONS 1 (CONS 2 NIL))             == 0 ; FALSE
 ```
 
 ### listAny
@@ -311,9 +305,9 @@ listAllEql (CONS 1 (CONS 2 NIL))           == FALSE
 Returns TRUE if any element in the list satisfies the given predicate.
 
 ```sire
-listAny odd (CONS 2 (CONS 3 (CONS 4 NIL)))    == TRUE
-listAny (< 0) (CONS 1 (CONS 2 (CONS 3 NIL)))  == FALSE
-listAny id NIL                                == FALSE
+listAny odd (CONS 2 (CONS 3 (CONS 4 NIL)))    == 1 ; TRUE
+listAny (gte 0) (~[1 2 3])                    == 0 ; FALSE
+listAny id NIL                                == 0 ; FALSE
 ```
 
 ### listHas
@@ -321,19 +315,9 @@ listAny id NIL                                == FALSE
 Checks if a list contains a specific element.
 
 ```sire
-listHas 2 (CONS 1 (CONS 2 (CONS 3 NIL)))  == TRUE
-listHas b#a (CONS b#b (CONS b#c NIL))     == FALSE
-listHas 1 NIL                             == FALSE
-```
-
-### listEnumFrom
-
-Creates an infinite list of consecutive integers starting from a given number.
-
-```sire
-take 5 (listEnumFrom 1)               == CONS 1 (CONS 2 (CONS 3 (CONS 4 (CONS 5 NIL))))
-listHead (listEnumFrom 10)            == SOME 10
-listHead (listTail (listEnumFrom 7))  == SOME 8
+listHas 2 (CONS 1 (CONS 2 (CONS 3 NIL)))  == 1 ; TRUE
+listHas b#a (CONS b#b (CONS b#c NIL))     == 0 ; FALSE
+listHas 1 NIL                             == 0 ; FALSE
 ```
 
 ### listWeld
@@ -341,9 +325,9 @@ listHead (listTail (listEnumFrom 7))  == SOME 8
 Concatenates two lists.
 
 ```sire
-listWeld (CONS 1 (CONS 2 NIL)) (CONS 3 (CONS 4 NIL))  == CONS 1 (CONS 2 (CONS 3 (CONS 4 NIL)))
-listWeld (CONS b#a NIL) (CONS b#b NIL)                == CONS b#a (CONS b#b NIL)
-listWeld NIL (CONS 1 NIL)                             == CONS 1 NIL
+listWeld (CONS 1 (CONS 2 NIL)) (CONS 3 (CONS 4 NIL))    == [1 [2 [3 [4 0]]]]
+listWeld ~[b#a 0] ~[b#b 0]                              == [b#a [0 [b#b [0 0]]]]
+listWeld NIL (CONS 1 NIL)                               == [1 0]
 ```
 
 ### listCat
@@ -351,9 +335,9 @@ listWeld NIL (CONS 1 NIL)                             == CONS 1 NIL
 Concatenates a list of lists into a single list.
 
 ```sire
-listCat (CONS (CONS 1 (CONS 2 NIL)) (CONS (CONS 3 NIL) NIL))        == CONS 1 (CONS 2 (CONS 3 NIL))
-listCat (CONS (CONS b#a NIL) (CONS (CONS b#b (CONS b#c NIL)) NIL))  == CONS b#a (CONS b#b (CONS b#c NIL))
-listCat (CONS NIL (CONS NIL NIL))                                   == NIL
+listCat ~[~[1 [2 0]] ~[3 0]]            == [1 [[2 0] [3 [0 0]]]]
+listCat ~[~[1 [2 0]] ~[b#b [b#c 0]]]    == [1 [[2 0] [b#b [[b#c 0] 0]]]]
+listCat (CONS NIL (CONS NIL NIL))       == 0 ; NIL
 ```
 
 ### listCatMap

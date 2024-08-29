@@ -2,6 +2,8 @@
 
 {% hint style="warning" %}
 This page is under active development. It may contain bugs or incomplete descriptions.
+
+TODO: Update with function and type signatures.
 {% endhint %}
 
 This module defines operations on rows, which are [data-jetted](../../deeper/jets.md) arrays. Since PLAN is untyped, these are also used as the building blocks for tuples, records, and datatypes.
