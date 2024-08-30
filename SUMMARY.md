@@ -33,6 +33,7 @@
 * [WIP - Standard Library](sire-reference/wip-standard-library/README.md)
   * [Rows](sire-reference/wip-standard-library/rows.md)
   * [Lists](sire-reference/wip-standard-library/lists.md)
+  * [Either](sire-reference/wip-standard-library/either.md)
   * [Rex](sire-reference/wip-standard-library/rex.md)
 
 ## Deeper
