@@ -542,3 +542,84 @@ insert 1 b#x [b#a b#b b#c]    == [b#a b#x b#b b#c]
 insert 0 0 [1 2 3]            == [0 1 2 3]
 insert 3 4 [1 2 3]            == [1 2 3 4]
 ```
+
+## Sorting and Filtering
+
+### sort
+
+Sorts a row in ascending order.
+
+```sire
+sort [3 1 4 1 5]      == [1 1 3 4 5]
+sort [b#c b#a b#b]    == [b#a b#b b#c]
+sort []               == []
+```
+
+### sortBy
+
+Sorts a row using a custom comparison function.
+
+```sire
+sortBy (flip cmp) [1 3 2]      == [3 2 1]
+sortBy (cmp) [[1 2] [] [1]]    == [[] [1] [1 2]]
+```
+
+### sortOn
+
+Sorts a row by applying a function to each element before comparing.
+
+```sire
+sortOn (even) [1 3 2]             == [3 1 2]
+sortOn len [[1 2] [3] [4 5 6]]    == [[3] [1 2] [4 5 6]]
+```
+
+### sortUniq
+
+Sorts a row and removes duplicate elements.
+
+```sire
+sortUniq [3 1 4 1 5 3]    == [1 3 4 5]
+sortUniq [b#a b#b b#a]    == [b#a b#b]
+sortUniq []               == []
+```
+
+### filter
+
+Keeps only the elements of a row that satisfy a predicate.
+
+```sire
+filter even [1 2 3 4 5]               == [2 4]
+filter (neq b#a) [b#a b#b b#a b#c]    == [b#b b#c]
+filter (const TRUE) [1 2 3]           == [1 2 3]
+```
+
+### delete
+
+Removes all occurrences of a value from a row.
+
+```sire
+delete 3 [1 2 3 4 3 5]      == [1 2 4 5]
+delete b#a [b#a b#b b#a]    == [b#b]
+delete 42 [1 2 3]           == [1 2 3]
+```
+
+### findIdxMany
+
+Finds all indices where a predicate is satisfied.
+
+```sire
+findIdxMany even [1 2 3 4 5 6]         == [1 [3 [5 0]]]
+findIdxMany (eql b#a) [b#a b#b b#a]    == [0 [2 0]]
+findIdxMany (const FALSE) [1 2 3]      == 0
+```
+
+### elemIdxMany
+
+Finds all indices where a specific element occurs.
+
+```sire
+elemIdxMany 3 [1 2 3 4 3 5]      == [2 [4 0]]
+elemIdxMany b#a [b#a b#b b#a]    == [0 [2 0]]
+elemIdxMany 42 [1 2 3]           == 0
+```
+
