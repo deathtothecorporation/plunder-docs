@@ -345,101 +345,179 @@ listCat (CONS NIL (CONS NIL NIL))       == 0 ; NIL
 Applies a function to all elements in a list and concatenates the results.
 
 ```sire
-listCatMap (\x -> CONS x (CONS x NIL)) (CONS 1 (CONS 2 NIL))  == CONS 1 (CONS 1 (CONS 2 (CONS 2 NIL)))
-listCatMap (\x -> CONS (x + 1) NIL) (CONS 1 (CONS 2 (CONS 3 NIL)))  == CONS 2 (CONS 3 (CONS 4 NIL))
-listCatMap (const NIL) (CONS 1 (CONS 2 NIL))  == NIL
+listCatMap (x & ~[x x]) ~[1 2]      == [1 [1 [2 [2 0]]]]
+listCatMap (x & ~[x]) ~[b#a b#b]    == [b#a [b#b 0]]
+listCatMap (x & ~[]) ~[1 2 3]       == 0 ; NIL
 ```
 
 ### listTake
 
-Returns the first n elements of a list.
+Takes the first n elements from a list.
 
 ```sire
-listTake 2 (CONS 1 (CONS 2 (CONS 3 NIL)))  == CONS 1 (CONS 2 NIL)
-listTake 5 (CONS b#a (CONS b#b NIL))       == CONS b#a (CONS b#b NIL)
-listTake 0 (CONS 1 (CONS 2 NIL))           == NIL
+listTake 2 (CONS 1 (CONS 2 (CONS 3 NIL)))    == [1 [2 0]]
+listTake 3 ~[1 2]                            == [1 [2 0]]
+listTake 0 (CONS 1 NIL)                      == 0 ; NIL
 ```
 
 ### listDrop
 
-Drops the first n elements of a list and returns the rest.
+Drops the first n elements from a list.
 
 ```sire
-listDrop 2 (CONS 1 (CONS 2 (CONS 3 NIL)))  == CONS 3 NIL
-listDrop 1 (CONS b#a (CONS b#b NIL))       == CONS b#b NIL
-listDrop 5 (CONS 1 (CONS 2 NIL))           == NIL
+listDrop 2 (CONS 1 (CONS 2 (CONS 3 NIL)))    == [3 0]
+listDrop 3 ~[1 2]                            == 0 ; NIL
+listDrop 0 (CONS 1 NIL)                      == [1 0]
 ```
 
 ### listTakeWhile
 
-Takes elements from a list while a predicate holds.
+Takes elements from the front of a list while they satisfy a predicate.
 
 ```sire
-listTakeWhile (< 3) (CONS 1 (CONS 2 (CONS 3 (CONS 4 NIL))))  == CONS 1 (CONS 2 NIL)
-listTakeWhile isLower (CONS b#a (CONS b#b (CONS b#c (CONS b#d NIL))))  == CONS b#a (CONS b#b NIL)
-listTakeWhile (const FALSE) (CONS 1 (CONS 2 NIL))  == NIL
+listTakeWhile (gte 2) (CONS 1 (CONS 2 (CONS 3 (CONS 4 NIL))))    == [1 [2 0]]
+listTakeWhile even ~[2 4 5 6]                                    == [2 [4 0]]
+listTakeWhile (const TRUE) NIL                                   == 0 ; NIL
 ```
 
 ### listDropWhile
 
-Drops elements from the beginning of a list while a predicate function returns true.
-
-This function takes a predicate function and a list as input. It removes elements from the front of the list as long as the predicate function returns true for each element. Once an element is encountered for which the predicate returns false, the function returns the remaining list.
+Drops elements from the front of a list while they satisfy a predicate.
 
 ```sire
-listDropWhile (lth 3) ~[1 2 3 4 5]  == ~[3 4 5]
-listDropWhile isEven ~[2 4 6 7 8 9] == ~[7 8 9]
-listDropWhile (const FALSE) ~[1 2 3] == ~[1 2 3]
+listDropWhile (gte 2) (CONS 1 (CONS 2 (CONS 3 (CONS 4 NIL))))    == [3 [4 0]]
+listDropWhile even ~[2 4 5 6]                                    == [5 [6 0]]
+listDropWhile (const TRUE) NIL                                   == 0 ; NIL
 ```
 
-### listTakeWhile
+### listZipWith
 
-Takes elements from the beginning of a list while a predicate function returns true.
+Combines two lists element-wise using a given function.
 
 ```sire
-listTakeWhile (lth 3) ~[1 2 3 4 5]  == ~[1 2]
-listTakeWhile isEven ~[2 4 6 7 8 9] == ~[2 4 6]
-listTakeWhile (const TRUE) ~[1 2 3] == ~[1 2 3]
+listZipWith add (CONS 1 (CONS 2 NIL)) (CONS 3 (CONS 4 NIL))    == [4 [6 0]]
+listZipWith v2 ~[1 2 3] ~[4 5]                                 == [[1 4] [[2 5] 0]]
+listZipWith mul NIL (CONS 1 NIL)                               == 0 ; NIL
 ```
 
-### sizedListToRow
+### listZip
 
-Converts a list to a row of a specified size, padding with zeros if necessary.
+Combines two lists into a list of pairs.
 
 ```sire
-sizedListToRow 3 ~[1 2 3 4 5] == [1 2 3]
-sizedListToRow 5 ~[1 2 3]     == [1 2 3 0 0]
-sizedListToRow 0 ~[1 2 3]     == []
+listZip (CONS 1 (CONS 2 NIL)) (CONS 3 (CONS 4 NIL))    == [[1 3] [[2 4] 0]]
+listZip ~[1 2 3] ~[4 5]                                == [[1 4] [[2 5] 0]]
+listZip NIL (CONS 1 NIL)                               == 0 ; NIL
 ```
 
-### sizedListToRowRev
+### listFilter
 
-Converts a list to a reversed row of a specified size, padding with zeros if necessary.
+Keeps only the elements of a list that satisfy a predicate.
 
 ```sire
-sizedListToRowRev 3 ~[1 2 3 4 5] == [3 2 1]
-sizedListToRowRev 5 ~[1 2 3]     == [3 2 1 0 0]
-sizedListToRowRev 0 ~[1 2 3]     == []
+listFilter even (CONS 1 (CONS 2 (CONS 3 (CONS 4 NIL))))    == [2 [4 0]]
+listFilter (lte 3) ~[1 2 3 4 5]                            == [3 [4 [5 0]]]
+listFilter (const TRUE) NIL                                == 0 ; NIL
 ```
 
-### listToRow
+### listIsEmpty
 
-Converts a list to a row.
+Checks if a list is empty.
 
 ```sire
-listToRow ~[1 2 3]     == [1 2 3]
-listToRow ~[]          == []
-listToRow ~[1 [2 3] 4] == [1 [2 3] 4]
+listIsEmpty NIL                      == 1 ; TRUE
+listIsEmpty (CONS 1 NIL)             == 0 ; FALSE
+listIsEmpty (CONS 1 (CONS 2 NIL))    == 0 ; FALSE
 ```
 
-### listToRowRev
+### listSortOn
 
-Converts a list to a reversed row.
+Sorts a list based on a key function.
 
 ```sire
-listToRowRev ~[1 2 3]     == [3 2 1]
-listToRowRev ~[]          == []
-listToRowRev ~[1 [2 3] 4] == [4 [2 3] 1]
+listSortOn id (CONS 3 (CONS 1 (CONS 2 NIL)))    == [1 [2 [3 0]]]
+listSortOn (div 1) ~[1 2 3]                     == [3 [2 [1 0]]]
+listSortOn len ~[[1 2] [3] [4 5 6]]             == [[3] [[1 2] [[4 5 6] 0]]]
+```
+
+### listNub
+
+Removes duplicate elements from a list, keeping only the first occurrence.
+
+```sire
+listNub (CONS 1 (CONS 2 (CONS 1 (CONS 3 NIL))))    == [1 [2 [3 0]]]
+listNub ~[3 2 1 2 1]                               == [3 [2 [1 0]]]
+listNub NIL                                        == 0 ; NIL
+```
+
+### listIterate
+
+Generates an infinite list by repeatedly applying a function to an initial value.
+
+```sire
+listTake 5 (listIterate inc 0)        == [0 [1 [2 [3 [4 0]]]]]
+listTake 3 (listIterate (mul 2) 1)    == [1 [2 [4 0]]]
+listTake 0 (listIterate id 1)         == 0 ; NIL
+```
+
+### listGen
+
+Generates a list of n elements using a given function.
+
+```sire
+listGen 3 id             == [0 [1 [2 0]]]
+listGen 4 (const b#a)    == [b#a [b#a [b#a [b#a 0]]]]
+listGen 0 (const 1)      == 0 ; NIL
+```
+
+### listRep
+
+Generates a list of n copies of a given element.
+
+```sire
+listRep 1 3      == [1 [1 [1 0]]]
+listRep b#a 2    == [b#a [b#a 0]]
+listRep 0 0      == 0 ; NIL
+```
+
+### listElemIndex
+
+Finds the index of the first occurrence of an element in a list.
+
+```sire
+listElemIndex 2 (CONS 1 (CONS 2 (CONS 3 NIL))) NONE SOME    == (0 1)
+listElemIndex b#a ~[b#b b#c b#c b#a] NONE SOME              == (0 3)
+listElemIndex 4 ~[1 2 3] NONE SOME                          == 0
+```
+
+### listIsPrefixOf
+
+Checks if one list is a prefix of another list.
+
+```sire
+listIsPrefixOf (CONS 1 (CONS 2 NIL)) (CONS 1 (CONS 2 (CONS 3 NIL)))    == 1 ; TRUE
+listIsPrefixOf ~[1 2] ~[1 2 3]                                         == 1 ; TRUE
+listIsPrefixOf ~[1 2] ~[2 1]                                           == 0 ; FALSE
+```
+
+### listIndexed
+
+Pairs each element in a list with its index.
+
+```sire
+listIndexed (CONS 1 (CONS 2 (CONS 3 NIL)))    == [[0 1] [[1 2] [[2 3] 0]]]
+listIndexed ~[b#a b#b]                        == [[0 b#a] [[1 b#b] 0]]
+listIndexed NIL                               == 0 ; NIL
+```
+
+### listIntersperse
+
+Intersperses an element between every element of a list.
+
+```sire
+listIntersperse 0 (CONS 1 (CONS 2 (CONS 3 NIL)))    == [1 [0 [2 [0 [3 0]]]]]
+listIntersperse b#a ~[b#b]                          == [b#b 0]
+listIntersperse 0 NIL                               == 0 ; NIL
 ```
 
 ### listRev
@@ -447,19 +525,19 @@ listToRowRev ~[1 [2 3] 4] == [4 [2 3] 1]
 Reverses a list.
 
 ```sire
-listRev ~[1 2 3]     == ~[3 2 1]
-listRev ~[]          == ~[]
-listRev ~[1 [2 3] 4] == ~[4 [2 3] 1]
+listRev (CONS 1 (CONS 2 (CONS 3 NIL)))    == [3 [2 [1 0]]]
+listRev ~[b#a b#b]                        == [b#b [b#a 0]]
+listRev NIL                               == 0 ; NIL
 ```
 
 ### listSnoc
 
-Appends an element to the end of a list.
+Adds an element to the end of a list.
 
 ```sire
-listSnoc ~[1 2] 3      == ~[1 2 3]
-listSnoc ~[] 1         == ~[1]
-listSnoc ~[1 [2 3]] 4  == ~[1 [2 3] 4]
+listSnoc (CONS 1 (CONS 2 NIL)) 3    == [1 [2 [3 0]]]
+listSnoc ~[b#a] b#b                 == [b#a [b#b 0]]
+listSnoc NIL 1                      == [1 0]
 ```
 
 ### listProd
@@ -467,7 +545,7 @@ listSnoc ~[1 [2 3]] 4  == ~[1 [2 3] 4]
 Computes the Cartesian product of two lists.
 
 ```sire
-listProd ~[1 2] ~[3 4]    == ~[[1 3] [1 4] [2 3] [2 4]]
-listProd ~[1] ~[2 3 4]    == ~[[1 2] [1 3] [1 4]]
-listProd ~[] ~[1 2]       == ~[]
+listProd (CONS 1 (CONS 2 NIL)) (CONS 3 (CONS 4 NIL))    == [[1 3] [[1 4] [[2 3] [[2 4] 0]]]]
+listProd ~[1 2] ~[b#a b#b]                              == [[1 b#a] [[1 b#b] [[2 b#a] [[2 b#b] 0]]]]
+listProd NIL (CONS 1 NIL)                               == 0 ; NIL
 ```

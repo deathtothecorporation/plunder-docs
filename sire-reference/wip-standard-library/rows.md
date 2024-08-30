@@ -523,6 +523,16 @@ splitAt 0 [1 2 3]        == [[] [1 2 3]]
 splitAt 5 [1 2 3]        == [[1 2 3] []]
 ```
 
+### intersperse
+
+Intersperses an element between every element of a row.
+
+```sire
+intersperse 0 [1 2 3]    == [1 0 2 0 3]
+intersperse b#a [b#b]    == [b#b]
+intersperse 0 []         == []
+```
+
 ### insert
 
 Inserts an element at a specified index in a row.
