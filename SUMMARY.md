@@ -39,6 +39,8 @@
   * [Lists](sire-reference/wip-standard-library/lists.md)
   * [Either](sire-reference/wip-standard-library/either.md)
   * [Maybe](sire-reference/wip-standard-library/maybe.md)
+  * [Sets](sire-reference/wip-standard-library/sets.md)
+  * [KV Tables](sire-reference/wip-standard-library/kv-tables.md)
   * [Rex](sire-reference/wip-standard-library/rex.md)
 
 ## Deeper
