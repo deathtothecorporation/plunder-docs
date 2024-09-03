@@ -41,6 +41,8 @@
   * [Maybe](sire-reference/wip-standard-library/maybe.md)
   * [Sets](sire-reference/wip-standard-library/sets.md)
   * [KV Tables](sire-reference/wip-standard-library/kv-tables.md)
+  * [Pads](sire-reference/wip-standard-library/pads.md)
+  * [Bars](sire-reference/wip-standard-library/bars.md)
   * [Rex](sire-reference/wip-standard-library/rex.md)
 
 ## Deeper
