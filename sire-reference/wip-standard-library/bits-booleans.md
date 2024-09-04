@@ -1,5 +1,11 @@
 # Bits (Booleans)
 
+{% hint style="warning" %}
+Sire does not have a real type system yet, and as such, no type checks are enforced at any point. For following functions, type signatures are provided for the intended behavior, though actual behavior may differ. We strongly recommend you avoid these uses.&#x20;
+
+For example, `(if %a %yes %no)` will coerce `%a` into a boolean before returning a branch, but the type signature indicates that the first argument must be `Bool`.  When the type system is finished, this code will break.&#x20;
+{% endhint %}
+
 ## Constants
 
 ### TRUE
@@ -22,6 +28,14 @@ FALSE    == 0
 
 ### if
 
+```
+(if x t e)
+> x : Bool
+> t : a
+> e : a
+> a
+```
+
 Conditional operation. If the condition is true (non-zero), returns the second argument, otherwise returns the third argument.
 
 ```sire
@@ -32,6 +46,14 @@ if FALSE 1 2       == 2
 ```
 
 ### ifNot
+
+```
+(ifNot x t e)
+> x : Bool
+> t : a
+> e : a
+> a
+```
 
 Inverted conditional. If the condition is false (zero), returns the second argument, otherwise returns the third argument.
 
@@ -44,6 +66,14 @@ ifNot FALSE 1 2       == 1
 
 ### ifz
 
+```
+(ifz x t e)
+> x : a
+> t : a
+> e : a
+> a
+```
+
 Conditional based on zero. If the first argument is zero, returns the second argument, otherwise returns the third argument.
 
 ```sire
@@ -53,6 +83,14 @@ ifz 42 b#zero b#nonzero    == b#nonzero
 ```
 
 ### ifNonZero
+
+```
+(ifNonZero x t e)
+> x : a
+> t : a
+> e : a
+> a
+```
 
 Conditional based on non-zero. If the first argument is non-zero, returns the second argument, otherwise returns the third argument.
 
@@ -74,6 +112,12 @@ else 10    == 10
 
 ### bit
 
+```
+(bit x)
+> x : Bool
+> Bool
+```
+
 Converts a value to a bit (0 or 1).
 
 ```sire
@@ -86,6 +130,12 @@ bit NIL      == 0
 
 ### not
 
+```
+(not x)
+> x : Bool
+> Bool
+```
+
 Logical NOT operation.
 
 ```sire
@@ -97,6 +147,13 @@ not TRUE     == 0
 ```
 
 ### and
+
+```
+(and x y)
+> x : Bool
+> y : Bool
+> Bool
+```
 
 Logical AND operation.
 
@@ -111,6 +168,13 @@ and TRUE TRUE     == 1
 
 ### or
 
+```
+(or x y)
+> x : Bool
+> y : Bool
+> Bool
+```
+
 Logical OR operation.
 
 ```sire
@@ -123,6 +187,13 @@ or FALSE FALSE    == 0
 ```
 
 ### xor
+
+```
+(xor x y)
+> x : Bool
+> y : Bool
+> Bool
+```
 
 Logical XOR (exclusive OR) operation.
 
@@ -137,6 +208,13 @@ xor TRUE TRUE     == 0
 
 ### nand
 
+```
+(nand x y)
+> x : Bool
+> y : Bool
+> Bool
+```
+
 Logical NAND (NOT AND) operation.
 
 ```sire
@@ -150,6 +228,13 @@ nand TRUE TRUE     == 0
 
 ### nor
 
+```
+(nor x y)
+> x : Bool
+> y : Bool
+> Bool
+```
+
 Logical NOR (NOT OR) operation.
 
 ```sire
@@ -162,6 +247,13 @@ nor FALSE FALSE    == 1
 ```
 
 ### xnor
+
+```
+(xnor x y)
+> x : Bool
+> y : Bool
+> Bool
+```
 
 Logical XNOR (NOT XOR) operation.
 

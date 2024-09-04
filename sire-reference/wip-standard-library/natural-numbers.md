@@ -4,6 +4,12 @@
 
 ### isNat
 
+```
+(isNat x)
+> x : a
+> Bool
+```
+
 Checks if a value is a natural number.
 
 ```sire
@@ -14,6 +20,12 @@ isNat b#hi    == 0
 ```
 
 ### toNat
+
+```
+(toNat x)
+> x : a
+> Nat
+```
 
 Converts a value to a natural number. If the input is already a natural number, it returns it unchanged.
 
@@ -26,6 +38,13 @@ toNat b#hi    == 0
 
 ### times
 
+```
+(times f z x)
+> f : (a > b)
+> z : a
+> x : Nat
+```
+
 Applies a function `f` to an initial value `z`, `x` times.
 
 ```sire
@@ -36,6 +55,12 @@ times (add 2) 0 3    == 6
 
 ### inc
 
+```
+(inc x)
+> x : Nat
+> Nat
+```
+
 Increments a natural number by 1.
 
 ```sire
@@ -45,6 +70,12 @@ inc 255    == 256
 ```
 
 ### dec
+
+```
+(dec x)
+> x : Nat
+> Nat
+```
 
 Decrements a natural number by 1. Returns 0 if the input is 0.
 
@@ -57,6 +88,13 @@ dec 256    == 255
 
 ### add
 
+```
+(add x y)
+> x : Nat
+> y : Nat
+> Nat
+```
+
 Adds two natural numbers.
 
 ```sire
@@ -66,6 +104,13 @@ add 255 1    == 256
 ```
 
 ### sub
+
+```
+(sub x y)
+> x : Nat
+> y : Nat
+> Nat
+```
 
 Subtracts one natural number from another. Returns 0 if the result would be negative.
 
@@ -78,6 +123,13 @@ sub 256 1    == 255
 
 ### mod
 
+```
+(mod x y)
+> x : Nat
+> y : Nat
+> Nat
+```
+
 Calculates the modulus of two natural numbers.
 
 ```sire
@@ -89,6 +141,13 @@ mod 0 5     == 0
 
 ### mul
 
+```
+(mul x y)
+> x : Nat
+> y : Nat
+> Nat
+```
+
 Multiplies two natural numbers.
 
 ```sire
@@ -98,6 +157,13 @@ mul 255 2    == 510
 ```
 
 ### div
+
+```
+(div x y)
+> x : Nat
+> y : Nat
+> Nat
+```
 
 Performs integer division on two natural numbers. Division by zero returns 0.
 
@@ -110,6 +176,13 @@ div 5 0     == 0
 
 ### divMod
 
+```
+(divNod x y)
+> x : Nat
+> y : Nat
+> SOME
+```
+
 Performs both division and modulus in one operation. Returns a tuple of (quotient, remainder).
 
 ```sire
@@ -120,6 +193,12 @@ divMod 5 0     ; Division by zero, this will crash the REPL
 ```
 
 ### isOne
+
+```
+(isOne x)
+> x : Nat
+> Nat
+```
 
 Checks if a natural number is equal to 1.
 
