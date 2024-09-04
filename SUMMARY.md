@@ -43,6 +43,7 @@
   * [KV Tables](sire-reference/wip-standard-library/kv-tables.md)
   * [Pads](sire-reference/wip-standard-library/pads.md)
   * [Bars](sire-reference/wip-standard-library/bars.md)
+  * [Types](sire-reference/wip-standard-library/types.md)
   * [Rex](sire-reference/wip-standard-library/rex.md)
 
 ## Deeper
