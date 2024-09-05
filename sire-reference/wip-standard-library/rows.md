@@ -19,6 +19,12 @@ arr
 
 ### null
 
+```
+(null x)
+> x : Row a
+> Bool
+```
+
 Checks if a row is empty.
 
 `null` returns `TRUE` if the given row is empty, and `FALSE` otherwise.
@@ -30,6 +36,12 @@ null [0]        == 0
 ```
 
 ### arity
+
+```
+(arity x)
+> x : a
+> Nat
+```
 
 Returns the arity of a function or row.
 
@@ -43,6 +55,12 @@ arity []         == 1
 
 ### len
 
+```
+(len x)
+> x : Row a
+> Nat
+```
+
 Returns the length of a row.
 
 `len` counts the number of elements in a given row.
@@ -54,6 +72,13 @@ len [9]        == 1
 ```
 
 ### idx
+
+```
+(idx i x)
+> i : Nat
+> x : Row a
+> a
+```
 
 Retrieves an element from a row at a specified index.
 
@@ -67,6 +92,13 @@ idx 2 [1]           == 0 (out of bounds)
 
 ### get
 
+```
+(get x i)
+> x : Row a
+> i : Nat
+> a
+```
+
 Retrieves an element from a row at a specified index.
 
 `get` is an alias for `idx`. It returns the element at the given index in the row.
@@ -78,6 +110,14 @@ get [1] 2           == 0 (out of bounds)
 ```
 
 ### mut
+
+```
+(mut i v x)
+> i : Nat
+> v : a
+> x : Row a
+> Row a
+```
 
 Modifies an element in a row at a specified index.
 
@@ -91,6 +131,14 @@ mut 3 4 [1 2]          == [1 2 0 4]
 
 ### put
 
+```
+(put x i v)
+> x : Row a
+> i : Nat
+> v : a
+> Row a
+```
+
 Modifies an element in a row at a specified index.
 
 `put` is an alias for `mut`. It returns a new row with the element at the given index replaced by the provided value.
@@ -102,6 +150,14 @@ put [1 2] 3 4          == [1 2 0 4]
 ```
 
 ### switch
+
+```
+(switch i d x)
+> i : Nat
+> d : a
+> x : Row a
+> a
+```
 
 Selects a value from a row based on an index, with a fallback value.
 
@@ -139,6 +195,12 @@ v2 b#a b#b    == [b#a b#b]
 
 ### isRow
 
+```
+(isRow x)
+> x : a
+> Bool
+```
+
 Checks if a value is a row.
 
 `isRow` returns `TRUE` if the given value is a row, and `FALSE` otherwise.
@@ -150,6 +212,13 @@ isRow 3          == 0
 ```
 
 ### weld
+
+```
+(weld x y)
+> x : Row a
+> y : Row a
+> Row a
+```
 
 Concatenates two rows.
 
@@ -163,6 +232,13 @@ weld [1 2] []       == [1 2]
 
 ### gen
 
+```
+(gen l f)
+> l : Nat
+> f : (Nat > a)
+> Row a
+```
+
 Generates a row based on a function and a length.
 
 `gen` creates a row of the specified length, where each element is the result of applying the given function to its index.
@@ -174,6 +250,12 @@ gen 0 | mul 2    == []
 ```
 
 ### fst
+
+```
+(fst x)
+> x : Row a
+> a
+```
 
 Returns the first element of a row.
 
@@ -187,6 +269,12 @@ fst []         == 0
 
 ### snd
 
+```
+(snd x)
+> x : Row a
+> a
+```
+
 Returns the second element of a row.
 
 `snd` retrieves the second element of a given row. If the row has fewer than two elements, it returns 0.
@@ -198,6 +286,12 @@ snd []         == 0
 ```
 
 ### thr
+
+```
+(thr x)
+> x : Row a
+> a
+```
 
 Returns the third element of a row.
 
@@ -211,6 +305,13 @@ thr []           == 0
 
 ### map
 
+```
+(map f x)
+> f : (a > b)
+> x : Row a
+> Row a
+```
+
 Applies a function to each element of a row.
 
 `map` creates a new row by applying the given function to each element of the input row.
@@ -222,6 +323,13 @@ map (add 1) []                 == []
 ```
 
 ### foreach
+
+```
+(foreach x f)
+> x : Row a
+> f : (a > b)
+> Row a
+```
 
 Alias for `map` with arguments reversed.
 
@@ -235,6 +343,12 @@ foreach [] (add 1)                 == []
 
 ### rev
 
+```
+(rev x)
+> x : Row a
+> Row a
+```
+
 Reverses a row.
 
 `rev` creates a new row with the elements of the input row in reverse order.
@@ -246,6 +360,13 @@ rev []         == []
 ```
 
 ### rowCons
+
+```
+(rowCons e x)
+> e : a
+> x : Row a
+> Row a
+```
 
 Prepends an element to a row.
 
@@ -259,6 +380,13 @@ rowCons 0 [1]      == [0 1]
 
 ### rowSnoc
 
+```
+(rowSnoc x e)
+> x : Row a
+> e : a
+> Row a
+```
+
 Appends an element to a row.
 
 `rowSnoc` creates a new row with all elements of the input row, followed by the given element as the last element.
@@ -270,6 +398,13 @@ rowSnoc [0] 1      == [0 1]
 ```
 
 ### rowApply
+
+```
+(rowApply f x)
+> f : (a > b)
+> x : Row a
+> a
+```
 
 Applies a function to a row of arguments.
 
@@ -283,6 +418,13 @@ rowApply lte [3 4]    == 1
 
 ### rowRepel
 
+```
+(rowRepel f x)
+> f : (a > b)
+> x : Row a
+> a
+```
+
 Applies a function to a row of arguments in reverse order.
 
 `rowRepel` takes a function and a row of arguments, and applies the function to those arguments in reverse order.
@@ -295,6 +437,14 @@ rowRepel lte [3 4]    == 0
 
 ### slash
 
+```
+(slash x s e)
+> x : Row a
+> s : Nat
+> e : Nat
+> a
+```
+
 Extracts a slice from a row, from index `s` to index `e`, padding with zeros if necessary.
 
 ```sire
@@ -304,6 +454,14 @@ slash [1 2 3] 2 2        == []
 ```
 
 ### slice
+
+```
+(slice x s e)
+> x : Row a
+> s : Nat
+> e : Nat
+> a
+```
 
 Similar to `slash`, but doesn't pad with zeros. It returns a slice from index `s` up to (but not including) index `e`.
 
@@ -315,6 +473,13 @@ slice [1 2 3] 2 2        == []
 
 ### chunks
 
+```
+(chunks n x)
+> n : Nat
+> x : Row a
+> Row a
+```
+
 Splits a row into chunks of a specified size.
 
 ```sire
@@ -324,6 +489,13 @@ chunks 5 [1 2 3]        == [[1 2 3]]
 ```
 
 ### rep
+
+```
+(rep x n)
+> x : a
+> n : Nat
+> Row a
+```
 
 Creates a row by repeating a value a specified number of times.
 
@@ -335,6 +507,12 @@ rep [] 2        == [[] []]
 
 ### rowIndexed
 
+```
+(rowIndexed x)
+> x : Row a
+> Row (Row Nat a)
+```
+
 Creates a row of pairs, where each pair contains the index and the corresponding element from the input row.
 
 ```sire
@@ -344,6 +522,15 @@ rowIndexed []               == []
 ```
 
 ### findIdx
+
+```
+(findIdx f x d k)
+> f : (a > Bool)
+> x : Row a
+> d : a
+> k : a
+> a
+```
 
 Finds the index of the first element in a row that satisfies a predicate function.
 
@@ -355,6 +542,15 @@ findIdx even [1 3 5 7] b#{not found} id    == b#{not found}
 
 ### elemIdx
 
+```
+(elemIdx e x d k)
+> e : a
+> x : Row a
+> d : a
+> k : a
+> b
+```
+
 Finds the index of the first occurrence of a specific element in a row.
 
 ```sire
@@ -364,6 +560,13 @@ elemIdx 4 [1 2 3] b#{not found} id            == b#{not found}
 ```
 
 ### has
+
+```
+(has e x)
+> e : a
+> x : Row a
+> Bool
+```
 
 Checks if a row contains a specific element.
 
@@ -375,6 +578,12 @@ has [] [[1] [2] []]    == 1
 
 ### rowAnd
 
+```
+(rowAnd x)
+> x : Row Bool
+> Bool
+```
+
 Performs a logical AND operation on all elements of a row.
 
 ```sire
@@ -384,6 +593,12 @@ rowAnd []                   == 1
 ```
 
 ### rowOr
+
+```
+(rowOr x)
+> x : Row Bool
+> Bool
+```
 
 Performs a logical OR operation on all elements of a row.
 
@@ -395,6 +610,12 @@ rowOr []                     == 0
 
 ### sum
 
+```
+(sum x)
+> x : Row Nat
+> Nat
+```
+
 Calculates the sum of all elements in a row.
 
 ```sire
@@ -404,6 +625,13 @@ sum []                   == 0
 ```
 
 ### sumOf
+
+```
+(sumOf f x)
+> f : (a > Nat)
+> x : Row a
+> Nat
+```
 
 Applies a function to each element of a row and then calculates the sum of the results.
 
@@ -415,6 +643,13 @@ sumOf id []                == 0
 
 ### all
 
+```
+(all f x)
+> f : (a > Bool)
+> x : Row a
+> Bool
+```
+
 Checks if all elements in a row satisfy a given predicate.
 
 ```sire
@@ -424,6 +659,13 @@ all id []              == 1
 ```
 
 ### any
+
+```
+(any f x)
+> f : (a > Bool)
+> x : Row a
+> Bool
+```
 
 Checks if any element in a row satisfies a given predicate.
 
@@ -435,6 +677,13 @@ any id []                == 0
 
 ### zip
 
+```
+(zip x y)
+> x : Row a
+> y : Row b
+> Row (Row a b)
+```
+
 Combines two rows into a row of pairs.
 
 ```sire
@@ -444,6 +693,13 @@ zip [] [1 2 3]               == []
 ```
 
 ### zipWith
+
+(zipWith f x y)
+> f : (a > b > c)
+> x : Row a
+> y : Row b
+> Row c
+```
 
 Combines two rows using a given function.
 
@@ -455,6 +711,12 @@ zipWith zip [[1 2] [1 2]] [[3 4] [3 4]]    == [[[1 3] [2 4]] [[1 3] [2 4]]]
 
 ### cat
 
+```
+(cat x)
+> x : Row (Row a)
+> Row a
+```
+
 Concatenates a row of rows into a single row.
 
 ```sire
@@ -464,6 +726,13 @@ cat []                   == []
 ```
 
 ### catMap
+
+```
+(catMap f x)
+> f : (a > b)
+> x : Row a
+> Row b
+```
 
 Applies a function to each element of a row and concatenates the results.
 
@@ -475,6 +744,13 @@ catMap (mul 2) [1 2 3]    == []
 
 ### take
 
+```
+(take n x)
+> n : Nat
+> x : Row a
+> Row a
+```
+
 Returns the first n elements of a row.
 
 ```sire
@@ -484,6 +760,13 @@ take 5 [1 2 3]        == [1 2 3]
 ```
 
 ### drop
+
+```
+(drop n x)
+> n : Nat
+> x : Row a
+> Row a
+```
 
 Removes the first n elements from a row.
 
@@ -495,6 +778,12 @@ drop 5 [1 2 3]              == []
 
 ### rev
 
+```
+(rev x)
+> x : Row a
+> Row a
+```
+
 Reverses the order of elements in a row.
 
 ```sire
@@ -504,6 +793,13 @@ rev []                   == []
 ```
 
 ### span
+
+```
+(span f x)
+> f : (a > Bool)
+> x : Row a
+> Row (Row a)
+```
 
 Splits a row into two parts: the longest prefix that satisfies a predicate and the rest.
 
@@ -515,6 +811,13 @@ span FALSE [1 2 3]                == [[], [1 2 3]]
 
 ### splitAt
 
+```
+(splitAt i x)
+> i : Nat
+> x : Row a
+> Row (Row a)
+```
+
 Splits a row at a given index.
 
 ```sire
@@ -524,6 +827,13 @@ splitAt 5 [1 2 3]        == [[1 2 3] []]
 ```
 
 ### intersperse
+
+```
+(intersperse e x)
+> e : a
+> x : Row a
+> Row a
+```
 
 Intersperses an element between every element of a row.
 
@@ -535,17 +845,31 @@ intersperse 0 []         == []
 
 ### insert
 
+```
+(insert i e x)
+> i : Nat
+> e : a
+> x : Row a
+> Row a
+```
+
 Inserts an element at a specified index in a row.
 
 ```sire
 insert 1 b#x [b#a b#b b#c]    == [b#a b#x b#b b#c]
-insert 0 0 [1 2 3]            == [0 1 2 3]
+insert 0 1 [1 2 3]            == [1 1 2 3]
 insert 3 4 [1 2 3]            == [1 2 3 4]
 ```
 
 ## Sorting and Filtering
 
 ### sort
+
+```
+(sort x)
+> x : Row a
+> Row a
+```
 
 Sorts a row in ascending order.
 
@@ -557,6 +881,13 @@ sort []               == []
 
 ### sortBy
 
+```
+(sortBy f x)
+> f : (a > Nat)
+> x : Row a
+> Row a
+```
+
 Sorts a row using a custom comparison function.
 
 ```sire
@@ -566,6 +897,13 @@ sortBy (cmp) [[1 2] [] [1]]    == [[] [1] [1 2]]
 
 ### sortOn
 
+```
+(sortOn f x)
+> f : (a > b)
+> x : Row a
+> Row a
+```
+
 Sorts a row by applying a function to each element before comparing.
 
 ```sire
@@ -574,6 +912,12 @@ sortOn len [[1 2] [3] [4 5 6]]    == [[3] [1 2] [4 5 6]]
 ```
 
 ### sortUniq
+
+```
+(sortUniq x)
+> x : Row a
+> Row a
+```
 
 Sorts a row and removes duplicate elements.
 
@@ -585,6 +929,13 @@ sortUniq []               == []
 
 ### filter
 
+```
+(filter f x)
+> f : (a > Bool)
+> x : Row a
+> Row a
+```
+
 Keeps only the elements of a row that satisfy a predicate.
 
 ```sire
@@ -594,6 +945,13 @@ filter (const TRUE) [1 2 3]           == [1 2 3]
 ```
 
 ### delete
+
+```
+(delete e x)
+> e : a
+> x : Row a
+> Row a
+```
 
 Removes all occurrences of a value from a row.
 
@@ -605,6 +963,13 @@ delete 42 [1 2 3]           == [1 2 3]
 
 ### findIdxMany
 
+```
+(findIdxMany f x)
+> f : (a > Bool)
+> x : Row a
+> Either (Row Nat) Nat
+```
+
 Finds all indices where a predicate is satisfied.
 
 ```sire
@@ -615,6 +980,13 @@ findIdxMany (const FALSE) [1 2 3]      == 0
 
 ### elemIdxMany
 
+```
+(elemIdxMany e x)
+> e : a
+> x : Row a
+> Either (Row Nat) Nat
+```
+
 Finds all indices where a specific element occurs.
 
 ```sire
@@ -622,4 +994,3 @@ elemIdxMany 3 [1 2 3 4 3 5]      == [2 [4 0]]
 elemIdxMany b#a [b#a b#b b#a]    == [0 [2 0]]
 elemIdxMany 42 [1 2 3]           == 0
 ```
-

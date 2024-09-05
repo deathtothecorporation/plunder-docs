@@ -5,8 +5,8 @@
 ### isNat
 
 ```
-(isNat x)
-> x : a
+(isNat n)
+> n : a
 > Bool
 ```
 
@@ -22,8 +22,8 @@ isNat b#hi    == 0
 ### toNat
 
 ```
-(toNat x)
-> x : a
+(toNat n)
+> n : a
 > Nat
 ```
 
@@ -33,13 +33,13 @@ Converts a value to a natural number. If the input is already a natural number, 
 toNat 5       == 5
 toNat 0       == 0
 toNat SOME    == 0 ; Non-numbers become 0
-toNat b#hi    == 0  
+toNat b#hi    == 0
 ```
 
 ### times
 
 ```
-(times f z x)
+(times f z n)
 > f : (a > b)
 > z : a
 > x : Nat
@@ -56,8 +56,8 @@ times (add 2) 0 3    == 6
 ### inc
 
 ```
-(inc x)
-> x : Nat
+(inc n)
+> n : Nat
 > Nat
 ```
 
@@ -72,8 +72,8 @@ inc 255    == 256
 ### dec
 
 ```
-(dec x)
-> x : Nat
+(dec n)
+> n : Nat
 > Nat
 ```
 
@@ -177,7 +177,7 @@ div 5 0     == 0
 ### divMod
 
 ```
-(divNod x y)
+(divMod x y)
 > x : Nat
 > y : Nat
 > SOME
@@ -195,7 +195,7 @@ divMod 5 0     ; Division by zero, this will crash the REPL
 ### isOne
 
 ```
-(isOne x)
+(isOne n)
 > x : Nat
 > Nat
 ```
@@ -212,6 +212,13 @@ isOne 2    == 0
 
 ### lsh
 
+```
+(lsh x y)
+> x : Nat
+> y : Nat
+> Nat
+```
+
 Left-shifts a natural number by a given amount.
 
 ```sire
@@ -221,6 +228,13 @@ lsh 8 1    == 16    ; 8 << 1 = 16
 ```
 
 ### rsh
+
+```
+(rsh x y)
+> x : Nat
+> y : Nat
+> Nat
+```
 
 Right-shifts a natural number by a given amount.
 
@@ -232,6 +246,13 @@ rsh 16 1    == 8    ; 16 >> 1 = 8
 
 ### con
 
+```
+(con x y)
+> x : Nat
+> y : Nat
+> Nat
+```
+
 Performs a bitwise AND operation on two natural numbers.
 
 ```sire
@@ -241,6 +262,13 @@ con 15 7     == 7    ; 1111 & 0111 = 0111
 ```
 
 ### mix
+
+```
+(mix x y)
+> x : Nat
+> y : Nat
+> Nat
+```
 
 Performs a bitwise XOR operation on two natural numbers.
 
@@ -252,6 +280,13 @@ mix 15 7     == 8    ; 1111 ^ 0111 = 1000
 
 ### dis
 
+```
+(dis x y)
+> x : Nat
+> y : Nat
+> Nat
+```
+
 Performs a bitwise OR operation on two natural numbers.
 
 ```sire
@@ -261,6 +296,13 @@ dis 15 7     == 15    ; 1111 | 0111 = 1111
 ```
 
 ### pow
+
+```
+(pow b p)
+> b : Nat
+> p : Nat
+> Nat
+```
 
 Raises a base to a power.
 
@@ -273,6 +315,12 @@ pow 0 5    == 0
 
 ### bex
 
+```
+(bex p)
+> p : Nat
+> Nat
+```
+
 Calculates 2 raised to a given power.
 
 ```sire
@@ -282,6 +330,13 @@ bex 0    == 1     ; 2^0 = 1
 ```
 
 ### bix
+
+```
+(bix i n)
+> i : Nat
+> n : Nat
+> Nat
+```
 
 Extracts a specific bit from a natural number.
 
@@ -293,6 +348,13 @@ bix 2 7    == 1    ; 3rd bit of 7 (0111) is 1
 
 ### natEql
 
+```
+(natEql x y)
+> x : Nat
+> y : Nat
+> Bool
+```
+
 Checks if two natural numbers are equal.
 
 ```sire
@@ -302,6 +364,13 @@ natEql 0 0     == 1    ; TRUE
 ```
 
 ### natCmp
+
+```
+(natCmp x y)
+> x : Nat
+> y : Nat
+> Nat
+```
 
 Compares two natural numbers, returning an ordering result.
 
@@ -315,6 +384,14 @@ natCmp 4 4    == 1    ; EQ
 
 ### bitwise
 
+```
+(bitwise f x y)
+> f : (Nat > Nat > Nat)
+> x : Nat
+> y : Nat
+> Nat
+```
+
 Applies a bitwise operation to two natural numbers.
 
 ```sire
@@ -325,6 +402,14 @@ bitwise xor 5 3    == 6    ; 0101 ^ 0011 = 0110
 
 ### natFold
 
+```
+(natFold f z n)
+> f : (a > Nat > a)
+> z : a
+> n : Nat
+> a
+```
+
 Folds a function over the bits of a natural number.
 
 ```sire
@@ -333,6 +418,12 @@ natFold or  0 10    == 1    ; OR of all bits in 10 (1010)
 ```
 
 ### met
+
+```
+(met n)
+> n : Nat
+> Nat
+```
 
 Calculates the number of bits required to represent a natural number.
 
@@ -347,6 +438,12 @@ met 256    == 9
 
 ### popCount
 
+```
+(popCount n)
+> n : Nat
+> Nat
+```
+
 Counts the number of set bits in a natural number.
 
 ```sire
@@ -358,50 +455,86 @@ popCount 15    == 4    ; 1111 has 4 set bits
 
 ### trunc
 
+```
+(trunc w n)
+> w : Nat
+> n : Nat
+> Nat
+```
+
 Truncates a natural number to a given bit width.
 
 ```sire
-trunc 3 13    == 5     
+trunc 3 13    == 5
 trunc 2 7     == 3     ; 7 (111) truncated to 2 bits is 3 (11)
 trunc 4 15    == 15    ; 15 (1111) truncated to 4 bits is still 15
 ```
 
 ### bitSlice
 
+```
+(bitSlice o w n)
+> o : Nat
+> w : Nat
+> n : Nat
+> Nat
+```
+
 Extracts a slice of bits from a natural number.
 
 ```sire
-bitSlice 0 3 13    == 5   
+bitSlice 0 3 13    == 5
 bitSlice 1 2 13    == 2    ; Bits 1-2 of 13 (1101) is 2 (10)
 bitSlice 2 2 13    == 3    ; Bits 2-3 of 13 (1101) is 3 (11)
 ```
 
 ### setBit
 
+```
+(setBit i n)
+> i : Nat
+> n : Nat
+> Nat
+```
+
 Sets a specific bit in a natural number.
 
 ```sire
-setBit 0 4    == 5   
+setBit 0 4    == 5
 setBit 2 1    == 5    ; Set 3rd bit of 1 (001) to get 5 (101)
 setBit 1 6    == 6    ; Setting already-set bit changes nothing
 ```
 
 ### clearBit
 
+```
+(clearBit i n)
+> i : Nat
+> n : Nat
+> Nat
+```
+
 Clears a specific bit in a natural number.
 
 ```sire
-clearBit 0 5    == 4   
+clearBit 0 5    == 4
 clearBit 2 7    == 3    ; Clear 3rd bit of 7 (111) to get 3 (011)
 clearBit 1 4    == 4    ; Clearing already-clear bit changes nothing
 ```
 
 ### testBit
 
+```
+(testBit i n)
+> i : Nat
+> n : Nat
+> Nat
+```
+
 Tests if a specific bit is set in a natural number.
 
 ```sire
-testBit 0 5    == 1   
+testBit 0 5    == 1
 testBit 1 5    == 0    ; 2nd bit of 5 (101) is not set
 testBit 2 5    == 1    ; 3rd bit of 5 (101) is set
 ```
@@ -409,6 +542,12 @@ testBit 2 5    == 1    ; 3rd bit of 5 (101) is set
 ## Miscellaneous
 
 ### roundUp
+
+```
+(roundUp x y)
+> x : Nat
+> y : Nat
+> Nat
 
 Rounds a number up to the nearest multiple of another number.
 
@@ -421,6 +560,12 @@ roundUp 0 3    == 0
 
 ### even
 
+```
+(even n)
+> n : Nat
+> Bool
+```
+
 Checks if a natural number is even.
 
 ```sire
@@ -431,6 +576,12 @@ even 15    == 0
 ```
 
 ### odd
+
+```
+(odd n)
+> n : Nat
+> Bool
+```
 
 Checks if a natural number is odd.
 

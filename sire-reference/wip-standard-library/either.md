@@ -46,9 +46,10 @@ unpackLeft (RIGHT 1)     ; crashes with "Unexpected RIGHT"
 Extracts the value from a Right, or returns a default value for a Left.
 
 ```sire
-fromRight 0 (RIGHT 1)        == 1
-fromRight 0 (LEFT 1)         == (0 1)
-fromRight b#a (RIGHT b#b)    == b#b
+fromRight 0 (RIGHT 1)               == 1
+fromRight 0 (LEFT 1)                == (0 1)
+fromRight natBar (RIGHT b#right)    == b#right
+fromRight natBar (LEFT {left})      == b#left
 ```
 
 ### unpackRight
