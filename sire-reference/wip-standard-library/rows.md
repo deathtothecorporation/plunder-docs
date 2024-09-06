@@ -967,7 +967,7 @@ delete 42 [1 2 3]           == [1 2 3]
 (findIdxMany f x)
 > f : (a > Bool)
 > x : Row a
-> Either (Row Nat) Nat
+> Either (List a) Nat
 ```
 
 Finds all indices where a predicate is satisfied.
@@ -984,7 +984,7 @@ findIdxMany (const FALSE) [1 2 3]      == 0
 (elemIdxMany e x)
 > e : a
 > x : Row a
-> Either (Row Nat) Nat
+> Either (List a) Nat
 ```
 
 Finds all indices where a specific element occurs.

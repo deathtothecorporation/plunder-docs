@@ -10,6 +10,12 @@ Data jetted sets of nouns. Sets are represented as a `law` where the row has no 
 
 ### isSet
 
+```
+(isSet x)
+> x : a
+> Bool
+```
+
 Checks if a value is a valid set.
 
 ```sire
@@ -22,6 +28,11 @@ isSet [1 2 3]       == 0  ; Not a set, just a row
 
 ### emptySet
 
+```
+(emptySet)
+> Set a
+```
+
 Returns an empty set.
 
 ```sire
@@ -31,6 +42,12 @@ emptySet    == setDel 1 %[1]
 ```
 
 ### setIsEmpty
+
+```
+(setIsEmpty x)
+> x : Set a
+> Bool
+```
 
 Checks if a set is empty.
 
@@ -42,6 +59,12 @@ setIsEmpty %[1 2 3]    == 0
 
 ### setSing
 
+```
+(setSing e)
+> e : a
+> Set a
+```
+
 Creates a singleton set containing one element.
 
 ```sire
@@ -51,6 +74,12 @@ setSing 0      == %[0]
 ```
 
 ### setFromRow
+
+```
+(setFromRow x)
+> x : Row a
+> Set a
+```
 
 Creates a set from a row, removing duplicates and sorting.
 
@@ -62,6 +91,12 @@ setFromRow [5 4 3 2 1]      == %[1 2 3 4 5]
 
 ### setFromRowAsc
 
+```
+(setFromRowAsc x)
+> x : Row a
+> Set a
+```
+
 Creates a set from a row that is already in ascending order with no duplicates.
 
 ```sire
@@ -71,6 +106,12 @@ setFromRowAsc [0]              == %[0]
 ```
 
 ### setToRow
+
+```
+(setToRow x)
+> x : Set a
+> Row a
+```
 
 Converts a set to a row.
 
@@ -82,6 +123,12 @@ setToRow %[]         == []
 
 ### setLen
 
+```
+(setLen x)
+> x : Set a
+> Nat
+```
+
 Returns the number of elements in a set.
 
 ```sire
@@ -91,6 +138,12 @@ setLen %[a]        == 1
 ```
 
 ### setToList
+
+```
+(setToList x)
+> x : Set a
+> List a
+```
 
 Converts a set to a list.
 
@@ -102,6 +155,14 @@ setToList %[]         == 0  ; NIL
 
 ### setFoldl
 
+```
+(setFoldl f z x)
+> f : (b > a > b)
+> z : b
+> x : Set a
+> b
+```
+
 Left-associative fold over a set.
 
 ```sire
@@ -111,6 +172,14 @@ setFoldl (flip CONS) NIL %[1 2 3]    == [3 [2 [1 0]]]
 ```
 
 ### setFoldr
+
+```
+(setFoldr f z x)
+> f : (a > b > b)
+> z : b
+> x : Set a
+> b
+```
 
 Right-associative fold over a set.
 
@@ -122,6 +191,13 @@ setFoldr strWeld {} %[{a} {b} {c}]    == %abc
 
 ### setIns
 
+```
+(setIns e x)
+> e : a
+> x : Set a
+> Set a
+```
+
 Inserts an element into a set.
 
 ```sire
@@ -131,6 +207,13 @@ setIns {a} %[b c]    == %[a b c]
 ```
 
 ### setDel
+
+```
+(setDel e x)
+> e : a
+> x : Set a
+> Set a
+```
 
 Removes an element from a set.
 
@@ -142,6 +225,13 @@ setDel {b} %[a b c]    == %[a c]
 
 ### setHas
 
+```
+(setHas e x)
+> e : a
+> x : Set a
+> Bool
+```
+
 Checks if an element is in a set.
 
 ```sire
@@ -151,6 +241,13 @@ setHas {b} %[a b c]    == 1
 ```
 
 ### setWeld
+
+```
+(setWeld x y)
+> x : Set a
+> y : Set a
+> Set a
+```
 
 Combines two sets.
 
@@ -162,6 +259,13 @@ setWeld %[] %[1 2 3]     == %[1 2 3]
 
 ### setUnion
 
+```
+(setUnion x y)
+> x : Set a
+> y : Set a
+> Set a
+```
+
 Alias for setWeld. Combines two sets.
 
 ```sire
@@ -171,6 +275,12 @@ setUnion %[] %[1 2 3]     == %[1 2 3]
 ```
 
 ### setCatRow
+
+```
+(setCatRow x)
+> x : Row (Set a)
+> Set a
+```
 
 Combines a row of sets into a single set.
 
@@ -182,6 +292,12 @@ setCatRow [%[] %[1] %[]]            == %[1]
 
 ### setCatList
 
+```
+(setCatList x)
+> x : List (Set a)
+> Set a
+```
+
 Combines a list of sets into a single set.
 
 ```sire
@@ -191,6 +307,12 @@ setCatList [%[] [%[1] [%[] 0]]]            == %[1]
 ```
 
 ### setCatRowAsc
+
+```
+(setCatRowAsc x)
+> x : Row (Set a)
+> Set a
+```
 
 Combines a row of sets that are already in ascending order.
 
@@ -202,6 +324,12 @@ setCatRowAsc [%[] %[1] %[2 3]]         == %[1 2 3]
 
 ### setMin
 
+```
+(setMin x)
+> x : Set a
+> a
+```
+
 Returns the minimum element in a set.
 
 ```sire
@@ -211,6 +339,12 @@ setMin %[5]        == 5
 ```
 
 ### setMax
+
+```
+(setMax x)
+> x : Set a
+> a
+```
 
 Returns the maximum element in a set.
 
@@ -222,15 +356,28 @@ setMax %[5]        == 5
 
 ### setPop
 
+```
+(setPop x)
+> x : Set a
+> Row (a Set a)
+```
+
 Removes and returns the minimum element from a set.
 
 ```sire
-setPop %[1 2 3]    == [1 %[2 3]]
+setPop %[1 2 3 4]    == [1 %[2 3 4]]
 setPop %[a b c]    == [%a %[b c]]
 setPop %[5]        == [5 %[]]
 ```
 
 ### setDrop
+
+```
+(setDrop n x)
+> n : Nat
+> x : Set a
+> Set a
+```
 
 Removes the first n elements from a set.
 
@@ -242,6 +389,13 @@ setDrop 0 %[1 2 3]      == %[1 2 3]
 
 ### setTake
 
+```
+(setTake n x)
+> n : Nat
+> x : Set a
+> Set a
+```
+
 Keeps the first n elements of a set.
 
 ```sire
@@ -251,6 +405,13 @@ setTake 0 %[1 2 3]      == %[]
 ```
 
 ### setSplitAt
+
+```
+(setSplitAt i x)
+> i : Nat
+> x : Set a
+> Row (Set a Set a)
+```
 
 Splits a set at a given index.
 
@@ -262,6 +423,13 @@ setSplitAt 0 %[1 2 3]      == [%[] %[1 2 3]]
 
 ### setSplitLT
 
+```
+(setSplitLT n x)
+> n : a
+> x : Set a
+> Row (Set a Set a)
+```
+
 Splits a set into elements less than a given value and the rest.
 
 ```sire
@@ -271,6 +439,13 @@ setSplitLT 0 %[1 2 3]          == [%[] %[1 2 3]]
 ```
 
 ### setIntersect
+
+```
+(setIntersect x y)
+> x : Set a
+> y : Set a
+> Set a
+```
 
 Returns the intersection of two sets.
 
@@ -282,6 +457,13 @@ setIntersect %[1 2 3] %[4 5 6]    == %[]
 
 ### setSub
 
+```
+(setSub x y)
+> x : Set a
+> y : Set a
+> Set a
+```
+
 Subtracts one set from another.
 
 ```sire
@@ -291,6 +473,13 @@ setSub %[1 2 3] %[4 5 6]    == %[1 2 3]
 ```
 
 ### setElem
+
+```
+(setElem n x)
+> n : Nat
+> x : Set a
+> a
+```
 
 Returns the nth element of a set.
 

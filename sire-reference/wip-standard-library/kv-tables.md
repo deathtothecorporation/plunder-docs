@@ -4,6 +4,13 @@ A tab is a data-jetted map from noun to noun.
 
 ### tabSing
 
+```
+(tabSing k v)
+> k : a
+> v : b
+> Tab a
+```
+
 Creates a singleton table with one key-value pair.
 
 ```sire
@@ -13,6 +20,12 @@ tabSing 0 []       == [0=[]]
 ```
 
 ### isTab
+
+```
+(isTab x)
+> x : a
+> Bool
+```
 
 Checks if the given value is a table.
 
@@ -24,6 +37,15 @@ isTab []            == 0
 
 ### tabSearchCase
 
+```
+(tabSearchCase k t d m)
+> k : a
+> t : Tab a
+> d : c
+> m : (Nat > b > d)
+> d
+```
+
 Inline function that finds the index of a key within a table. Returns a continuation with the associated value.
 
 ```sire
@@ -33,6 +55,12 @@ tabSearchCase 3 #[1=3 2=4] {nf} (ix v & [ix v])    == %nf
 ```
 
 ### tabLen
+
+```
+(tabLen t)
+> t : Tab a
+> Nat
+```
 
 Returns the number of key-value pairs in a table.
 
@@ -44,6 +72,13 @@ tabLen #[x=0 y=1]    == 2
 
 ### tabIdx
 
+```
+(tabIdx k t)
+> k : a
+> t : Tab a
+> b
+```
+
 Retrieves the value associated with a given key in a table.
 
 ```sire
@@ -53,6 +88,12 @@ tabIdx 3 #[1=4 2=5]         == 0
 ```
 
 ### tabKeysSet
+
+```
+(tabKeysSet t)
+> t : Tab a
+> Set a
+```
 
 Returns the set of keys in a table.
 
@@ -64,6 +105,12 @@ tabKeysSet #[a=1 b=2]    == %[a b]
 
 ### tabKeysRow
 
+```
+(tabKeysRow t)
+> t : Tab a
+> Row a
+```
+
 Returns the row of keys in a table.
 
 ```sire
@@ -73,6 +120,12 @@ tabKeysRow #[a=1 b=2]    == [%a %b]
 ```
 
 ### tabKeysList
+
+```
+(tabKeysList t)
+> t : Tab a
+> List a
+```
 
 Returns the list of keys in a table.
 
@@ -84,6 +137,13 @@ tabKeysList #[a=1 b=2]    == [%a [%b 0]]
 
 ### tabHas
 
+```
+(tabHas k t)
+> k : a
+> t : Tab a
+> Bool
+```
+
 Checks if a key exists in a table.
 
 ```sire
@@ -93,6 +153,13 @@ tabHas 1 #[1=4 2=5]         == 1
 ```
 
 ### tabGet
+
+```
+(tabGet t k)
+> t : Tab a
+> k : a
+> b
+```
 
 Retrieves the value associated with a given key in a table.
 
@@ -104,6 +171,12 @@ tabGet #[1=4 2=5] 3    == 0
 
 ### tabValsRow
 
+```
+(tabValsRow t)
+> t : Tab a
+> Row b
+```
+
 Returns the row of values in a table.
 
 ```sire
@@ -113,6 +186,12 @@ tabValsRow #[a=1 b=2]    == [1 2]
 ```
 
 ### tabValsList
+
+```
+(tabValsList t)
+> t : Tab a
+> List b
+```
 
 Returns the list of values in a table.
 
@@ -124,6 +203,14 @@ tabValsList #[a=1 b=2]    == [1 [2 0]]
 
 ### tabSwitch
 
+```
+(tabSwitch k d t)
+> k : a
+> d : b
+> t : Tab a
+> b
+```
+
 Looks up a key in a table, returning a default value if not found.
 
 ```sire
@@ -133,6 +220,12 @@ tabSwitch 3 {not found} #[1=3 2=4]    == 0
 ```
 
 ### tabFromPairs
+
+```
+(tabFromPairs x)
+> x : Row (Row a)
+> Tab a
+```
 
 Creates a table from a row of key-value pairs.
 
@@ -144,6 +237,12 @@ tabFromPairs [[3 7] [3 8] [5 9]]     == [3=8 5=9]
 
 ### tabFromAscPairs
 
+```
+(tabFromAscPairs x)
+> x : Row (Row a)
+> Tab a
+```
+
 Creates a table from an ascending row of key-value pairs.
 
 ```sire
@@ -153,6 +252,12 @@ tabFromAscPairs [[a 1] [b 2]]          == [a=1 b=2]
 ```
 
 ### tabToPairs
+
+```
+(tabToPairs t)
+> t : Tab a
+> Row (Row a)
+```
 
 Converts a table to a row of key-value pairs.
 
@@ -164,6 +269,12 @@ tabToPairs #[a=1 b=2]        == [[a 1] [b 2]]
 
 ### tabToPairList
 
+```
+(tabToPairList t)
+> t : Tab a
+> List (Row a)
+```
+
 Converts a table to a list of key-value pairs.
 
 ```sire
@@ -173,6 +284,12 @@ tabToPairList #[a=1]        == [[%a 1] 0]
 ```
 
 ### tabToList
+
+```
+(tabToList t)
+> t : Tab a
+> List (Row a)
+```
 
 Converts a table to a list of key-value pairs.
 
@@ -184,6 +301,14 @@ tabToList #[a=1 b=2]    == [[%a 1] [%b 2] 0]
 
 ### tabPut
 
+```
+(tabPut t k v)
+> t : Tab a
+> k : a
+> v : b
+> Tab a
+```
+
 Inserts or updates a key-value pair in a table.
 
 ```sire
@@ -193,6 +318,12 @@ tabPut #[] 1 5           == [1=5]
 ```
 
 ### tabFromPairsList
+
+```
+(tabFromPairsList l)
+> l : List (Row a)
+> Tab a
+```
 
 Creates a table from a list of key-value pairs.
 
@@ -204,6 +335,14 @@ tabFromPairsList ~[[%a 1] [%b 2]]    == [a=1 b=2]
 
 ### tabIns
 
+```
+(tabIns k v t)
+> k : a
+> v : b
+> t : Tab a
+> Tab a
+```
+
 Inserts a key-value pair into a table.
 
 ```sire
@@ -213,6 +352,12 @@ tabIns 0 0 #[]       == [0=0]
 ```
 
 ### tabIsEmpty
+
+```
+(tabIsEmpty t)
+> t : Tab a
+> Bool
+```
 
 Checks if a table is empty.
 
@@ -224,6 +369,13 @@ tabIsEmpty #[a=1 b=2]    == 0
 
 ### tabDel
 
+```
+(tabDel k t)
+> k : a
+> t : Tab a
+> Tab a
+```
+
 Deletes a key-value pair from a table.
 
 ```sire
@@ -233,6 +385,12 @@ tabDel %a #[a=1 b=2]    == [b=2]
 ```
 
 ### tabPop
+
+```
+(tabPop t)
+> t : Tab a
+> Row (a b (Tab a))
+```
 
 Removes and returns the first key-value pair from a table along with the remaining table.
 
@@ -244,6 +402,13 @@ tabPop #[a=1 b=2 c=3]    == [%a 1 [b=2 c=3]]
 
 ### tabSplitAt
 
+```
+(tabSplitAt i t)
+> i : Nat
+> t : Tab a
+> Row (Tab a)
+```
+
 Splits a table into two tables at a given index.
 
 ```sire
@@ -253,6 +418,13 @@ tabSplitAt 2 #[a=1 b=2 c=3]    == [[a=1 b=2] [c=3]]
 ```
 
 ### tabSplitLT
+
+```
+(tabSplitLT k t)
+> k : a
+> t : Tab a
+> Row (Tab a Tab b)
+```
 
 Splits a table into two tables based on a key.
 
@@ -264,6 +436,14 @@ tabSplitLT %b #[a=1 b=2 c=3]    == [[a=1] [b=2 c=3]]
 
 ### tabAlter
 
+```
+(tabAlter f k t)
+> f : (b > Maybe b)
+> k : a
+> t : Tab a
+> Tab a
+```
+
 Applies a function to the value associated with a key, potentially inserting or deleting the key-value pair.
 
 ```sire
@@ -273,6 +453,13 @@ tabAlter (v & SOME 5) 3 #[1=3 2=4]          == [1=3 2=4 3=5]
 ```
 
 ### tabMapWithKey
+
+```
+(tabMapWithKey f t)
+> f : (a > b > c)
+> t : Tab a
+> Tab c
+```
 
 Applies a function to each key-value pair in a table.
 
@@ -284,6 +471,13 @@ tabMapWithKey (k v & inc v) #[]             == #[]
 
 ### tabMap
 
+```
+(tabMap f t)
+> f : (a > b)
+> t : Tab a
+> Tab b
+```
+
 Applies a function to each value in a table.
 
 ```sire
@@ -293,6 +487,14 @@ tabMap id #[]               == #[]
 ```
 
 ### tabUnionWith
+
+```
+(tabUnionWith f t1 t2)
+> f  : (a > a > a)
+> t1 : Tab a
+> t2 : Tab a
+> Tab a
+```
 
 Merges two tables, using a function to resolve conflicts.
 
@@ -304,6 +506,13 @@ tabUnionWith (x y & [x y]) #[1=10] #[1=11 2=12]    == [1=[10 11] 2=12]
 
 ### tabUnion
 
+```
+(tabUnion t1 t2)
+> t1 : Tab a
+> t2 : Tab a
+> Tab a
+```
+
 Merges two tables, with left-biased conflict resolution.
 
 ```sire
@@ -313,6 +522,13 @@ tabUnion #[] #[1=10 2=20]           == [1=10 2=20]
 ```
 
 ### tabWeld
+
+```
+(tabWeld t1 t2)
+> t1 : Tab a
+> t2 : Tab a
+> Tab a
+```
 
 Alias for tabUnion. Merges two tables, with left-biased conflict resolution.
 
@@ -324,6 +540,12 @@ tabWeld #[] #[1=10 2=20]           == [1=10 2=20]
 
 ### tabCatRow
 
+```
+(tabCatRow x)
+> x : Row (Tab a)
+> Tab a
+```
+
 Merges a row of tables into a single table, with left-biased conflict resolution.
 
 ```sire
@@ -333,6 +555,13 @@ tabCatRow []                               == #[]
 ```
 
 ### tabLookup
+
+```
+(tabLookup k t)
+> k : a
+> t : Tab a
+> Maybe a
+```
 
 Looks up a key in a table, returning a Maybe value.
 
@@ -344,6 +573,12 @@ tabLookup 3 #[1=3 2=4]    == 0 ; NONE
 
 ### tabMinKey
 
+```
+(tabMinKey t)
+> t : Tab a
+> a
+```
+
 Returns the smallest key in a table.
 
 ```sire
@@ -353,6 +588,14 @@ tabMinKey #[z=26]              == %z
 ```
 
 ### tabFoldlWithKey
+
+```
+(tabFoldlWithKey f acc t)
+> f   : (a > b)
+> acc : c
+> t   : Tab a
+> c
+```
 
 Folds over a table, applying a function to each key-value pair and an accumulator.
 
@@ -364,6 +607,13 @@ tabFoldlWithKey (acc k v & inc acc) 0 #[]                     == 0
 
 ### tabElemIdx
 
+```
+(tabElemIdx i t)
+> i : Nat
+> t : Tab a
+> Row a
+```
+
 Returns the index of a key-value pair in a table, treating it as an array.
 
 ```sire
@@ -373,6 +623,11 @@ tabElemIdx 3 #[a=1 b=2 c=3]    == 0
 ```
 
 ### emptyTab
+
+```
+emptyTab
+> Tab a
+```
 
 An empty table constant.
 
@@ -384,6 +639,15 @@ tabUnion emptyTab #[1=2]    == [1=2]
 
 ### tabInsWith
 
+```
+(tabInsWith f k v t)
+> f : (a > a > b)
+> k : a
+> v : b
+> t : Tab a
+> Tab a
+```
+
 Inserts a key-value pair into a table, using a function to combine values if the key already exists.
 
 ```sire
@@ -393,6 +657,13 @@ tabInsWith (x y & [x y]) 3 6 #[1=3]    == [1=3 3=6]
 ```
 
 ### tabFilterWithKey
+
+```
+(tabFilterWithKey f t)
+> f : (a > b > Bool)
+> t : Tab a
+> Tab a
+```
 
 Filters a table based on a predicate function applied to each key-value pair.
 

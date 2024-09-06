@@ -4,6 +4,11 @@ Lists are zero-terminated, nested row 2-tuples. They are declared by prepending 
 
 ### NIL
 
+```
+(NIL)
+> NIL
+```
+
 Evaluates to 0.
 
 ```sire
@@ -11,6 +16,13 @@ NIL    == 0    ; the empty list
 ```
 
 ### CONS
+
+```
+(CONS x xs)
+> x  : a
+> xs : List a
+> List a
+```
 
 Constructs a new list by adding an element to the front of an existing list.
 
@@ -32,6 +44,12 @@ TODO: find a nice example for listCase that doesn't require a lambda.
 
 ### listSing
 
+```
+(listSing x)
+> x : a
+> List a
+```
+
 Creates a singleton list containing one element.
 
 ```sire
@@ -41,6 +59,13 @@ listSing []         == [[] 0]
 ```
 
 ### listMap
+
+```
+(listMap f xs)
+> f  : (a > b)
+> xs : List a
+> List b
+```
 
 Applies a function to every element of a list.
 
@@ -52,6 +77,13 @@ listMap id NIL                           == 0 ; NIL
 
 ### listForEach
 
+```
+(listForEach xs f)
+> xs : List a
+> f  : (a > b)
+> List b
+```
+
 Alias for `listMap`. Applies a function to every element of a list.
 
 ```sire
@@ -61,6 +93,12 @@ listForEach NIL id                                    == NIL
 ```
 
 ### listHead
+
+```
+(listHead xs)
+> xs : List a
+> Maybe a
+```
 
 Returns the first element of a list.
 
@@ -72,6 +110,13 @@ listHead NIL                      == 0
 
 ### listSafeHead
 
+```
+(listSafeHead d xs)
+> d  : a
+> xs : List a
+> a
+```
+
 Returns the first element of a list, or a fallback value if the list is empty.
 
 ```sire
@@ -81,6 +126,12 @@ listSafeHead b#default NIL              == b#default
 ```
 
 ### listUnsafeHead
+
+```
+(listUnsafeHead xs)
+> xs : List a
+> a
+```
 
 Returns the first element of a list. Unsafe if the list is empty.
 
@@ -92,6 +143,12 @@ listUnsafeHead NIL                      == 0 ; NIL
 
 ### listUnsafeTail
 
+```
+(listUnsafeTail xs)
+> xs : List a
+> List a
+```
+
 Returns the tail of a list (all elements except the first). Unsafe if the list is empty.
 
 ```sire
@@ -101,6 +158,15 @@ listUnsafeTail NIL                      == 0 ; NIL
 ```
 
 ### listIdxCps
+
+```
+(listIdxCps i xs d k)
+> i  : Nat
+> xs : List a
+> d  : a
+> k  : a
+> a
+```
 
 Continuation-passing style function to get the element at a given index in a list.
 
@@ -112,6 +178,14 @@ listIdxCps 2 (CONS 1 (CONS 2 NIL)) b#{not found} id        == b#{not found}
 
 ### listIdxOr
 
+```
+(listIdxOr d i xs)
+> d  : a
+> i  : Nat
+> xs : List a
+> a
+```
+
 Returns the element at a given index in a list, or a fallback value if the index is out of bounds.
 
 ```sire
@@ -121,6 +195,13 @@ listIdxOr b#default 0 NIL                     == b#default
 ```
 
 ### listIdx
+
+```
+(listIdx i xs)
+> i  : Nat
+> xs : List a
+> a
+```
 
 Returns the element at a given index in a list, or 0 if the index is out of bounds.
 
@@ -132,6 +213,13 @@ listIdx 2 (CONS 1 (CONS 2 NIL))        == 0
 
 ### listLastOr
 
+```
+(listLastOr d xs)
+> d  : a
+> xs : List a
+> a
+```
+
 Returns the last element of a list, or a fallback value if the list is empty.
 
 ```sire
@@ -141,6 +229,12 @@ listLastOr b#z ~[]                    == b#z
 ```
 
 ### listUnsafeLast
+
+```
+(listUnsafeLast xs)
+> xs : List a
+> a
+```
 
 Returns the last element of a list. Unsafe if the list is empty.
 
@@ -152,6 +246,12 @@ listUnsafeLast NIL                      == 0 ; NIL
 
 ### listLast
 
+```
+(listLast xs)
+> xs : List a
+> Maybe a
+```
+
 Returns the last element of a list.
 
 ```sire
@@ -162,15 +262,30 @@ listLast NIL                      == 0
 
 ### listFoldl
 
+```
+(listFoldl f z xs)
+> f  : (b > a > b)
+> z  : b
+> xs : List a
+> b
+```
+
 Left-associative fold of a list.
 
 ```sire
 listFoldl add 0 ~[1 2 3]                 == 6
 listFoldl barWeld b#{} ~[b#a b#b b#c]    == b#abc
-listFoldl (flip CONS) NIL ~[1 2 3]       == [3 [2 [1 0]]]                    
+listFoldl (flip CONS) NIL ~[1 2 3]       == [3 [2 [1 0]]]
 ```
 
 ### listFoldl1
+
+```
+(listFoldl1 f xs)
+> f  : (a > a > a)
+> xs : List a
+> a
+```
 
 Left-associative fold of a non-empty list, using the first element as the initial accumulator.
 
@@ -182,6 +297,14 @@ listFoldl1 barWeld ~[b#a b#b b#c]                == b#abc
 
 ### listFoldr
 
+```
+(listFoldr f z xs)
+> f  : (a > b > b)
+> z  : b
+> xs : List a
+> b
+```
+
 Right-associative fold of a list.
 
 ```sire
@@ -191,6 +314,12 @@ listFoldr (flip CONS) NIL ~[1 2 3]       == [[[0 3] 2] 1]
 ```
 
 ### listLen
+
+```
+(listLen xs)
+> xs : List a
+> Nat
+```
 
 Computes the length of a list.
 
@@ -202,6 +331,12 @@ listLen NIL                               == 0
 
 ### listToRow
 
+```
+(listToRow xs)
+> xs : List a
+> Row a
+```
+
 Converts a list to a row.
 
 ```sire
@@ -211,6 +346,13 @@ listToRow NIL                             == []
 ```
 
 ### sizedListToRow
+
+```
+(sizedListToRow n xs)
+> n  : Nat
+> xs : List a
+> Row a
+```
 
 Converts a list to a row of a specified size, padding with zeros if necessary.
 
@@ -222,6 +364,13 @@ sizedListToRow 4 NIL                               == [0 0 0 0]
 
 ### sizedListToRowRev
 
+```
+(sizedListToRowRev n xs)
+> n  : Nat
+> xs : List a
+> Row a
+```
+
 Converts a list to a row of a specified size in reverse order, padding with zeros if necessary.
 
 ```sire
@@ -231,6 +380,12 @@ sizedListToRowRev 4 NIL                      == [0 0 0 0]
 ```
 
 ### listToRowRev
+
+```
+(listToRowRev xs)
+> xs : List a
+> Row a
+```
 
 Converts a list to a row in reverse order.
 
@@ -242,6 +397,12 @@ listToRowRev NIL                               == []
 
 ### listFromRow
 
+```
+(listFromRow x)
+> x : Row a
+> List a
+```
+
 Converts a row to a list.
 
 ```sire
@@ -251,6 +412,12 @@ listFromRow (gen 4 id)    == [0 [1 [2 [3 0]]]]
 ```
 
 ### listAnd
+
+```
+(listAnd xs)
+> xs : List Bool
+> Bool
+```
 
 Returns TRUE if all elements in the list are TRUE, otherwise FALSE.
 
@@ -262,6 +429,12 @@ listAnd NIL                             == 1 ; TRUE
 
 ### listOr
 
+```
+(listOr xs)
+> xs : List Bool
+> Bool
+```
+
 Returns TRUE if any element in the list is TRUE, otherwise FALSE.
 
 ```sire
@@ -271,6 +444,12 @@ listOr NIL                             == 0 ; FALSE
 ```
 
 ### listSum
+
+```
+(listSum xs)
+> xs : List Nat
+> Nat
+```
 
 Computes the sum of all elements in a list of numbers.
 
@@ -282,6 +461,13 @@ listSum NIL                               == 0
 
 ### listAll
 
+```
+(listAll f xs)
+> f  : (a > Bool)
+> xs : List a
+> Bool
+```
+
 Returns TRUE if all elements in the list satisfy the given predicate.
 
 ```sire
@@ -291,6 +477,12 @@ listAll id NIL                                 == 1 ; TRUE
 ```
 
 ### listAllEql
+
+```
+(listAllEql xs)
+> xs : List a
+> Bool
+```
 
 Returns TRUE if all elements in the list are equal.
 
@@ -302,6 +494,13 @@ listAllEql (CONS 1 (CONS 2 NIL))             == 0 ; FALSE
 
 ### listAny
 
+```
+(listAny f xs)
+> f  : (a > Bool)
+> xs : List a
+> Bool
+```
+
 Returns TRUE if any element in the list satisfies the given predicate.
 
 ```sire
@@ -311,6 +510,13 @@ listAny id NIL                                == 0 ; FALSE
 ```
 
 ### listHas
+
+```
+(listHas e xs)
+> e  : a
+> xs : List a
+> Bool
+```
 
 Checks if a list contains a specific element.
 
@@ -322,6 +528,13 @@ listHas 1 NIL                             == 0 ; FALSE
 
 ### listWeld
 
+```
+(listWeld xs ys)
+> xs : List a
+> ys : List a
+> List a
+```
+
 Concatenates two lists.
 
 ```sire
@@ -331,6 +544,12 @@ listWeld NIL (CONS 1 NIL)                               == [1 0]
 ```
 
 ### listCat
+
+```
+(listCat xss)
+> xss : List (List a)
+> List a
+```
 
 Concatenates a list of lists into a single list.
 
@@ -342,6 +561,13 @@ listCat (CONS NIL (CONS NIL NIL))       == 0 ; NIL
 
 ### listCatMap
 
+```
+(listCatMap f xs)
+> f  : (a > List b)
+> xs : List a
+> List b
+```
+
 Applies a function to all elements in a list and concatenates the results.
 
 ```sire
@@ -351,6 +577,13 @@ listCatMap (x & ~[]) ~[1 2 3]       == 0 ; NIL
 ```
 
 ### listTake
+
+```
+(listTake n xs)
+> n  : Nat
+> xs : List a
+> List a
+```
 
 Takes the first n elements from a list.
 
@@ -362,6 +595,13 @@ listTake 0 (CONS 1 NIL)                      == 0 ; NIL
 
 ### listDrop
 
+```
+(listDrop n xs)
+> n  : Nat
+> xs : List a
+> List a
+```
+
 Drops the first n elements from a list.
 
 ```sire
@@ -371,6 +611,13 @@ listDrop 0 (CONS 1 NIL)                      == [1 0]
 ```
 
 ### listTakeWhile
+
+```
+(listTakeWhile f xs)
+> f  : (a > Bool)
+> xs : List a
+> List a
+```
 
 Takes elements from the front of a list while they satisfy a predicate.
 
@@ -382,6 +629,13 @@ listTakeWhile (const TRUE) NIL                                   == 0 ; NIL
 
 ### listDropWhile
 
+```
+(listDropWhile f xs)
+> f  : (a > Bool)
+> xs : List a
+> List a
+```
+
 Drops elements from the front of a list while they satisfy a predicate.
 
 ```sire
@@ -391,6 +645,14 @@ listDropWhile (const TRUE) NIL                                   == 0 ; NIL
 ```
 
 ### listZipWith
+
+```
+(listZipWith f xs ys)
+> f  : (a > b > c)
+> xs : List a
+> ys : List b
+> List c
+```
 
 Combines two lists element-wise using a given function.
 
@@ -402,6 +664,13 @@ listZipWith mul NIL (CONS 1 NIL)                               == 0 ; NIL
 
 ### listZip
 
+```
+(listZip xs ys)
+> xs : List a
+> ys : List b
+> List (Row a)
+```
+
 Combines two lists into a list of pairs.
 
 ```sire
@@ -411,6 +680,13 @@ listZip NIL (CONS 1 NIL)                               == 0 ; NIL
 ```
 
 ### listFilter
+
+```
+(listFilter f xs)
+> f  : (a > Bool)
+> xs : List a
+> List a
+```
 
 Keeps only the elements of a list that satisfy a predicate.
 
@@ -422,6 +698,12 @@ listFilter (const TRUE) NIL                                == 0 ; NIL
 
 ### listIsEmpty
 
+```
+(listIsEmpty xs)
+> xs : List a
+> Bool
+```
+
 Checks if a list is empty.
 
 ```sire
@@ -431,6 +713,13 @@ listIsEmpty (CONS 1 (CONS 2 NIL))    == 0 ; FALSE
 ```
 
 ### listSortOn
+
+```
+(listSortOn f xs)
+> f  : (a > b)
+> xs : List a
+> List a
+```
 
 Sorts a list based on a key function.
 
@@ -442,6 +731,12 @@ listSortOn len ~[[1 2] [3] [4 5 6]]             == [[3] [[1 2] [[4 5 6] 0]]]
 
 ### listNub
 
+```
+(listNub xs)
+> xs : List a
+> List a
+```
+
 Removes duplicate elements from a list, keeping only the first occurrence.
 
 ```sire
@@ -451,6 +746,13 @@ listNub NIL                                        == 0 ; NIL
 ```
 
 ### listIterate
+
+```
+(listIterate f x)
+> f : (a > a)
+> x : a
+> List a
+```
 
 Generates an infinite list by repeatedly applying a function to an initial value.
 
@@ -462,6 +764,13 @@ listTake 0 (listIterate id 1)         == 0 ; NIL
 
 ### listGen
 
+```
+(listGen n f)
+> n : Nat
+> f : (a > a)
+> List a
+```
+
 Generates a list of n elements using a given function.
 
 ```sire
@@ -471,6 +780,13 @@ listGen 0 (const 1)      == 0 ; NIL
 ```
 
 ### listRep
+
+```
+(listRep e n)
+> e : a
+> n : Nat
+> List a
+```
 
 Generates a list of n copies of a given element.
 
@@ -482,6 +798,15 @@ listRep 0 0      == 0 ; NIL
 
 ### listElemIndex
 
+```
+(listElemIndex e xs d k)
+> e  : a
+> xs : List a
+> d  : NONE
+> k  : SOME
+> Either NONE SOME
+```
+
 Finds the index of the first occurrence of an element in a list.
 
 ```sire
@@ -491,6 +816,13 @@ listElemIndex 4 ~[1 2 3] NONE SOME                          == 0
 ```
 
 ### listIsPrefixOf
+
+```
+(listIsPrefixOf xs ys)
+> xs : List a
+> ys : List a
+> Bool
+```
 
 Checks if one list is a prefix of another list.
 
@@ -502,6 +834,12 @@ listIsPrefixOf ~[1 2] ~[2 1]                                           == 0 ; FA
 
 ### listIndexed
 
+```
+(listIndexed xs)
+> xs : List a
+> List (Row a)
+```
+
 Pairs each element in a list with its index.
 
 ```sire
@@ -511,6 +849,13 @@ listIndexed NIL                               == 0 ; NIL
 ```
 
 ### listIntersperse
+
+```
+(listIntersperse e xs)
+> e  : a
+> xs : List a
+> List a
+```
 
 Intersperses an element between every element of a list.
 
@@ -522,6 +867,12 @@ listIntersperse 0 NIL                               == 0 ; NIL
 
 ### listRev
 
+```
+(listRev xs)
+> xs : List a
+> List a
+```
+
 Reverses a list.
 
 ```sire
@@ -532,6 +883,13 @@ listRev NIL                               == 0 ; NIL
 
 ### listSnoc
 
+```
+(listSnoc xs e)
+> xs : List a
+> e  : a
+> List a
+```
+
 Adds an element to the end of a list.
 
 ```sire
@@ -541,6 +899,13 @@ listSnoc NIL 1                      == [1 0]
 ```
 
 ### listProd
+
+```
+(listProd xs ys)
+> xs : List a
+> ys : List b
+> List (Row a b)
+```
 
 Computes the Cartesian product of two lists.
 
