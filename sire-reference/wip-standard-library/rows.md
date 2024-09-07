@@ -3,6 +3,10 @@
 {% hint style="warning" %}
 This page is under active development. It may contain bugs or incomplete descriptions.
 
+Type signatures are provisional and may contain errors.
+{% endhint %}
+
+{% hint style="info" %}
 TODO: Update with function and type signatures.
 {% endhint %}
 
@@ -695,11 +699,10 @@ zip [] [1 2 3]               == []
 ### zipWith
 
 (zipWith f x y)
-> f : (a > b > c)
-> x : Row a
-> y : Row b
-> Row c
-```
+
+> f : (a > b > c) x : Row a y : Row b Row c
+
+````
 
 Combines two rows using a given function.
 
@@ -707,7 +710,7 @@ Combines two rows using a given function.
 zipWith add [1 2 3] [4 5 6]                == [5 7 9]
 zipWith mul [1 2 3] [1 2 3]                == [1 4 9]
 zipWith zip [[1 2] [1 2]] [[3 4] [3 4]]    == [[[1 3] [2 4]] [[1 3] [2 4]]]
-```
+````
 
 ### cat
 

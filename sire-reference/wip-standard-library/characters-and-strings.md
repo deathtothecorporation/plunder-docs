@@ -1,6 +1,6 @@
 # Characters and Strings
 
-{% hint style="danger" %}
+{% hint style="info" %}
 TODO: rectify `ord` and `chr` with REPL formatting; should results format as in the REPL?
 {% endhint %}
 
@@ -197,7 +197,7 @@ strCat [{} {abc} {}]    == {abc}
 
 ### strToList
 
-{% hint style="danger" %}
+{% hint style="info" %}
 TODO: REPL formatting?
 {% endhint %}
 
@@ -210,7 +210,7 @@ strToList {}       == 0
 
 ### strFromList
 
-{% hint style="danger" %}
+{% hint style="info" %}
 TODO: REPL formatting?
 {% endhint %}
 
@@ -223,7 +223,7 @@ strFromList 0                   == {}
 
 ### explode
 
-{% hint style="danger" %}
+{% hint style="info" %}
 TODO: REPL formatting?
 {% endhint %}
 

@@ -1,5 +1,9 @@
 # Sets
 
+{% hint style="warning" %}
+Type signatures are provisional and may contain errors.
+{% endhint %}
+
 Data jetted sets of nouns. Sets are represented as a `law` where the row has no duplicate elements and all elements are stored in ascending order, with the form:
 
 ```

@@ -1,5 +1,9 @@
 # Lists
 
+{% hint style="warning" %}
+Type signatures are provisional and may contain errors.
+{% endhint %}
+
 Lists are zero-terminated, nested row 2-tuples. They are declared by prepending a `~` to what looks like row syntax, like this: `~[]` (in the REPL we have to wrap this in parentheses):
 
 ### NIL
@@ -36,7 +40,7 @@ CONS 1 (CONS 2 (CONS 3 NIL))  == [1 [2 [3 0]]]    ; a list with three elements
 
 Pattern matches on a list, providing cases for empty and non-empty lists.
 
-{% hint style="danger" %}
+{% hint style="info" %}
 ```
 TODO: find a nice example for listCase that doesn't require a lambda.
 ```
