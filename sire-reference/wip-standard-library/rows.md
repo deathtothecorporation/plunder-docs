@@ -17,11 +17,12 @@ arr
 [10 64 42]
 ```
 
+
 ### null
 
 ```
-(null x)
-> x : Row a
+(null xs)
+> xs : Row a
 > Bool
 ```
 
@@ -56,8 +57,8 @@ arity []         == 1
 ### len
 
 ```
-(len x)
-> x : Row a
+(len xs)
+> xs : Row a
 > Nat
 ```
 
@@ -74,9 +75,9 @@ len [9]        == 1
 ### idx
 
 ```
-(idx i x)
-> i : Nat
-> x : Row a
+(idx i xs)
+> i  : Nat
+> xs : Row a
 > a
 ```
 
@@ -90,12 +91,29 @@ idx 0 [5 6 7]       == 5
 idx 2 [1]           == 0 (out of bounds)
 ```
 
+### last
+
+```
+(last xs)
+> xs : Row a
+> a
+```
+
+Retrieves an element from the end of a row.
+
+```sire
+last [10 20 30]    == 30
+last [5 6 7]       == 7
+last [] 2          == 0
+```
+
+
 ### get
 
 ```
-(get x i)
-> x : Row a
-> i : Nat
+(get xs i)
+> xs : Row a
+> i  : Nat
 > a
 ```
 
@@ -112,10 +130,10 @@ get [1] 2           == 0 (out of bounds)
 ### mut
 
 ```
-(mut i v x)
-> i : Nat
-> v : a
-> x : Row a
+(mut i v xs)
+> i  : Nat
+> v  : a
+> xs : Row a
 > Row a
 ```
 
@@ -132,10 +150,10 @@ mut 3 4 [1 2]          == [1 2 0 4]
 ### put
 
 ```
-(put x i v)
-> x : Row a
-> i : Nat
-> v : a
+(put xs i v)
+> xs : Row a
+> i  : Nat
+> v  : a
 > Row a
 ```
 
@@ -152,10 +170,10 @@ put [1 2] 3 4          == [1 2 0 4]
 ### switch
 
 ```
-(switch i d x)
-> i : Nat
-> d : a
-> x : Row a
+(switch i d xs)
+> i  : Nat
+> d  : b
+> xs : Row a
 > a
 ```
 
@@ -211,12 +229,100 @@ isRow []         == 1
 isRow 3          == 0
 ```
 
+### foldr
+
+```
+(foldr f xs)
+> f  : (a > b)
+> xs : Row a
+> b
+```
+
+Folds a row from right to left.
+
+foldr applies a binary function to a starting value (from the right) and all elements of the row, going from right to left.
+
+```sire
+foldr sub 0 [1 2 3]    == 1
+foldr v2 [] [1 2 3]    == [1 [2 [3 []]]]
+foldr add 0 []         == 0
+```
+
+### foldl
+
+```
+(foldl f xs)
+> f  : (a > b)
+> xs : Row a
+> b
+```
+
+Folds a row from left to right.
+
+foldl applies a binary function to a starting value (from the left) and all elements of the row, going from left to right.
+
+```sire
+foldl sub 0 [1 2 3]    == 0
+foldl v2 [] [1 2 3]    == [[[[] 1] 2] 3]
+foldl add 0 [1]        == 1
+```
+
+### foldr1
+
+```sire
+(foldr1 f xs)
+> f  : (a > b)
+> xs : Row a
+> b
+```
+
+Folds a non-empty row from right to left using the last element as the initial accumulator.
+
+```sire
+foldr1 sub [1 2 3 10]        == 0
+foldr1 strWeld [%a %b %c]    == %abc
+foldr1 max [1 5 3 2]         == 5
+```
+
+### unfoldr
+
+```
+(unfoldr f s)
+> f : (a > b)
+> s : a
+> a
+```
+
+Builds a row from a seed value using a function that returns either a value and a new seed, or nothing.
+
+```sire
+unfoldr n&(if (gth n 0) (SOME [n dec-n]) NONE) 5    == [5 4 3 2 1]
+unfoldr n&(if (lth n 3) (SOME [n inc-n]) NONE) 0    == [0 1 2]
+unfoldr _&NONE 0                                    == []
+```
+
+### strictRow
+
+```
+(strictRow x)
+> x : a
+> Row a
+```
+
+Forces evaluation of all elements in a row.
+
+```sire
+strictRow [1 2 3]                  == [1 2 3] ; ensures all elements are evaluated
+strictRow (map (mul 2) [1 2 3])    == [2 4 6] ; forces computation
+strictRow []                       == []
+```
+
 ### weld
 
 ```
-(weld x y)
-> x : Row a
-> y : Row a
+(weld xs ys)
+> xs : Row a
+> ys : Row a
 > Row a
 ```
 
@@ -252,8 +358,8 @@ gen 0 | mul 2    == []
 ### fst
 
 ```
-(fst x)
-> x : Row a
+(fst xs)
+> xs : Row a
 > a
 ```
 
@@ -270,8 +376,8 @@ fst []         == 0
 ### snd
 
 ```
-(snd x)
-> x : Row a
+(snd xs)
+> xs : Row a
 > a
 ```
 
@@ -288,8 +394,8 @@ snd []         == 0
 ### thr
 
 ```
-(thr x)
-> x : Row a
+(thr xs)
+> xs : Row a
 > a
 ```
 
@@ -306,10 +412,10 @@ thr []           == 0
 ### map
 
 ```
-(map f x)
-> f : (a > b)
-> x : Row a
-> Row a
+(map f xs)
+> f  : (a > b)
+> xs : Row a
+> Row b
 ```
 
 Applies a function to each element of a row.
@@ -325,10 +431,10 @@ map (add 1) []                 == []
 ### foreach
 
 ```
-(foreach x f)
-> x : Row a
-> f : (a > b)
-> Row a
+(foreach xs f)
+> xs : Row a
+> f  : (a > b)
+> Row b
 ```
 
 Alias for `map` with arguments reversed.
@@ -344,8 +450,8 @@ foreach [] (add 1)                 == []
 ### rev
 
 ```
-(rev x)
-> x : Row a
+(rev xs)
+> xs : Row a
 > Row a
 ```
 
@@ -359,12 +465,49 @@ rev [9]        == [9]
 rev []         == []
 ```
 
+### curry
+
+```
+(curry f x y)
+> f : (Row a > b)
+> x : a
+> y : a
+> a
+```
+
+Converts a function that takes a row to a curried function.
+
+curry takes a function that expects a row as its argument and returns a function that takes two arguments separately.
+
+```
+See the function definition in sire/sire_05_row.sire.
+```
+
+### uncurry
+
+```
+(uncurry f xs)
+> f  : (a > a)
+> xs : Row a
+> f (Row a)
+```
+
+Converts a curried function to a function that takes a row.
+
+uncurry takes a function that expects two separate arguments and returns a function that takes a row of two elements.
+
+```sire
+uncurry add [1 2]    == 3
+uncurry sub [5 3]    == 2
+uncurry v2 [1 2]     == [1 2]
+```
+
 ### rowCons
 
 ```
-(rowCons e x)
-> e : a
-> x : Row a
+(rowCons e xs)
+> e  : a
+> xs : Row a
 > Row a
 ```
 
@@ -381,9 +524,9 @@ rowCons 0 [1]      == [0 1]
 ### rowSnoc
 
 ```
-(rowSnoc x e)
-> x : Row a
-> e : a
+(rowSnoc xs e)
+> xs : Row a
+> e  : a
 > Row a
 ```
 
@@ -400,10 +543,10 @@ rowSnoc [0] 1      == [0 1]
 ### rowApply
 
 ```
-(rowApply f x)
-> f : (a > b)
-> x : Row a
-> a
+(rowApply f xs)
+> f  : (a > b)
+> xs : Row a
+> b
 ```
 
 Applies a function to a row of arguments.
@@ -419,10 +562,10 @@ rowApply lte [3 4]    == 1
 ### rowRepel
 
 ```
-(rowRepel f x)
-> f : (a > b)
-> x : Row a
-> a
+(rowRepel f xs)
+> f  : (a > b)
+> xs : Row a
+> b
 ```
 
 Applies a function to a row of arguments in reverse order.
@@ -438,10 +581,10 @@ rowRepel lte [3 4]    == 0
 ### slash
 
 ```
-(slash x s e)
-> x : Row a
-> s : Nat
-> e : Nat
+(slash xs s e)
+> xs : Row a
+> s  : Nat
+> e  : Nat
 > a
 ```
 
@@ -456,8 +599,8 @@ slash [1 2 3] 2 2        == []
 ### slice
 
 ```
-(slice x s e)
-> x : Row a
+(slice xs s e)
+> xs : Row a
 > s : Nat
 > e : Nat
 > a
@@ -474,9 +617,9 @@ slice [1 2 3] 2 2        == []
 ### chunks
 
 ```
-(chunks n x)
-> n : Nat
-> x : Row a
+(chunks n xs)
+> n  : Nat
+> xs : Row a
 > Row a
 ```
 
@@ -508,9 +651,9 @@ rep [] 2        == [[] []]
 ### rowIndexed
 
 ```
-(rowIndexed x)
-> x : Row a
-> Row (Row Nat a)
+(rowIndexed xs)
+> xs : Row a
+> Row (Nat, a)
 ```
 
 Creates a row of pairs, where each pair contains the index and the corresponding element from the input row.
@@ -524,31 +667,31 @@ rowIndexed []               == []
 ### findIdx
 
 ```
-(findIdx f x d k)
-> f : (a > Bool)
-> x : Row a
-> d : a
-> k : a
+(findIdx f xs d k)
+> f  : (a > Bool)
+> xs : Row a
+> d  : b
+> k  : (a > b)
 > a
 ```
 
 Finds the index of the first element in a row that satisfies a predicate function.
 
 ```sire
-findIdx (lte 5) [1 3 5 7 9] 0 id           == 2
-findIdx (lte 10) [1 3 5 7 9] 0 id          == 0
-findIdx even [1 3 5 7] b#{not found} id    == b#{not found}
+findIdx (lte 5) [1 3 5 7 9] 0 id              == 2
+findIdx (lte 10) [1 3 5 7 9] 0 id             == 0
+findIdx even [1 3 5 7] {not found} showNat    == {not found}
 ```
 
 ### elemIdx
 
 ```
-(elemIdx e x d k)
-> e : a
-> x : Row a
-> d : a
-> k : a
-> b
+(elemIdx e xs d k)
+> e  : a
+> xs : Row a
+> d  : a
+> k  : a
+> a
 ```
 
 Finds the index of the first occurrence of a specific element in a row.
@@ -562,9 +705,9 @@ elemIdx 4 [1 2 3] b#{not found} id            == b#{not found}
 ### has
 
 ```
-(has e x)
-> e : a
-> x : Row a
+(has e xs)
+> e  : a
+> xs : Row a
 > Bool
 ```
 
@@ -579,8 +722,8 @@ has [] [[1] [2] []]    == 1
 ### rowAnd
 
 ```
-(rowAnd x)
-> x : Row Bool
+(rowAnd xs)
+> xs : Row Bool
 > Bool
 ```
 
@@ -595,8 +738,8 @@ rowAnd []                   == 1
 ### rowOr
 
 ```
-(rowOr x)
-> x : Row Bool
+(rowOr xs)
+> xs : Row Bool
 > Bool
 ```
 
@@ -611,8 +754,8 @@ rowOr []                     == 0
 ### sum
 
 ```
-(sum x)
-> x : Row Nat
+(sum xs)
+> xs : Row Nat
 > Nat
 ```
 
@@ -627,9 +770,9 @@ sum []                   == 0
 ### sumOf
 
 ```
-(sumOf f x)
-> f : (a > Nat)
-> x : Row a
+(sumOf f xs)
+> f  : (a > Nat)
+> xs : Row a
 > Nat
 ```
 
@@ -644,9 +787,9 @@ sumOf id []                == 0
 ### all
 
 ```
-(all f x)
-> f : (a > Bool)
-> x : Row a
+(all f xs)
+> f  : (a > Bool)
+> xs : Row a
 > Bool
 ```
 
@@ -661,9 +804,9 @@ all id []              == 1
 ### any
 
 ```
-(any f x)
-> f : (a > Bool)
-> x : Row a
+(any f xs)
+> f  : (a > Bool)
+> xs : Row a
 > Bool
 ```
 
@@ -678,10 +821,10 @@ any id []                == 0
 ### zip
 
 ```
-(zip x y)
-> x : Row a
-> y : Row b
-> Row (Row a b)
+(zip xs ys)
+> xs : Row a
+> ys : Row b
+> Row (a, b)
 ```
 
 Combines two rows into a row of pairs.
@@ -694,9 +837,9 @@ zip [] [1 2 3]               == []
 
 ### zipWith
 
-(zipWith f x y)
+(zipWith f xs y)
 > f : (a > b > c)
-> x : Row a
+> xs : Row a
 > y : Row b
 > Row c
 ```
@@ -713,41 +856,40 @@ zipWith zip [[1 2] [1 2]] [[3 4] [3 4]]    == [[[1 3] [2 4]] [[1 3] [2 4]]]
 
 ```
 (cat x)
-> x : Row (Row a)
+> xs : Row (Row a)
 > Row a
 ```
 
 Concatenates a row of rows into a single row.
 
 ```sire
-cat [[1 2] [3 4] [5]]    == [1 2 3 4 5]
-cat [[] [1 2] [3]]       == [1 2 3]
-cat []                   == []
+cat [[1 2 3 4] [3 4] [5]]    == [1 2 3 4 5]
+cat [[] [1 2] [3]]           == [1 2 3]
+cat []                       == []
 ```
 
 ### catMap
 
 ```
 (catMap f x)
-> f : (a > b)
-> x : Row a
+> f  : (a > Row b)
+> xs : Row a
 > Row b
 ```
 
 Applies a function to each element of a row and concatenates the results.
 
 ```sire
-catMap (rep 2) [1 2 3]    == [2 2 2 2 2 2]
-catMap id [[1 2] [3 4]]   == [1 2 3 4]
-catMap (mul 2) [1 2 3]    == []
+catMap (rep 2) [1 2 3]     == [2 2 2 2 2 2]
+catMap id [[1 2] [3 4]]    == [1 2 3 4]
 ```
 
 ### take
 
 ```
 (take n x)
-> n : Nat
-> x : Row a
+> n  : Nat
+> xs : Row a
 > Row a
 ```
 
@@ -762,9 +904,9 @@ take 5 [1 2 3]        == [1 2 3]
 ### drop
 
 ```
-(drop n x)
-> n : Nat
-> x : Row a
+(drop n xs)
+> n  : Nat
+> xs : Row a
 > Row a
 ```
 
@@ -779,8 +921,8 @@ drop 5 [1 2 3]              == []
 ### rev
 
 ```
-(rev x)
-> x : Row a
+(rev xs)
+> xs : Row a
 > Row a
 ```
 
@@ -795,9 +937,9 @@ rev []                   == []
 ### span
 
 ```
-(span f x)
-> f : (a > Bool)
-> x : Row a
+(span f xs)
+> f  : (a > Bool)
+> xs : Row a
 > Row (Row a)
 ```
 
@@ -805,16 +947,16 @@ Splits a row into two parts: the longest prefix that satisfies a predicate and t
 
 ```sire
 span (gte 3) [1 2 3 4 1 2 3 4]    == [[1 2 3] [4 1 2 3 4]]
-span even [2 4 6 7 8 9]           == ([2 4 6], [7 8 9])
-span FALSE [1 2 3]                == [[], [1 2 3]]
+span even [2 4 6 7 8 9]           == [[2 4 6] [7 8 9]]
+span FALSE [1 2 3]                == [[] [1 2 3]]
 ```
 
 ### splitAt
 
 ```
-(splitAt i x)
-> i : Nat
-> x : Row a
+(splitAt i xs)
+> i  : Nat
+> xs : Row a
 > Row (Row a)
 ```
 
@@ -829,9 +971,9 @@ splitAt 5 [1 2 3]        == [[1 2 3] []]
 ### intersperse
 
 ```
-(intersperse e x)
-> e : a
-> x : Row a
+(intersperse e xs)
+> e  : a
+> xs : Row a
 > Row a
 ```
 
@@ -846,10 +988,10 @@ intersperse 0 []         == []
 ### insert
 
 ```
-(insert i e x)
-> i : Nat
-> e : a
-> x : Row a
+(insert i e xs)
+> i  : Nat
+> e  : a
+> xs : Row a
 > Row a
 ```
 
@@ -866,8 +1008,8 @@ insert 3 4 [1 2 3]            == [1 2 3 4]
 ### sort
 
 ```
-(sort x)
-> x : Row a
+(sort xs)
+> xs : Row a
 > Row a
 ```
 
@@ -882,9 +1024,9 @@ sort []               == []
 ### sortBy
 
 ```
-(sortBy f x)
-> f : (a > Nat)
-> x : Row a
+(sortBy f xs)
+> f  : (a > Nat)
+> xs : Row a
 > Row a
 ```
 
@@ -898,10 +1040,10 @@ sortBy (cmp) [[1 2] [] [1]]    == [[] [1] [1 2]]
 ### sortOn
 
 ```
-(sortOn f x)
-> f : (a > b)
-> x : Row a
-> Row a
+(sortOn f xs)
+> f  : (a > b)
+> xs : Row a
+> Row b
 ```
 
 Sorts a row by applying a function to each element before comparing.
@@ -914,8 +1056,8 @@ sortOn len [[1 2] [3] [4 5 6]]    == [[3] [1 2] [4 5 6]]
 ### sortUniq
 
 ```
-(sortUniq x)
-> x : Row a
+(sortUniq xs)
+> xs : Row a
 > Row a
 ```
 
@@ -930,9 +1072,9 @@ sortUniq []               == []
 ### filter
 
 ```
-(filter f x)
-> f : (a > Bool)
-> x : Row a
+(filter f xs)
+> f  : (a > Bool)
+> xs : Row a
 > Row a
 ```
 
@@ -947,9 +1089,9 @@ filter (const TRUE) [1 2 3]           == [1 2 3]
 ### delete
 
 ```
-(delete e x)
-> e : a
-> x : Row a
+(delete e xs)
+> e  : a
+> xs : Row a
 > Row a
 ```
 
@@ -964,10 +1106,10 @@ delete 42 [1 2 3]           == [1 2 3]
 ### findIdxMany
 
 ```
-(findIdxMany f x)
-> f : (a > Bool)
-> x : Row a
-> Either (List a) Nat
+(findIdxMany f xs)
+> f  : (a > Bool)
+> xs : Row a
+> List a
 ```
 
 Finds all indices where a predicate is satisfied.
@@ -981,9 +1123,9 @@ findIdxMany (const FALSE) [1 2 3]      == 0
 ### elemIdxMany
 
 ```
-(elemIdxMany e x)
-> e : a
-> x : Row a
+(elemIdxMany e xs)
+> e  : a
+> xs : Row a
 > Either (List a) Nat
 ```
 

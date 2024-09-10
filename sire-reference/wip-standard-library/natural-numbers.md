@@ -42,7 +42,8 @@ toNat b#hi    == 0
 (times f z n)
 > f : (a > b)
 > z : a
-> x : Nat
+> n : Nat
+> b
 ```
 
 Applies a function `f` to an initial value `z`, `x` times.

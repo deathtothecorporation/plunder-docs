@@ -1,5 +1,39 @@
 # Bars
 
+### {#b}
+Macro for creating ASCII bar literals.
+
+```sire
+# b {hello}    == b#hello
+# b {}         == b#{}
+# b {123}      == b#123
+```
+
+### {#x}
+Macro for creating hexadecimal bar literals.
+
+```sire
+# x deadbeef    == x#deadbeef
+# x 00          == x#00
+# x {}          == b#{}
+```
+
+### padBar
+
+```
+(padBar p)
+> p : Pad a
+> Bar a
+```
+
+Converts a pad to a bar, adding zeroes to make it into whole bytes if necessary.
+
+```sire
+padBar p#11111111     == x#ff
+padBar p#111111111    == x#ff01
+padBar p#1            == x#01
+```
+
 ### isBar
 
 Checks if a value is a bar (byte array).
@@ -228,6 +262,26 @@ Converts a bar to a row of bytes.
 barBytes b#hello       == [%h %e %l %l %o]
 barBytes x#deadbeef    == [222 173 190 239]
 barBytes b#{}          == []
+```
+
+## barFoldl
+
+Left-associative fold over a bar.
+
+```sire
+barFoldl add 0 b#abc       == 294
+barFoldl add 1 b#{}        == 1
+barFoldl mul 1 x#010203    == 6
+```
+
+## barFoldr
+
+Right-associative fold over a bar.
+
+```sire
+barFoldr add 0 b#abc                    == 294
+barFoldr (_ acc & inc acc) 0 b#hello    == 5
+barFoldr mul 1 x#010203                 == 6
 ```
 
 ### barAny
@@ -590,6 +644,17 @@ barSplit 0xad x#deadbeef    == [x#de [x#beef 0]]
 barSplit %x b#abc           == [b#abc 0]
 ```
 
+### barCountHeadMatching
+
+Counts the number of leading bytes until a predicate fails.
+
+```sire
+barCountHeadMatching (eql %h) b#hello         == (0 1) ; SOME 1
+barCountHeadMatching (neq 0xbe) x#deadbeef    == (0 2) ; SOME 2
+barCountHeadMatching (neq %d) b#abc           == 0 ; NONE
+```
+
+
 ### barDropWhile
 
 Drops leading bytes from a bar while they satisfy a predicate.
@@ -669,6 +734,17 @@ showBarLit b#hello       == b#{hello}
 showBarLit x#deadbeef    == x#{deadbeef}
 showBarLit b#{}          == b#{}
 ```
+
+### getHexBar
+
+Parses a bar containing an ascii string as a hexadecimal number, passing the corresponding Nat to a continuation function or returning a fallback value.
+
+```sire
+getHexBar b#ff 0 natBar       == x#ff ; note the difference between b# and x#
+getHexBar b#deadbeef 0 dec    == 0xdeadbeef
+getHexBar b#xyz 42 id         == 42
+```
+
 
 ### barLoadDecimal
 

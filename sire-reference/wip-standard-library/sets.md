@@ -44,8 +44,8 @@ emptySet    == setDel 1 %[1]
 ### setIsEmpty
 
 ```
-(setIsEmpty x)
-> x : Set a
+(setIsEmpty xs)
+> xs : Set a
 > Bool
 ```
 
@@ -76,8 +76,8 @@ setSing 0      == %[0]
 ### setFromRow
 
 ```
-(setFromRow x)
-> x : Row a
+(setFromRow xs)
+> xs : Row a
 > Set a
 ```
 
@@ -92,8 +92,8 @@ setFromRow [5 4 3 2 1]      == %[1 2 3 4 5]
 ### setFromRowAsc
 
 ```
-(setFromRowAsc x)
-> x : Row a
+(setFromRowAsc xs)
+> xs : Row a
 > Set a
 ```
 
@@ -108,8 +108,8 @@ setFromRowAsc [0]              == %[0]
 ### setToRow
 
 ```
-(setToRow x)
-> x : Set a
+(setToRow xs)
+> xs : Set a
 > Row a
 ```
 
@@ -124,8 +124,8 @@ setToRow %[]         == []
 ### setLen
 
 ```
-(setLen x)
-> x : Set a
+(setLen xs)
+> xs : Set a
 > Nat
 ```
 
@@ -140,8 +140,8 @@ setLen %[a]        == 1
 ### setToList
 
 ```
-(setToList x)
-> x : Set a
+(setToList xs)
+> xs : Set a
 > List a
 ```
 
@@ -156,10 +156,10 @@ setToList %[]         == 0  ; NIL
 ### setFoldl
 
 ```
-(setFoldl f z x)
-> f : (b > a > b)
-> z : b
-> x : Set a
+(setFoldl f z xs)
+> f  : (b > a > b)
+> z  : b
+> xs : Set a
 > b
 ```
 
@@ -174,10 +174,10 @@ setFoldl (flip CONS) NIL %[1 2 3]    == [3 [2 [1 0]]]
 ### setFoldr
 
 ```
-(setFoldr f z x)
-> f : (a > b > b)
-> z : b
-> x : Set a
+(setFoldr f z xs)
+> f  : (a > b > b)
+> z  : b
+> xs : Set a
 > b
 ```
 
@@ -192,9 +192,9 @@ setFoldr strWeld {} %[{a} {b} {c}]    == %abc
 ### setIns
 
 ```
-(setIns e x)
-> e : a
-> x : Set a
+(setIns e xs)
+> e  : a
+> xs : Set a
 > Set a
 ```
 
@@ -209,9 +209,9 @@ setIns {a} %[b c]    == %[a b c]
 ### setDel
 
 ```
-(setDel e x)
-> e : a
-> x : Set a
+(setDel e xs)
+> e  : a
+> xs : Set a
 > Set a
 ```
 
@@ -226,9 +226,9 @@ setDel {b} %[a b c]    == %[a c]
 ### setHas
 
 ```
-(setHas e x)
-> e : a
-> x : Set a
+(setHas e xs)
+> e  : a
+> xs : Set a
 > Bool
 ```
 
@@ -243,9 +243,9 @@ setHas {b} %[a b c]    == 1
 ### setWeld
 
 ```
-(setWeld x y)
-> x : Set a
-> y : Set a
+(setWeld xs ys)
+> xs : Set a
+> ys : Set a
 > Set a
 ```
 
@@ -260,9 +260,9 @@ setWeld %[] %[1 2 3]     == %[1 2 3]
 ### setUnion
 
 ```
-(setUnion x y)
-> x : Set a
-> y : Set a
+(setUnion xs ys)
+> xs : Set a
+> ys : Set a
 > Set a
 ```
 
@@ -277,8 +277,8 @@ setUnion %[] %[1 2 3]     == %[1 2 3]
 ### setCatRow
 
 ```
-(setCatRow x)
-> x : Row (Set a)
+(setCatRow xs)
+> xs : Row (Set a)
 > Set a
 ```
 
@@ -293,8 +293,8 @@ setCatRow [%[] %[1] %[]]            == %[1]
 ### setCatList
 
 ```
-(setCatList x)
-> x : List (Set a)
+(setCatList xs)
+> xs : List (Set a)
 > Set a
 ```
 
@@ -310,7 +310,7 @@ setCatList [%[] [%[1] [%[] 0]]]            == %[1]
 
 ```
 (setCatRowAsc x)
-> x : Row (Set a)
+> xs : Row (Set a)
 > Set a
 ```
 
@@ -325,8 +325,8 @@ setCatRowAsc [%[] %[1] %[2 3]]         == %[1 2 3]
 ### setMin
 
 ```
-(setMin x)
-> x : Set a
+(setMin xs)
+> xs : Set a
 > a
 ```
 
@@ -341,8 +341,8 @@ setMin %[5]        == 5
 ### setMax
 
 ```
-(setMax x)
-> x : Set a
+(setMax xs)
+> xs : Set a
 > a
 ```
 
@@ -357,9 +357,9 @@ setMax %[5]        == 5
 ### setPop
 
 ```
-(setPop x)
-> x : Set a
-> Row (a Set a)
+(setPop xs)
+> xs : Set a
+> (a, Set a)
 ```
 
 Removes and returns the minimum element from a set.
@@ -373,9 +373,9 @@ setPop %[5]        == [5 %[]]
 ### setDrop
 
 ```
-(setDrop n x)
-> n : Nat
-> x : Set a
+(setDrop n xs)
+> n  : Nat
+> xs : Set a
 > Set a
 ```
 
@@ -390,9 +390,9 @@ setDrop 0 %[1 2 3]      == %[1 2 3]
 ### setTake
 
 ```
-(setTake n x)
-> n : Nat
-> x : Set a
+(setTake n xs)
+> n  : Nat
+> xs : Set a
 > Set a
 ```
 
@@ -407,10 +407,10 @@ setTake 0 %[1 2 3]      == %[]
 ### setSplitAt
 
 ```
-(setSplitAt i x)
-> i : Nat
-> x : Set a
-> Row (Set a Set a)
+(setSplitAt i xs)
+> i  : Nat
+> xs : Set a
+> (Set a, Set a)
 ```
 
 Splits a set at a given index.
@@ -424,10 +424,10 @@ setSplitAt 0 %[1 2 3]      == [%[] %[1 2 3]]
 ### setSplitLT
 
 ```
-(setSplitLT n x)
-> n : a
-> x : Set a
-> Row (Set a Set a)
+(setSplitLT n xs)
+> n  : a
+> xs : Set a
+> (Set a, Set a)
 ```
 
 Splits a set into elements less than a given value and the rest.
@@ -441,9 +441,9 @@ setSplitLT 0 %[1 2 3]          == [%[] %[1 2 3]]
 ### setIntersect
 
 ```
-(setIntersect x y)
-> x : Set a
-> y : Set a
+(setIntersect xs ys)
+> xs : Set a
+> ys : Set a
 > Set a
 ```
 
@@ -458,9 +458,9 @@ setIntersect %[1 2 3] %[4 5 6]    == %[]
 ### setSub
 
 ```
-(setSub x y)
-> x : Set a
-> y : Set a
+(setSub xs ys)
+> xs : Set a
+> ys : Set a
 > Set a
 ```
 
@@ -475,9 +475,9 @@ setSub %[1 2 3] %[4 5 6]    == %[1 2 3]
 ### setElem
 
 ```
-(setElem n x)
-> n : Nat
-> x : Set a
+(setElem n xs)
+> n  : Nat
+> xs : Set a
 > a
 ```
 

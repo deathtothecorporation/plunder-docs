@@ -5,9 +5,9 @@ A tab is a data-jetted map from noun to noun.
 ### tabSing
 
 ```
-(tabSing k v)
-> k : a
-> v : b
+(tabSing key val)
+> key : a
+> val : b
 > Tab a
 ```
 
@@ -38,12 +38,12 @@ isTab []            == 0
 ### tabSearchCase
 
 ```
-(tabSearchCase k t d m)
-> k : a
-> t : Tab a
-> d : c
-> m : (Nat > b > d)
-> d
+(tabSearchCase key t d k)
+> key : a
+> t   : Tab a b
+> d   : c
+> k   : (Nat > b > c)
+> c
 ```
 
 Inline function that finds the index of a key within a table. Returns a continuation with the associated value.
@@ -73,9 +73,9 @@ tabLen #[x=0 y=1]    == 2
 ### tabIdx
 
 ```
-(tabIdx k t)
-> k : a
-> t : Tab a
+(tabIdx key t)
+> key : a
+> t   : Tab a
 > b
 ```
 
@@ -138,9 +138,9 @@ tabKeysList #[a=1 b=2]    == [%a [%b 0]]
 ### tabHas
 
 ```
-(tabHas k t)
-> k : a
-> t : Tab a
+(tabHas key t)
+> key : a
+> t   : Tab a
 > Bool
 ```
 
@@ -155,9 +155,9 @@ tabHas 1 #[1=4 2=5]         == 1
 ### tabGet
 
 ```
-(tabGet t k)
-> t : Tab a
-> k : a
+(tabGet t key)
+> t   : Tab a
+> key : a
 > b
 ```
 
@@ -204,10 +204,10 @@ tabValsList #[a=1 b=2]    == [1 [2 0]]
 ### tabSwitch
 
 ```
-(tabSwitch k d t)
-> k : a
-> d : b
-> t : Tab a
+(tabSwitch key d t)
+> key : a
+> d   : b
+> t   : Tab b
 > b
 ```
 
@@ -222,8 +222,8 @@ tabSwitch 3 {not found} #[1=3 2=4]    == 0
 ### tabFromPairs
 
 ```
-(tabFromPairs x)
-> x : Row (Row a)
+(tabFromPairs xs)
+> xs : Row (a, b)
 > Tab a
 ```
 
@@ -238,8 +238,8 @@ tabFromPairs [[3 7] [3 8] [5 9]]     == [3=8 5=9]
 ### tabFromAscPairs
 
 ```
-(tabFromAscPairs x)
-> x : Row (Row a)
+(tabFromAscPairs xs)
+> xs : Row (a, b)
 > Tab a
 ```
 
@@ -256,7 +256,7 @@ tabFromAscPairs [[a 1] [b 2]]          == [a=1 b=2]
 ```
 (tabToPairs t)
 > t : Tab a
-> Row (Row a)
+> Row (a, b)
 ```
 
 Converts a table to a row of key-value pairs.
@@ -272,7 +272,7 @@ tabToPairs #[a=1 b=2]        == [[a 1] [b 2]]
 ```
 (tabToPairList t)
 > t : Tab a
-> List (Row a)
+> List (a, b)
 ```
 
 Converts a table to a list of key-value pairs.
@@ -288,7 +288,7 @@ tabToPairList #[a=1]        == [[%a 1] 0]
 ```
 (tabToList t)
 > t : Tab a
-> List (Row a)
+> List (a, b)
 ```
 
 Converts a table to a list of key-value pairs.
@@ -302,10 +302,10 @@ tabToList #[a=1 b=2]    == [[%a 1] [%b 2] 0]
 ### tabPut
 
 ```
-(tabPut t k v)
-> t : Tab a
-> k : a
-> v : b
+(tabPut t key val)
+> t   : Tab a
+> key : a
+> val : b
 > Tab a
 ```
 
@@ -320,8 +320,8 @@ tabPut #[] 1 5           == [1=5]
 ### tabFromPairsList
 
 ```
-(tabFromPairsList l)
-> l : List (Row a)
+(tabFromPairsList xs)
+> xs : List (a, b)
 > Tab a
 ```
 
@@ -336,10 +336,10 @@ tabFromPairsList ~[[%a 1] [%b 2]]    == [a=1 b=2]
 ### tabIns
 
 ```
-(tabIns k v t)
-> k : a
-> v : b
-> t : Tab a
+(tabIns key val t)
+> key : a
+> val : b
+> t   : Tab a
 > Tab a
 ```
 
@@ -370,9 +370,9 @@ tabIsEmpty #[a=1 b=2]    == 0
 ### tabDel
 
 ```
-(tabDel k t)
-> k : a
-> t : Tab a
+(tabDel key t)
+> key : a
+> t   : Tab a
 > Tab a
 ```
 
@@ -389,7 +389,7 @@ tabDel %a #[a=1 b=2]    == [b=2]
 ```
 (tabPop t)
 > t : Tab a
-> Row (a b (Tab a))
+> (a, b, Tab a)
 ```
 
 Removes and returns the first key-value pair from a table along with the remaining table.
@@ -406,7 +406,7 @@ tabPop #[a=1 b=2 c=3]    == [%a 1 [b=2 c=3]]
 (tabSplitAt i t)
 > i : Nat
 > t : Tab a
-> Row (Tab a)
+> (Tab a, Tab a)
 ```
 
 Splits a table into two tables at a given index.
@@ -423,7 +423,7 @@ tabSplitAt 2 #[a=1 b=2 c=3]    == [[a=1 b=2] [c=3]]
 (tabSplitLT k t)
 > k : a
 > t : Tab a
-> Row (Tab a Tab b)
+> (Tab a, Tab a)
 ```
 
 Splits a table into two tables based on a key.
@@ -437,10 +437,10 @@ tabSplitLT %b #[a=1 b=2 c=3]    == [[a=1] [b=2 c=3]]
 ### tabAlter
 
 ```
-(tabAlter f k t)
-> f : (b > Maybe b)
-> k : a
-> t : Tab a
+(tabAlter f key t)
+> f   : (Maybe a > Maybe b)
+> key : a
+> t   : Tab a
 > Tab a
 ```
 
@@ -456,9 +456,9 @@ tabAlter (v & SOME 5) 3 #[1=3 2=4]          == [1=3 2=4 3=5]
 
 ```
 (tabMapWithKey f t)
-> f : (a > b > c)
+> f : (a > a > a)
 > t : Tab a
-> Tab c
+> Tab a
 ```
 
 Applies a function to each key-value pair in a table.
@@ -473,9 +473,9 @@ tabMapWithKey (k v & inc v) #[]             == #[]
 
 ```
 (tabMap f t)
-> f : (a > b)
+> f : (a > a)
 > t : Tab a
-> Tab b
+> Tab a
 ```
 
 Applies a function to each value in a table.
@@ -499,9 +499,9 @@ tabMap id #[]               == #[]
 Merges two tables, using a function to resolve conflicts.
 
 ```sire
-tabUnionWith add #[1=1 2=2] #[2=20 3=30]           == [1=1 2=22 3=30]
-tabUnionWith const #[a=1 b=2] #[b=20 c=30]         == [a=1 b=2 c=30]
-tabUnionWith (x y & [x y]) #[1=10] #[1=11 2=12]    == [1=[10 11] 2=12]
+tabUnionWith add #[1=1 2=2] #[2=20 3=30]                                        == [1=1 2=22 3=30]
+tabUnionWith const #[a=1 b=2] #[b=20 c=30]                                      == [a=1 b=2 c=30]
+tabUnionWith (x y & LEFT [x y]) #[1=(RIGHT 10)] #[1=(RIGHT 11) 2=(RIGHT 12)]    == [1=(LEFT [10 11]) 2=(RIGHT 12)]
 ```
 
 ### tabUnion
@@ -541,8 +541,8 @@ tabWeld #[] #[1=10 2=20]           == [1=10 2=20]
 ### tabCatRow
 
 ```
-(tabCatRow x)
-> x : Row (Tab a)
+(tabCatRow xs)
+> xs : Row (Tab a)
 > Tab a
 ```
 
@@ -557,9 +557,9 @@ tabCatRow []                               == #[]
 ### tabLookup
 
 ```
-(tabLookup k t)
-> k : a
-> t : Tab a
+(tabLookup key t)
+> key : a
+> t   : Tab a
 > Maybe a
 ```
 
@@ -592,9 +592,9 @@ tabMinKey #[z=26]              == %z
 ```
 (tabFoldlWithKey f acc t)
 > f   : (a > b)
-> acc : c
+> acc : b
 > t   : Tab a
-> c
+> b
 ```
 
 Folds over a table, applying a function to each key-value pair and an accumulator.
@@ -640,11 +640,11 @@ tabUnion emptyTab #[1=2]    == [1=2]
 ### tabInsWith
 
 ```
-(tabInsWith f k v t)
-> f : (a > a > b)
-> k : a
-> v : b
-> t : Tab a
+(tabInsWith f key val t)
+> f   : (a > a > b)
+> key : a
+> val : b
+> t   : Tab a
 > Tab a
 ```
 

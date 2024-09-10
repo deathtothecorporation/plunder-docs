@@ -34,13 +34,19 @@ CONS 1 (CONS 2 (CONS 3 NIL))  == [1 [2 [3 0]]]    ; a list with three elements
 
 ### listCase
 
+```
+(listCase xs d k)
+> xs : List a
+> d  : a
+> k  : a
+> a
+```
+
 Pattern matches on a list, providing cases for empty and non-empty lists.
 
-{% hint style="danger" %}
+```sire
+listCase ~[1 69 420 1337] 9001 listIdx    == 420
 ```
-TODO: find a nice example for listCase that doesn't require a lambda.
-```
-{% endhint %}
 
 ### listSing
 
@@ -97,7 +103,7 @@ listForEach NIL id                                    == NIL
 ```
 (listHead xs)
 > xs : List a
-> Maybe a
+> a
 ```
 
 Returns the first element of a list.
@@ -133,7 +139,7 @@ listSafeHead b#default NIL              == b#default
 > a
 ```
 
-Returns the first element of a list. Unsafe if the list is empty.
+Returns the first element of a list, otherwise 0. Unsafe if the list is empty.
 
 ```sire
 listUnsafeHead (CONS 1 (CONS 2 NIL))    == 1
@@ -164,7 +170,7 @@ listUnsafeTail NIL                      == 0 ; NIL
 > i  : Nat
 > xs : List a
 > d  : a
-> k  : a
+> k  : (a > b)
 > a
 ```
 
@@ -249,7 +255,7 @@ listUnsafeLast NIL                      == 0 ; NIL
 ```
 (listLast xs)
 > xs : List a
-> Maybe a
+> a
 ```
 
 Returns the last element of a list.
@@ -398,8 +404,8 @@ listToRowRev NIL                               == []
 ### listFromRow
 
 ```
-(listFromRow x)
-> x : Row a
+(listFromRow xs)
+> xs : Row a
 > List a
 ```
 
@@ -526,6 +532,22 @@ listHas b#a (CONS b#b (CONS b#c NIL))     == 0 ; FALSE
 listHas 1 NIL                             == 0 ; FALSE
 ```
 
+### listEnumFrom
+
+```
+(listEnumFrom x)
+> x : Nat
+> List a
+```
+
+Creates an infinite list of consecutive integers starting from a given number.
+
+```sire
+listTake 5 (listEnumFrom 1)    == [1 [2 [3 [4 [5 0]]]]]
+listHead (listEnumFrom 10)     == (0 10) ; SOME
+listIdx 1 (listEnumFrom 7)     == 8
+```
+
 ### listWeld
 
 ```
@@ -539,7 +561,7 @@ Concatenates two lists.
 
 ```sire
 listWeld (CONS 1 (CONS 2 NIL)) (CONS 3 (CONS 4 NIL))    == [1 [2 [3 [4 0]]]]
-listWeld ~[b#a 0] ~[b#b 0]                              == [b#a [0 [b#b [0 0]]]]
+listWeld ~[b#a] ~[b#b]                                  == [b#a [b#b 0]]
 listWeld NIL (CONS 1 NIL)                               == [1 0]
 ```
 
@@ -554,9 +576,8 @@ listWeld NIL (CONS 1 NIL)                               == [1 0]
 Concatenates a list of lists into a single list.
 
 ```sire
-listCat ~[~[1 [2 0]] ~[3 0]]            == [1 [[2 0] [3 [0 0]]]]
-listCat ~[~[1 [2 0]] ~[b#b [b#c 0]]]    == [1 [[2 0] [b#b [[b#c 0] 0]]]]
-listCat (CONS NIL (CONS NIL NIL))       == 0 ; NIL
+listCat ~[~[1 2] ~[3]]               == [1 [2 [3 0]]]
+listCat (CONS NIL (CONS NIL NIL))    == 0 ; NIL
 ```
 
 ### listCatMap
@@ -648,10 +669,10 @@ listDropWhile (const TRUE) NIL                                   == 0 ; NIL
 
 ```
 (listZipWith f xs ys)
-> f  : (a > b > c)
+> f  : (a > a > b)
 > xs : List a
-> ys : List b
-> List c
+> ys : List a
+> List b
 ```
 
 Combines two lists element-wise using a given function.
@@ -667,8 +688,8 @@ listZipWith mul NIL (CONS 1 NIL)                               == 0 ; NIL
 ```
 (listZip xs ys)
 > xs : List a
-> ys : List b
-> List (Row a)
+> ys : List a
+> List (a, a)
 ```
 
 Combines two lists into a list of pairs.
@@ -712,13 +733,31 @@ listIsEmpty (CONS 1 NIL)             == 0 ; FALSE
 listIsEmpty (CONS 1 (CONS 2 NIL))    == 0 ; FALSE
 ```
 
+### listMinimumOn
+
+```
+(listMinimumOn f x xs)
+> f  : (a > Nat)
+> x  : a
+> xs : List a
+> a
+```
+
+Finds the minimum element in a list based on a comparison function.
+
+```sire
+listMinimumOn len [456] ~[[5 2 9] [2 9] [1 9]]    == [456]
+listMinimumOn len [456] ~[[5 2 9] [] [1 9]]       == []
+listMinimumOn len [456] ~[[5 2 9] [2] [1 9]]      == [456]
+```
+
 ### listSortOn
 
 ```
 (listSortOn f xs)
 > f  : (a > b)
 > xs : List a
-> List a
+> List b
 ```
 
 Sorts a list based on a key function.
@@ -796,15 +835,34 @@ listRep b#a 2    == [b#a [b#a 0]]
 listRep 0 0      == 0 ; NIL
 ```
 
+### listFindIndex
+
+```
+(listFindIndex f xs d m)
+> f  : (a > b)
+> xs : List a
+> d  : b
+> k  : (Nat > b)
+> a
+```
+
+Finds the index of the first element in a list that satisfies a predicate. If there is none, the third argument is returned. If there is one, then its index is passed as an argument to the fourth argument.
+
+```sire
+listFindIndex eql-10 ~[1 2 3] b#NONE _&(b#SOME)     == b#NONE
+listFindIndex (eql b#a) ~[b#b b#a b#c] NONE SOME    == (0 1) ; SOME
+listFindIndex (const FALSE) ~[1 2 3] NONE SOME      == 0 ; NONE
+```
+
 ### listElemIndex
 
 ```
 (listElemIndex e xs d k)
 > e  : a
 > xs : List a
-> d  : NONE
-> k  : SOME
-> Either NONE SOME
+> d  : b
+> k  : (a > b)
+> b
 ```
 
 Finds the index of the first occurrence of an element in a list.
@@ -831,6 +889,23 @@ listIsPrefixOf (CONS 1 (CONS 2 NIL)) (CONS 1 (CONS 2 (CONS 3 NIL)))    == 1 ; TR
 listIsPrefixOf ~[1 2] ~[1 2 3]                                         == 1 ; TRUE
 listIsPrefixOf ~[1 2] ~[2 1]                                           == 0 ; FALSE
 ```
+
+### ​​​​​listSearch
+
+Searches for all occurrences of a list satisfying a predicate and returns their indices and the remaining lists.
+
+```sire
+TODO
+```
+
+### listSubstringSearch
+
+Searches for all occurrences of a substring in a list and returns their indices and the remaining lists.
+
+```sire
+TODO
+```
+
 
 ### listIndexed
 
