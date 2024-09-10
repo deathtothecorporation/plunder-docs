@@ -1,5 +1,9 @@
 # KV Tables
 
+{% hint style="warning" %}
+Type signatures are provisional and may contain errors.
+{% endhint %}
+
 A tab is a data-jetted map from noun to noun.
 
 ### tabSing

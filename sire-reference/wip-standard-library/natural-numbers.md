@@ -1,5 +1,9 @@
 # Natural Numbers
 
+{% hint style="warning" %}
+Type signatures are provisional and may contain errors.
+{% endhint %}
+
 ## Basic Operations
 
 ### isNat
@@ -544,7 +548,7 @@ testBit 2 5    == 1    ; 3rd bit of 5 (101) is set
 
 ### roundUp
 
-```
+````
 (roundUp x y)
 > x : Nat
 > y : Nat
@@ -557,7 +561,7 @@ roundUp 5 3    == 6
 roundUp 6 3    == 6
 roundUp 7 3    == 9
 roundUp 0 3    == 0
-```
+````
 
 ### even
 

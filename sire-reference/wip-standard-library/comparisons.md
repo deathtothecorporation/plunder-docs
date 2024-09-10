@@ -1,6 +1,11 @@
 # Comparisons
 
+{% hint style="warning" %}
+Type signatures are provisional and may contain errors.
+{% endhint %}
+
 ### LT
+
 ```
 (LT)
 > Nat

@@ -1,9 +1,11 @@
 # Bits (Booleans)
 
 {% hint style="warning" %}
-Sire does not have a real type system yet, and as such, no type checks are enforced at any point. For following functions, type signatures are provided for the intended behavior, though actual behavior may differ. We strongly recommend you avoid these uses.&#x20;
+Type signatures are provisional and may contain errors.
+{% endhint %}
 
-For example, `(if %a %yes %no)` will coerce `%a` into a boolean before returning a branch, but the type signature indicates that the first argument must be `Bool`.  When the type system is finished, this code will break.&#x20;
+{% hint style="warning" %}
+Sire has an incomplete type system. No type checks are enforced at this point. Type signatures are provided for the intended behavior.
 {% endhint %}
 
 ## Constants
