@@ -837,6 +837,7 @@ zip [] [1 2 3]               == []
 
 ### zipWith
 
+```
 (zipWith f xs y)
 > f : (a > b > c)
 > xs : Row a
