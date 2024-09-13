@@ -9,8 +9,8 @@ Type signatures are provisional and may contain errors.
 ### isNat
 
 ```
-(isNat n)
-> n : a
+(isNat x)
+> x : a
 > Bool
 ```
 
@@ -26,8 +26,8 @@ isNat b#hi    == 0
 ### toNat
 
 ```
-(toNat n)
-> n : a
+(toNat x)
+> x : a
 > Nat
 ```
 
@@ -50,7 +50,7 @@ toNat b#hi    == 0
 > b
 ```
 
-Applies a function `f` to an initial value `z`, `x` times.
+Applies a function `f` to an initial value `z`, `n` times.
 
 ```sire
 times inc 0 3        == 3
@@ -185,7 +185,7 @@ div 5 0     == 0
 (divMod x y)
 > x : Nat
 > y : Nat
-> SOME
+> (Nat, Nat)
 ```
 
 Performs both division and modulus in one operation. Returns a tuple of (quotient, remainder).
@@ -201,7 +201,7 @@ divMod 5 0     ; Division by zero, this will crash the REPL
 
 ```
 (isOne n)
-> x : Nat
+> n : Nat
 > Nat
 ```
 

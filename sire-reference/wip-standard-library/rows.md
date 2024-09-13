@@ -339,8 +339,8 @@ weld [1 2] []       == [1 2]
 ### gen
 
 ```
-(gen l f)
-> l : Nat
+(gen n f)
+> n : Nat
 > f : (Nat > a)
 > Row a
 ```

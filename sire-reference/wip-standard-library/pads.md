@@ -17,6 +17,11 @@ The REPL will print pads as their natural number representation by default. Use 
 
 ### emptyPad
 
+```
+(emptyPad)
+> Pad
+```
+
 Represents an empty pad.
 
 ```sire
@@ -24,6 +29,12 @@ emptyPad    == 1
 ```
 
 ### toPad
+
+```
+(toPad n)
+> n : Nat
+> Pad
+```
 
 Coerces a value into a non-zero natural number (pad).
 
@@ -35,6 +46,12 @@ toPad 3     == 3
 
 ### padNat
 
+```
+(padNat p)
+> p : Pad
+> Nat
+```
+
 Converts a pad to a natural number, dropping all trailing zeros.
 
 ```sire
@@ -44,6 +61,13 @@ padNat p#100    == 1
 ```
 
 ### natPad
+
+```
+(natPad n w)
+> n : Nat
+> w : Nat
+> Pad
+```
 
 Converts a natural number into a pad with a specific minimum bit-width.
 
@@ -55,6 +79,12 @@ natPad 3 2    == p#11
 
 ### padLen
 
+```
+(padLen p)
+> p : Pad
+> Nat
+```
+
 Returns the length of a pad (number of bits).
 
 ```sire
@@ -64,6 +94,13 @@ padLen p#1010    == 4
 ```
 
 ### padWeld
+
+```
+(padWeld p1 p2)
+> p1 : Pad
+> p2 : Pad
+> Pad
+```
 
 Concatenates two pads.
 
@@ -75,6 +112,12 @@ padWeld p#111 p#000    == p#111000
 
 ### padCat
 
+```
+(padCat xs)
+> xs : Row Pad
+> Pad
+```
+
 Concatenates a row of pads.
 
 ```sire
@@ -84,6 +127,12 @@ padCat []                == p#{}
 ```
 
 ### padFlat
+
+```
+(padFlat xs)
+> xs : Row (Row Pad)
+> Pad
+```
 
 Flattens and concatenates a nested structure of pads.
 
@@ -95,6 +144,13 @@ padFlat [[[]] []]                == p#{}
 
 ### padSplitAt
 
+```
+(padSplitAt i p)
+> i : Nat
+> p : Pad
+> (Pad, Pad)
+```
+
 Splits a pad at a given index.
 
 ```sire
@@ -104,6 +160,13 @@ padSplitAt 3 p#1001    == [p#100 p#1]
 ```
 
 ### padIdx
+
+```
+(padIdx i p)
+> i : Nat
+> p : Pad
+> Bit
+```
 
 Returns the nth bit from a pad.
 
@@ -115,6 +178,13 @@ padIdx 3 p#1010    == 0
 
 ### padGet
 
+```
+(padGet p i)
+> p : Pad
+> i : Nat
+> Bit
+```
+
 Alias for padIdx, but with arguments flipped.
 
 ```sire
@@ -125,7 +195,15 @@ padGet p#1010 3    == 0
 
 ### padSet
 
-Sets the nth bit in a pad using a Bit.
+```
+(padSet p i b)
+> p : Pad
+> i : Nat
+> b : Bit
+> Pad
+```
+
+Sets the nth bit in a pad using a bit.
 
 ```sire
 padSet p#0000 2 1    == p#0010
@@ -134,6 +212,13 @@ padSet p#1010 3 1    == p#1011
 ```
 
 ### padMapWithKey
+
+```
+(padMapWithKey f p)
+> f : (Nat > Bit > a)
+> p : Pad
+> Pad
+```
 
 Maps a function over the bits in a pad, providing both the index and the bit value.
 
@@ -145,6 +230,13 @@ padMapWithKey (k b & add k b) p#1010              == p#1111
 
 ### padMap
 
+```
+(padMap f p)
+> f : (Bit > a)
+> p : Pad
+> Pad
+```
+
 Maps a function over the bits in a pad, coercing outputs to bits.
 
 ```sire
@@ -154,6 +246,12 @@ padMap (const 0) p#1111    == p#0000
 ```
 
 ### padComplement
+
+```
+(padComplement p)
+> p : Pad
+> Pad
+```
 
 Complements all bits in a pad.
 
@@ -165,6 +263,12 @@ padComplement p#0000    == p#1111
 
 ### showPadStr
 
+```
+(showPadStr p)
+> p : Pad
+> Str
+```
+
 Converts a pad to its string representation.
 
 ```sire
@@ -174,6 +278,12 @@ showPadStr p#{}      == 0
 ```
 
 ### showPadLit
+
+```
+(showPadLit p)
+> p : Pad
+> Str
+```
 
 Converts a pad to its Rex literal representation.
 
