@@ -1,18 +1,14 @@
-# Introduction
-
-{% hint style="warning" %}
-🚧 This documentation collection is under active development. Similar callouts will be used to denote areas that are stubbed-out or coming soon. 🚧
-{% endhint %}
+# A New Internet
 
 Pallas is an event sourced, purely functional application platform, called an _**operating function**_. Every operation inside an operating function is ACID. Pallas is currently instantiated as a VM and can be run on Linux, Mac, or Nix. The platform ships with a minimal bootstrapping language called _Sire_, but includes an efficient axiomatic IR which can be targeted by mainstream functional languages.
 
-### Problem
+### Problem <a href="#problem" id="problem"></a>
 
 _Software is being destroyed by accidental complexity_. Our most popular applications require hundreds or thousands of developers to build and maintain. This complexity benefits large corporations who use their dominant capital positions to monopolize and rent seek. This dynamic increases the cost of software, reduces the set of economically viable programs, and disempowers developers and users alike.
 
 This is not an abstract moral problem. Software is the best tool we have for identifying, organizing, and solving societal issues. Instability in software trickles down to every other domain of human activity.
 
-### Solution
+### Solution <a href="#solution" id="solution"></a>
 
 More composable software systems directly result in more software freedom. The more power individual developers wield, the more that power is widely distributed. This is true even if "scrolling through silos" is the highest state of computing.
 
@@ -22,7 +18,7 @@ Pallas is a prototype of such a system.
 
 ### Features
 
-* **No database code**
+* **Databases for free**
   * All application data is automatically persisted, without the need for imports or boilerplate. To create a database, you write a pure function.
 * **Serialize anything, running programs included**
   * Closures can be serialized and stored on-disk, or sent over the wire. Programs in mid-execution can be paused, moved to a new machine, and resumed with no impact. Open syscalls are included in persisted state and are resumed on reboot.
@@ -33,7 +29,7 @@ Pallas is a prototype of such a system.
 * **Native networking and identity**
   * VMs and spawned processes are identified by one or more cryptographic keys. The networking protocol is stateless and guarantees at-least-once-delivery. The runtime implements the protocol, allowing transport details to evolve without breaking internal software.
 * **Formally specified system calls**
-  * Software breaks at boundaries, so syscalls are specified as pure functions and their spec is designed to be frozen. Runtimes are responsible for matching... (_TODO: enforcing semantics?_)
+  * Software breaks at boundaries, so syscalls are specified as pure functions and their spec is designed to be frozen. As long as the spec is satisfied, runtimes can change implementations without impacting internal software.
 * **Extensible language platform**
   * Metaprogramming capabilities include hot reload, zero-overhead virtualization, macro-based type systems, all the way up to custom compilers.
 

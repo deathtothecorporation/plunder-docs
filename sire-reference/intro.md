@@ -4,9 +4,6 @@
 
 Sire is the default language for Pallas and is bootstrapped directly from PLAN. It is also possible to compile mainstream functional languages to PLAN. At that point, much Pallas development—including full-stack web applications—will be accomplished by writing in those languages only, leaving Sire responsible for code that needs to be optimized by the runtime (like new crypto libraries, say).
 
-Until that time, we'll be writing Sire. But since our immediate goal for the moment is to build a cog that runs and does some stuff, we're not going to learn every character and nuance of Sire syntax. Just enough.\
-Don't worry if you don't fully understand _how_ a line of code does what it does, but do make sure you have a handle on _what_ it's doing.
-
 ## Getting familiar
 
 Open up a bootstrapped Sire REPL. As a reminder:
@@ -155,7 +152,7 @@ You only need to use the curly braces when spaces are present in your byte array
 b#thisIsAFineBar
 ```
 
-While it may be attractive to think about bars and strings interchangeably, they are not identical and when working between the two you'll often need to use conversion functions (like [natBar](standard-library.md#natBar) and [barNat](standard-library.md#barNat). There are more standard library functions for working with bars on a structural level (folding, splitting at indexes, filtering, etc.) while the string standard library functions are more geared to character-level functions like capitalization and checking if a character is an alphanumeric.
+While it may be attractive to think about bars and strings interchangeably, they are not identical and when working between the two you'll often need to use conversion functions (like [natBar](broken-reference) and [barNat](broken-reference). There are more standard library functions for working with bars on a structural level (folding, splitting at indexes, filtering, etc.) while the string standard library functions are more geared to character-level functions like capitalization and checking if a character is an alphanumeric.
 
 Trust us that you can and should basically just use bars for everything string-like and you can move along to the section on data structures below, but if you're interested in seeing the deep dive, it's [here](../deeper/nat-representations.md).
 
@@ -322,9 +319,3 @@ or 0 0
 ;; returns:
 0
 ```
-
-## Moving on
-
-This was a brief overview of the nuts and bolts of Sire. Printing out bars in the REPL is fun and all, but our goal is to build a web app, not test the limit of how many "hello world" strings we can fit in our terminal scrollback.
-
-Next we'll take a look at a small sample of the standard library that we'll use while building our first Pallas Cog.

@@ -35,5 +35,5 @@ Deeper dive topics:
 * [Seed files](../sire/seeds.md)
 * [Boot process](../deeper/boot-process.md)
 * [Plunder vs Pallas](broken-reference)
-* [Cogs in depth](../deeper/cogs.md)
+* [Cogs in depth](../databases-cogs/cogs.md)
 * [Jets](../deeper/jets.md)

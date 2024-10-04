@@ -1,4 +1,8 @@
-# Cogs
+# Introduction
+
+{% hint style="warning" %}
+This page is under active development.
+{% endhint %}
 
 ### Machines
 
@@ -11,6 +15,21 @@ Cogs survive restarts. The runtime writes their inputs to an event log, and occa
 Cogs interact with the world by making system calls. The set of active system calls made by a cog is part of its current formal state. When a cog is reloaded, the runtime will resume any active calls as well.
 
 There is no hidden state in a machine. A machine can shut down and resume without any visible effect. The formal state of a full Machine is a PLAN value of shape `Tab Nat PLAN`: a mapping from IDs to cogs.
+
+### Cogs
+
+More formally, a cog is just a PLAN value (a partially applied law/function, to be specific). In order to be a valid cog, the PLAN value must contain at least the following two values as part of its state:
+
+* An array of worker processes that handle IO and concurrent evaluation. Like everything else in Pallas, these are also functions encoded as PLAN values.
+* An arbitrary state value and an accompanying function which the worker processes can use to query the cog in a read-only way. Since it’s read-only, this can be trivially parallelized: there are no race conditions. Many workers can query the cog simultaneously.
+
+The cog never interacts with the outside world at all, it only spawns worker processes by putting them in its array of workers. These workers will then open connections to the outside world, and submit write requests to the cog.&#x20;
+
+For now, the only interfaces that workers have to the outside world are TCP and UDP. Since you can do nearly everything over these we don’t have to continuously add IO interfaces to the standard. This narrow waist design is one of the architectural decisions that makes the core Pallas system freezable (e.g. the set of all IO interfaces can actually be completed).&#x20;
+
+For example, this means our HTTP server is just a worker process which communicates over TCP, instead of a special kernel module which has corresponding code in the runtime. By limiting ourselves to TCP+UDP we can do everything within the system, instead of having to extend the runtime. A core goal is to keep the runtime as minimal as possible, so that it's easy to write a new one. You shouldn't have to trust the runtime maintainers.
+
+Workers have their own states, so they can engage in stateful protocols, such as sessions and handshakes, but this state is transient. If a worker crashes, or if the physical machine turns off, its state will disappear. But since the array of workers is part of the cog’s state, they can be restarted immediately. They will have lost their own states, but they should’ve submitted anything important to the cog anyway. That’s what they are there for: to filter and assemble incoming data, and decide when something is worth persisting. This allows us to avoid building an additional exoskeleton in the runtime which decides when something should hit the event log or not. Those choices are all formally specified, completely inside the system.
 
 ### From the Old Docs
 

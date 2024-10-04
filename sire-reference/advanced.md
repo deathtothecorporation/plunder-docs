@@ -2,10 +2,9 @@
 description: 'Document Type: Reference'
 ---
 
-# Recognize and move on
+# Miscellaneous
 
-The topics here are explained so that you can recognize them if you come across them, but don't worry about fully understanding and using everything you see here. For the purposes of getting familiar with the system and building some toy cogs, you can get away with copying existing instances of these patterns and changing some details to suit your needs.  
-Eventually you should understand everything you're doing, but let's keep you moving forward first.
+The topics here are explained so that you can recognize them if you come across them, but don't worry about fully understanding and using everything you see here. For the purposes of getting familiar with the system and building some toy cogs, you can get away with copying existing instances of these patterns and changing some details to suit your needs.
 
 ## Alternative function application syntax
 
@@ -39,9 +38,9 @@ First parameter is a bar (`needle`), second parameter is a bar (`haystack`), thi
 
 ## Lambdas
 
-- `&`  Anonymous lambda
-- `?`  Named lambda
-- `??` Named and pinned lambda (Pinning has to do with memory layout. Don't worry about it too much for now, but you'll come across it in source files)
+* `&` Anonymous lambda
+* `?` Named lambda
+* `??` Named and pinned lambda (Pinning has to do with memory layout. Don't worry about it too much for now, but you'll come across it in source files)
 
 For example, here's `&` used infix:
 
@@ -73,9 +72,7 @@ Using `&` prefix in the way we just did is quite uncommon in practice. We have a
 
 This macro-expands into exactly the same code as the version with `&`. The only difference is that it feels more like an assignment.
 
-It's worth thinking about the shape of this a little bit more. If we had types, the type of `foreach` would be `Row a -> (a -> b) -> Row b`.
-So `foreach` takes two arguments, a row and a function. We can clearly see this in the version that uses `&`: the first argument is the row `[0 1 2]` and the second argument spans lines 2 and 3.
-But when we write it using the col macro, it *feels* as if we're only giving `foreach` a single argument, the row. And then somehow it *feels* as if `foreach` *returns* an `x` which we can use in the "loop body". In reality there is no loop body, and we're still passing a function as a second argument. But in many situations, this assignment-like syntax ends up communicating the intent much more clearly.
+It's worth thinking about the shape of this a little bit more. If we had types, the type of `foreach` would be `Row a -> (a -> b) -> Row b`. So `foreach` takes two arguments, a row and a function. We can clearly see this in the version that uses `&`: the first argument is the row `[0 1 2]` and the second argument spans lines 2 and 3. But when we write it using the col macro, it _feels_ as if we're only giving `foreach` a single argument, the row. And then somehow it _feels_ as if `foreach` _returns_ an `x` which we can use in the "loop body". In reality there is no loop body, and we're still passing a function as a second argument. But in many situations, this assignment-like syntax ends up communicating the intent much more clearly.
 
 ### Syscall continuations
 
@@ -134,6 +131,6 @@ Compare this to using `&`:
 
 Another one to note and ignore. All you need to know now is that Pins help with memory-layout optimization in the runtime. If you see `PIN` in a cog example somewhere, recognize it as a performance feature and move on for now.
 
----
+***
 
 Next up, running a simple Cog:

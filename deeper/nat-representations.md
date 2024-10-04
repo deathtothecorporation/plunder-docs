@@ -1,6 +1,6 @@
 # Nat Representations
 
-(This section assumes you've already gone through the [standard library tour](../sire-reference/standard-library.md). If not, you'll see some functions here with which you're not familiar.)
+(This section assumes you've already gone through the [standard library tour](broken-reference). If not, you'll see some functions here with which you're not familiar.)
 
 ## Bars and Strings
 

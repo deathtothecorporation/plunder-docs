@@ -2,7 +2,7 @@
 
 ## What is this thing? <a href="#overview" id="overview"></a>
 
-* [Introduction](README.md)
+* [A New Internet](README.md)
 * [Architecture](overview/overview.md)
 * [Runtime](overview/runtime.md)
 
@@ -21,6 +21,7 @@
 
 ## Databases / Cogs
 
+* [Introduction](databases-cogs/cogs.md)
 * [Creating a Cog](databases-cogs/creating-a-cog.md)
 * [Using a Cog](databases-cogs/using-a-cog.md)
 * [Inter-Cog Communication](databases-cogs/inter-cog-communication.md)
@@ -28,9 +29,8 @@
 ## Sire Reference
 
 * [Intro](sire-reference/intro.md)
-* [Some Standard Library](sire-reference/standard-library.md)
-* [Bits To Recognize But Not Learn Yet](sire-reference/advanced.md)
-* [WIP - Standard Library](sire-reference/wip-standard-library/README.md)
+* [Miscellaneous](sire-reference/advanced.md)
+* [Standard Library](sire-reference/wip-standard-library/README.md)
   * [Bits (Booleans)](sire-reference/wip-standard-library/bits-booleans.md)
   * [Natural Numbers](sire-reference/wip-standard-library/natural-numbers.md)
   * [Comparisons](sire-reference/wip-standard-library/comparisons.md)
@@ -51,7 +51,6 @@
 * [Nat Representations](deeper/nat-representations.md)
 * [R-Expressions](deeper/r-expressions.md)
 * [Seed files](sire/seeds.md)
-* [Cogs](deeper/cogs.md)
 * [Jets](deeper/jets.md)
 * [Boot process](deeper/boot-process.md)
 * [UI files](deeper/ui-files.md)

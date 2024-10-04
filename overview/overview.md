@@ -2,8 +2,7 @@
 
 This section provides an overview of Pallas's architecture and introduces core system concepts, including:
 
-* **Machines:** our virtual machine model
-* **Cogs:** a virtualized process / database&#x20;
+* **Cogs:** a persistent process / database&#x20;
 * **PLAN:** an ultra minimal, purely functional combinator interpreter (equivalent to "bytecode")
 * **Sire:** the default system language
 
@@ -28,7 +27,7 @@ machine1
 
 ## Cogs
 
-A "cog" is a persistent process running on a machine. Cogs interact with the world by making system calls - which are included as part of their state (thus a cog's set of system calls also resume after a restart). [Much more on cogs](../deeper/cogs.md).
+A "cog" is a persistent process running on a machine. Cogs interact with the world by making system calls - which are included as part of their state (thus a cog's set of system calls also resume after a restart). [Much more on cogs](../databases-cogs/cogs.md).
 
 ## PLAN
 
