@@ -29,6 +29,7 @@
 ## Sire Reference
 
 * [Intro](sire-reference/intro.md)
+* [Runes](sire-reference/runes.md)
 * [Miscellaneous](sire-reference/advanced.md)
 * [Standard Library](sire-reference/wip-standard-library/README.md)
   * [Bits (Booleans)](sire-reference/wip-standard-library/bits-booleans.md)
