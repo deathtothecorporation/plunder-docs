@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This document provides an in-depth exploration of PLAN. We'll start by examining the fundamental opcodes and reduction rules, then delve into the language's unique characteristics and design philosophy.
+This document provides an in-depth exploration of PLAN. We'll start by examining the fundamental opcodes and reduction rules, then go into the language's unique characteristics and design philosophy.
 
 ## PLAN Opcodes
 
